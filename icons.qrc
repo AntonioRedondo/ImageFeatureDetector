@@ -1,0 +1,38 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>iconsgnome48/zoom-best-fit.svg</file>
+    <file>iconsgnome48/zoom-in.svg</file>
+    <file>iconsgnome48/zoom-original.svg</file>
+    <file>iconsgnome48/zoom-out.svg</file>
+    <file>iconshumanity48/camera-photo.svg</file>
+    <file>iconshumanity48/camera-web.svg</file>
+    <file>iconshumanity48/window-close.svg</file>
+    <file>iconshumanity48/dialog-apply.svg</file>
+    <file>iconshumanity48/document-open-recent.svg</file>
+    <file>iconshumanity48/document-openB.svg</file>
+    <file>iconshumanity48/document-save-asB.svg</file>
+    <file>iconshumanity48/edit-clear.svg</file>
+    <file>iconshumanity48/edit-copy.svg</file>
+    <file>iconshumanity48/edit-delete.svg</file>
+    <file>iconshumanity48/edit-undo.svg</file>
+    <file>iconshumanity48/gconf-editorB.svg</file>
+    <file>iconshumanity16/go-home.svg</file>
+    <file>iconshumanity16/go-next.svg</file>
+    <file>iconshumanity16/go-previous.svg</file>
+    <file>iconshumanity16/gtk-info.svg</file>
+    <file>iconshumanity16/list-remove.svg</file>
+    <file>iconshumanity48/media-playback-stop.svg</file>
+    <file>iconshumanity16/package-purge.svg</file>
+    <file>iconshumanity48/process-stop.svg</file>
+    <file>iconshumanity16/window-close.svg</file>
+    <file>iconshumanity16/window-new.svg</file>
+    <file>iconshumanity48/media-playback-start.svg</file>
+    <file>iconsfeatures/Do448.png</file>
+    <file>iconsfeatures/FAST48.png</file>
+    <file>iconsfeatures/FASTrealtime48.png</file>
+    <file>iconsfeatures/Harris48.png</file>
+    <file>iconsfeatures/showOrientation16.png</file>
+    <file>iconsfeatures/SIFT48.png</file>
+    <file>iconsfeatures/SURF48.png</file>
+  </qresource>
+</RCC>

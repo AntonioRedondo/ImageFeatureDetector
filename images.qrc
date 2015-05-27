@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="images">
+    <file>IFD128.png</file>
+    <file>IFDstartup.png</file>
+  </qresource>
+</RCC>

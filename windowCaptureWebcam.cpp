@@ -1,18 +1,40 @@
 #include "windowCaptureWebcam.h"
 
-WindowCaptureWebcam::WindowCaptureWebcam(QWidget* _widget) : myWidget(_widget), QDialog(_widget, Qt::Dialog) {
+WindowCaptureWebcam::WindowCaptureWebcam(QWidget* _widget) : myWidget(_widget), QDialog(_widget, Qt::Dialog), myCamera(NULL), myTimer(NULL) {
 	setupUi(this);
-	myTimer = new QTimer();
 
 	connect(myPushButtonCapture, SIGNAL(clicked(bool)), this, SLOT(capture()));
 	connect(myPushButtonOK, SIGNAL(clicked(bool)), this, SLOT(ok()));
 	connect(myPushButtonCancel, SIGNAL(clicked(bool)), this, SLOT(close()));
-	connect(myTimer, SIGNAL(timeout()), this, SLOT(compute()));
+	
+	
+	
+// 	VideoCapture cap(0); // open the default camera
+// 	if(!cap.isOpened())  // check if we succeeded
+// 		return -1;
 
-	myCamera = cvCaptureFromCAM(-1);
+// 	Mat edges;
+// 	for(;;) {
+// 		Mat frame;
+// 		cap >> frame; // get a new frame from camera
+// 		cvtColor(frame, edges, COLOR_BGR2GRAY);
+// 		GaussianBlur(edges, edges, Size(7,7), 1.5, 1.5);
+// 		Canny(edges, edges, 0, 30, 3);
+// 		if(waitKey(30) >= 0) break;
+// 	}
+	
+	
+	
+	
+
+// 	myCamera = cvCaptureFromCAM(-1);
 // 	myCapture;
 // 	myCapture.open(0);
-	if (myCamera!=NULL) {
+	if (myCamera) {
+		if (!myTimer) {
+			myTimer = new QTimer();
+			connect(myTimer, SIGNAL(timeout()), this, SLOT(compute()));
+		}
 		qDebug() << "Camera Resolution: " << cvGetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_WIDTH)
 			<< cvGetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_HEIGHT);
 		myIplImage320 = cvCreateImage(cvSize(320, 240), IPL_DEPTH_8U, 3);
@@ -52,12 +74,13 @@ void WindowCaptureWebcam::ok() {
 
 
 void WindowCaptureWebcam::close() {
-	myTimer->stop();
-	cvReleaseCapture(&myCamera);
-	cvReleaseImage(&myIplImageRealTime);
-	cvReleaseImage(&myIplImage320);
+	if (myCamera) {
+		myTimer->stop();
+	}
+// 	cvReleaseCapture(&myCamera);
+// 	cvReleaseImage(&myIplImageRealTime);
+// 	cvReleaseImage(&myIplImage320);
 // 	myCapture.release();
-	qDebug() << "WindowCaptureWebcam 1";
 	QWidget::close();
 }
 
@@ -66,7 +89,6 @@ void WindowCaptureWebcam::close() {
 
 void WindowCaptureWebcam::closeEvent(QCloseEvent* _event) {
 	close();
-	qDebug() << "closeEvent 1";
 	QWidget::closeEvent(_event);
 }
 

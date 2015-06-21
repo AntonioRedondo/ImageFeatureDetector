@@ -7,7 +7,6 @@
 #ifndef WINDOWCAPTUREWEBCAM_H
 #define WINDOWCAPTUREWEBCAM_H
 
-#include <QtGui>
 #include <opencv2/opencv.hpp>
 #include "ui_captureWebcamWindow.h"
 #include "windowMain.h"

@@ -7,7 +7,6 @@
 #ifndef WINDOWABOUT_H
 #define WINDOWABOUT_H
 
-#include <QtGui/QApplication>
 #include "ui_aboutWindow.h"
 
 /**

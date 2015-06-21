@@ -7,7 +7,7 @@
 #ifndef WINDOWFASTREALTIME_H
 #define WINDOWFASTREALTIME_H
 
-#include <QtGui>
+#include <qt5/QtWidgets/QtWidgets>
 #include <opencv2/opencv.hpp>
 #include <opencv2/features2d.hpp>
 #include "ui_fastRealTimeWindow.h"
@@ -32,13 +32,15 @@ class WindowFastRealTime : public QDialog, Ui::fastRealTimeWindow {
 	QLocale* myLocale;
 	CvCapture* myCamera;
 	QTimer* myTimer;
-	IplImage* myIplImageRealTime;
 	QPixmap myPixmap;
 	QImage* myImage;
 	QPainter* myPainter;
 	bool detecting;
+	IplImage* myIplImageRealTime;
 	IplImage* myIplImage320;
 	IplImage* myIplImage320Gray;
+// 	Mat myIplImage320;
+// 	Mat myIplImage320Gray;
 	vector<KeyPoint> myKeypoints;
 	float time;
 

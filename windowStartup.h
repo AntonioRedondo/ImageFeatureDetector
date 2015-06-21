@@ -7,7 +7,6 @@
 #ifndef WINDOWSTARTUP_H
 #define WINDOWSTARTUP_H
 
-#include <QtGui/QApplication>
 #include "ui_startupWindow.h"
 #include "windowMain.h"
 
@@ -21,8 +20,8 @@ class WindowStartup : public QDialog, private Ui::startupWindow {
 	WindowStartup(QWidget* widgetConstr);
 
   private:
-	QWidget* myWidget;
-	QSettings* mySettings;
+	QWidget* mWidget;
+	QSettings* mSettings;
 
   private slots:
 	void open();

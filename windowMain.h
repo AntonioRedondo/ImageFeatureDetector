@@ -8,7 +8,7 @@
 #define WINDOWMAIN_H
 
 #include <QtCore>
-#include <QtGui>
+#include <QtWidgets>
 #include "ui_mainWindow.h"
 #include "ui_featureHarrisWindow.h"
 #include "ui_featureSURFWindow.h"
@@ -46,82 +46,91 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	void saveSettings();
 	void setRecentFile(QString fileName);
 
-	QSettings* mySettings;
-	QAction* actionExit;
-	QAction* separatorRecentFiles;
-	QSignalMapper* mySignalMapper;
-	QActionGroup* myActionGroupZoom;
-	QActionGroup* myActionGroupFeatures;
-	QActionGroup* myActionGroupWindow;
+	QSettings* mSettings;
+	QAction* mActionExit;
+	QAction* mActionSeparatorRecentFiles;
+	QSignalMapper* mSignalMapper;
+	QActionGroup* mActionGroupZoom;
+	QActionGroup* mActionGroupFeatures;
+	QActionGroup* mActionGroupWindow;
 	enum { maxRecentFiles=8 };
-	QAction* actionRecentFiles[maxRecentFiles];
-	Ui::formFeaturesHarris myUIHarris;
-	Ui::formFeaturesFAST myUIFAST;
-	Ui::formFeaturesSIFT myUISIFT;
-	Ui::formFeaturesSURF myUISURF;
-	QWidget* myWidgetHarris;
-	QWidget* myWidgetSIFT;
-	QWidget* myWidgetSURF;
-	QWidget* myWidgetFAST;
+	QAction* mActionRecentFiles[maxRecentFiles];
+	QAction* mHarrisAction;
+	QAction* mFastAction;
+	QAction* mSiftAction;
+	QAction* mSurfAction;
+	QAction* mCurrentFeatureAction;
+	Ui::formFeaturesHarris mUIHarris;
+	Ui::formFeaturesFAST mUIFast;
+	Ui::formFeaturesSIFT mUISift;
+	Ui::formFeaturesSURF mUISurf;
+	QWidget* mHarrisToolBar;
+	QWidget* mSiftToolBar;
+	QWidget* mSurfToolBar;
+	QWidget* mFastToolBar;
 
-	QMdiSubWindow* myActiveWindow;
-	WindowImage* myActiveWindowImage;
-	QIcon* icon16Harris;
-	QIcon* icon16FAST;
-	QIcon* icon16SIFT;
-	QIcon* icon16SURF;
-	QLabel* myStatusBarLabelZoom;
-	QLabel* myStatusBarLabelDimensions;
-	QLabel* myStatusBarLabelSize;
-	QLabel* myStatusBarLabelTime;
-	QLabel* myStatusBarLabelIcon;
-	QLabel* myStatusBarLabelKeypoints;
-	QLabel* myStatusBarLabelSpaceRight;
-	QLabel* myStatusBarLabelSpaceLeft;
-	QFrame* myStatusBarLine;
-	QFrame* myStatusBarLine2;
-	QFrame* myStatusBarLine3;
+	QMdiSubWindow* mActiveWindow;
+	WindowImage* mActiveWindowImage;
+	QIcon* mIconHarris;
+	QIcon* mIconFAST;
+	QIcon* mIconSIFT;
+	QIcon* mIconSURF;
+	QLabel* mStatusBarLabelZoom;
+	QLabel* mStatusBarLabelDimensions;
+	QLabel* mStatusBarLabelSize;
+	QLabel* mStatusBarLabelTime;
+	QLabel* mStatusBarLabelIcon;
+	QLabel* mStatusBarLabelKeypoints;
+	QLabel* mStatusBarLabelSpaceRight;
+	QLabel* mStatusBarLabelSpaceLeft;
+	QFrame* mStatusBarLine;
+	QFrame* mStatusBarLine2;
+	QFrame* mStatusBarLine3;
 
   private slots:
 	void saveCopyAs();
-	void exit();
-	void copy();
 	void preferences();
-	void startupDialog();
-	void setToolBar();
-	void zoom();
-	void harris();
-	void harrisApplyParams();
-	void harrisSaveParams();
-	void harrisReset();
-	void harrisClose();
-	void fast();
-	void fastApplyParams();
-	void fastSaveParams();
-	void fastReset();
-	void fastClose();
-	void sift();
-	void siftApplyParams();
-	void siftSaveParams();
-	void siftReset();
-	void siftClose();
-	void surf();
-	void surfApplyParams();
-	void surfSaveParams();
-	void surfReset();
-	void surfClose();
+	void exit();
+	
+	void copy();
 	void resetImage();
+	
+	void startupDialog();
+	void zoom();
+	
+	void showHarrisToolBar();
+	void applyHarris();
+	void saveHarrisParams();
+	void resetHarrisParams();
+	
+	void showFastToolBar();
+	void applyFast();
+	void saveFastParams();
+	void restFastParams();
+	
+	void showSiftToolBar();
+	void applySift();
+	void saveSiftParams();
+	void resetSiftParams();
+	
+	void showSurfToolBar();
+	void applySurf();
+	void saveSurfParams();
+	void resetSurfParams();
+	
 	void do4();
-	void fastRT();
+	void openFastRT();
+	
 	void tile();
 	void cascade();
 	void duplicate();
 	void closeActiveSubWindow();
 	void closeAllSubWindows();
-	void officialWebsite();
+	
+	void website();
 	void about();
 
-	void updateMenus(QMdiSubWindow*);
+	void updateWindowMenu(QMdiSubWindow*);
 	void openRecentFile();
 	void setActiveSubWindow(QWidget*);
 };

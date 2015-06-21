@@ -7,7 +7,6 @@
 #ifndef WINDOWPREFERENCES_H
 #define WINDOWPREFERENCES_H
 
-#include <QtGui/QApplication>
 #include "ui_preferencesWindow.h"
 #include "windowMain.h"
 

@@ -1,15 +1,25 @@
-cmake_minimum_required(VERSION 2.6)
+# http://doc.qt.io/qt-5/cmake-manual.html
+
+cmake_minimum_required(VERSION 2.8.11)
+
 project(imagefeaturedetector)
-find_package(Qt4 REQUIRED)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+
+# set(CMAKE_PREFIX_PATH "/usr/include/x86_64-linux-gnu/qt5/QtCore" "/usr/include/x86_64-linux-gnu/qt5/QtWidgets")
+
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Widgets REQUIRED)
 find_package(OpenCV REQUIRED)
 
-include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+file(GLOB ImageFeatureDetector_SRC *.h *.cpp)
+file(GLOB ImageFeatureDetector_UI *.ui)
 
-# set(ImageFeatureDetector_SRCS main.cpp windowAbout.cpp windowCaptureWebcam.cpp windowFastRealTime.cpp windowImage.cpp windowMain.cpp windowPreferences.cpp windowStartup.cpp)
-file(GLOB ImageFeatureDetector_SRCS *.h *.cpp)
+# http://stackoverflow.com/questions/29968264/linking-and-uic-order-in-a-cmake-qt-project
+qt5_wrap_ui(ImageFeatureDetector_UI_H ${ImageFeatureDetector_UI})
 
-qt4_automoc(${ImageFeatureDetector_SRCS})
-add_executable(imagefeaturedetector ${ImageFeatureDetector_SRCS})
-target_link_libraries(imagefeaturedetector ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${OpenCV_LIBS})
+add_executable(imagefeaturedetector ${ImageFeatureDetector_SRC} ${ImageFeatureDetector_UI_H})
 
-install(TARGETS imagefeaturedetector RUNTIME DESTINATION bin)
+target_link_libraries(imagefeaturedetector Qt5::Core Qt5::Widgets ${OpenCV_LIBS})

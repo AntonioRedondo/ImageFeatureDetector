@@ -98,10 +98,15 @@ void WindowFastRealTime::compute() {
 	myIplImageRealTime = cvQueryFrame(myCamera);
 	cvResize(myIplImageRealTime, myIplImage320);
 	cvCvtColor(myIplImage320, myIplImage320Gray, CV_BGR2GRAY);
+	
+// 	Mat image(myImage->size().width(), myImage->size().height(), CV_8UC4, myImage->bits());//, (size_t)myImage->bytesPerLine()
+// 	Mat imageGray(myImage->size().width(), myImage->size().height(), CV_8UC1);
+// 	cvtColor(image, imageGray, CV_RGBA2GRAY);
 
 	if (detecting) {
 		time = (float)cvGetTickCount();
-		FAST(myIplImage320Gray, myKeypoints, mySettings->value("fastRT/threshold", true).toInt(), mySettings->value("fastRT/nonMaxSuppression", true).toBool());
+		Mat aa = cvarrToMat(myIplImage320Gray);
+		FAST(aa, myKeypoints, mySettings->value("fastRT/threshold", true).toInt(), mySettings->value("fastRT/nonMaxSuppression", true).toBool());
 		myLabelTime->setText(QString::fromUtf8("Detecting Time: ").append(myLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2).append(" ms")));
 		myLabelKeypoints->setText(QString::fromUtf8("Keypoints: ").append(myLocale->toString((float)myKeypoints.size(),'f', 0).append(" keypoints")));
 		

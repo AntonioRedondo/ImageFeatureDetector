@@ -255,7 +255,6 @@
  </tabstops>
  <resources>
   <include location="icons.qrc"/>
-  <include location="../../.designer/backup/icons.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -2,6 +2,9 @@
 
 WindowMain::WindowMain() {
 	setupUi(this);
+	
+	mSubwindowActions = new QList<QAction*>();
+	mSeparatorOpenWindowsAdded = false;
 
 	QApplication::setWindowIcon(QIcon("IFD128.png"));
 	mIconHarris = new QIcon("icons/Harris48.png");
@@ -23,9 +26,8 @@ WindowMain::WindowMain() {
 		mActionRecentFiles[n] = new QAction(this);
 		mActionRecentFiles[n]->setVisible(false);
 		connect(mActionRecentFiles[n], &QAction::triggered, this, &WindowMain::openRecentFile);
-	}
-	for (int n=0; n<maxRecentFiles; ++n)
 		menuFile->addAction(mActionRecentFiles[n]);
+	}
 	mActionSeparatorRecentFiles = menuFile->addSeparator();
 	mActionSeparatorRecentFiles->setVisible(false);
 	updateRecentFilesMenu();
@@ -126,7 +128,6 @@ WindowMain::WindowMain() {
 	mUIHarris.spinBoxHarrisApertureSize->setValue(mSettings->value("harris/harrisApertureSize", 1).toInt());
 	mUIHarris.doubleSpinBoxKValue->setValue(mSettings->value("harris/kValue", 0.01).toDouble());
 	// http://stackoverflow.com/questions/16794695/qt5-overloaded-signals-and-slots
-// 	connect(mUIHarris.comboBoxSobelApertureSize, &QComboBox::currentIndexChanged, this, &WindowMain::saveHarrisParams);
 	connect(mUIHarris.comboBoxSobelApertureSize, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &WindowMain::saveHarrisParams);
 	connect(mUIHarris.spinBoxHarrisApertureSize, &QSpinBox::editingFinished, this, &WindowMain::saveHarrisParams);
 	connect(mUIHarris.doubleSpinBoxKValue, &QSpinBox::editingFinished, this, &WindowMain::saveHarrisParams);
@@ -212,8 +213,7 @@ WindowMain::WindowMain() {
 	connect(actionWebsite, &QAction::triggered, this, &WindowMain::website);
 	connect(actionAbout, &QAction::triggered, this, &WindowMain::about);
 	connect(myMdiArea, &QMdiArea::subWindowActivated, this, &WindowMain::updateWindowMenu);
-	mSignalMapper = new QSignalMapper(this);
-// 	connect(mSignalMapper, SIGNAL(mapped(QWidget*)), this, SLOT(setActiveSubWindow(QWidget*)));
+	mSignalMapper = new QSignalMapper(this); // for the Open Windows menu entries
 	connect(mSignalMapper, static_cast<void (QSignalMapper::*)(QWidget*)>(&QSignalMapper::mapped), this, &WindowMain::setActiveSubWindow);
 
 	
@@ -670,17 +670,18 @@ void WindowMain::mouseDoubleClickEvent(QMouseEvent* event) {
 
 
 
+// http://doc.qt.io/qt-5/qtwidgets-mainwindows-mdi-example.html
 void WindowMain::updateWindowMenu(QMdiSubWindow* mdiSubWindow) {
-	myMenuWindow->clear();
-	myMenuWindow->addAction(actionTile);
-	myMenuWindow->addAction(actionCascade);
-	myMenuWindow->addSeparator();
-	myMenuWindow->addAction(actionNext);
-	myMenuWindow->addAction(actionPrevious);
-	myMenuWindow->addSeparator();
-	myMenuWindow->addAction(actionDuplicate);
-	myMenuWindow->addAction(actionClose);
-	myMenuWindow->addAction(actionCloseAll);
+	if (!mSeparatorOpenWindowsAdded) { // Adding the separator on Qt Designer doesn't work
+		menuWindow->addSeparator();
+		mSeparatorOpenWindowsAdded = true;
+	}
+	for (int n=0; n<mSubwindowActions->size(); ++n) {
+// 		menuWindow->removeAction(mSubwindowActions->at(n)); // Makes not to trigger new actions added
+		mSubwindowActions->at(n)->setVisible(false);
+	}
+	mSubwindowActions->clear();
+	
 	if (mdiSubWindow != 0) {
 		mActiveWindow = mdiSubWindow;
 		mActiveWindowImage = qobject_cast<WindowImage*> (mdiSubWindow->widget());
@@ -719,8 +720,7 @@ void WindowMain::updateWindowMenu(QMdiSubWindow* mdiSubWindow) {
 		mStatusBarLabelDimensions->setText(mActiveWindowImage->mImageDimensions);
 		mStatusBarLabelSize->setText(mActiveWindowImage->mImageSize);
 		mStatusBarLine->setVisible(true);
-
-		myMenuWindow->addSeparator();
+		
 		QList<QMdiSubWindow*> subwindows = myMdiArea->subWindowList();
 		for (int n=0; n<subwindows.size(); ++n) {
 			WindowImage* windowImage = qobject_cast<WindowImage*> (subwindows.at(n)->widget());
@@ -728,15 +728,14 @@ void WindowMain::updateWindowMenu(QMdiSubWindow* mdiSubWindow) {
 			if (n<9)
 				actionName = tr("&%1 %2").arg(n+1).arg(windowImage->windowTitle());
 			else actionName = tr("%1 %2").arg(n+1).arg(windowImage->windowTitle());
-			QAction* actionSubwindow = myMenuWindow->addAction(actionName);
+			QAction* actionSubwindow = menuWindow->addAction(actionName);
+			mSubwindowActions->append(actionSubwindow);
 			actionSubwindow->setCheckable(true);
-// 			if (QMdiSubWindow* activeSubWindow = myMdiArea->activeSubWindow())
 			if (myMdiArea->activeSubWindow())
 				actionSubwindow->setChecked(windowImage == mActiveWindowImage);
 			else actionSubwindow->setChecked(false);
 			mActionGroupWindow->addAction(actionSubwindow);
 			mSignalMapper->setMapping(actionSubwindow, subwindows.at(n));
-// 			connect(actionSubwindow, &QAction::triggered, mSignalMapper, &QSignalMapper::map);
 			connect(actionSubwindow, &QAction::triggered, mSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 		}
 	} else if (myMdiArea->subWindowList().size()==0) {
@@ -763,6 +762,41 @@ void WindowMain::updateWindowMenu(QMdiSubWindow* mdiSubWindow) {
 
 
 
+void WindowMain::loadFile(QString filePath) {
+	if (!filePath.isEmpty()) {
+		QImage* image = new QImage(filePath);
+		if (!image->isNull()) {
+			setRecentFile(filePath);
+			WindowImage* windowImage = new WindowImage(image, filePath);
+			myMdiArea->addSubWindow(windowImage);
+			windowImage->parentWidget()->setGeometry(0,0,image->width()+8,image->height()+30); // 8 and 30 are hardcoded values for the decorations of the subwindow
+			windowImage->show();
+			parametersToolBar->setEnabled(true);
+		} else {
+			QMessageBox::warning(this, tr("Image Feature Detector"), tr("Cannot open %1.").arg(filePath));
+		}
+	}
+}
+
+
+
+
+void WindowMain::setRecentFile(QString filePath) {
+	if (mSettings->value("rememberRecentFiles", true).toBool()) {
+		QStringList files = mSettings->value("recentFiles").toStringList();
+		files.removeAll(filePath);
+		files.prepend(filePath);
+		while (files.size()>maxRecentFiles)
+			files.removeLast();
+		mSettings->setValue("recentFiles", files);
+		updateRecentFilesMenu();
+	}
+}
+
+
+
+
+// http://doc.qt.io/qt-5/qtwidgets-mainwindows-recentfiles-example.html
 void WindowMain::updateRecentFilesMenu() {
 	QStringList files = mSettings->value("recentFiles").toStringList();
 	int numRecentFiles;
@@ -818,39 +852,5 @@ void WindowMain::saveSettings() {
 	if (!isMaximized()) {
 		mSettings->setValue("pos", pos());
 		mSettings->setValue("size", size());
-	}
-}
-
-
-
-
-void WindowMain::loadFile(QString filePath) {
-	if (!filePath.isEmpty()) {
-		QImage* image = new QImage(filePath);
-		if (!image->isNull()) {
-			setRecentFile(filePath);
-			WindowImage* windowImage = new WindowImage(image, filePath);
-			myMdiArea->addSubWindow(windowImage);
-			windowImage->parentWidget()->setGeometry(0,0,image->width()+8,image->height()+30); // 8 and 30 are hardcoded values for the decorations of the subwindow
-			windowImage->show();
-			parametersToolBar->setEnabled(true);
-		} else {
-			QMessageBox::warning(this, tr("Image Feature Detector"), tr("Cannot open %1.").arg(filePath));
-		}
-	}
-}
-
-
-
-
-void WindowMain::setRecentFile(QString filePath) {
-	if (mSettings->value("rememberRecentFiles", true).toBool()) {
-		QStringList files = mSettings->value("recentFiles").toStringList();
-		files.removeAll(filePath);
-		files.prepend(filePath);
-		while (files.size()>maxRecentFiles)
-			files.removeLast();
-		mSettings->setValue("recentFiles", files);
-		updateRecentFilesMenu();
 	}
 }

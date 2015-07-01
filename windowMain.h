@@ -46,6 +46,7 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	void saveSettings();
 	void setRecentFile(QString fileName);
 
+	bool mSeparatorOpenWindowsAdded; // Adding the separator on Qt Designer doesn't work
 	QSettings* mSettings;
 	QAction* mActionExit;
 	QAction* mActionSeparatorRecentFiles;
@@ -60,6 +61,7 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	QAction* mSiftAction;
 	QAction* mSurfAction;
 	QAction* mCurrentFeatureAction;
+	QList<QAction*>* mSubwindowActions;
 	Ui::formFeaturesHarris mUIHarris;
 	Ui::formFeaturesFAST mUIFast;
 	Ui::formFeaturesSIFT mUISift;

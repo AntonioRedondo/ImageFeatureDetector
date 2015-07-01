@@ -6,11 +6,11 @@ WindowImage::WindowImage(QImage* imageConstr, QString windowTitleConstr, int tit
 	setAttribute(Qt::WA_DeleteOnClose);
 	mPainter = new QPainter();
 	mLocale = new QLocale(QLocale::English);
-	if (titleTypeConstr==duplicated)
+	if (titleTypeConstr == duplicated)
 		setWindowTitle(windowTitleConstr.append(" (Duplicated %1)").arg(imageNConstr));
 	else setWindowTitle(windowTitleConstr);
 
-	scrollAreaWidgetContents->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+	uiScrollAreaWidgetContents->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 
 	mPixmap = QPixmap::fromImage(*mImage);
 	if (titleType==capturedWebcam) {
@@ -20,7 +20,7 @@ WindowImage::WindowImage(QImage* imageConstr, QString windowTitleConstr, int tit
 		mImage = &mImageOriginal;
 	}
 	mPixmapOriginal = mPixmap;
-	myLabelImage->setPixmap(mPixmap);
+	uiLabelImage->setPixmap(mPixmap);
 	mModified = false;
 
 	mScaleFactorAbove100 = 0.5;
@@ -34,10 +34,10 @@ WindowImage::WindowImage(QImage* imageConstr, QString windowTitleConstr, int tit
 
 	mImageZoom = tr("%1%").arg((int)(currentFactor*100));
 	mImageDimensions = tr("%1x%2 px").arg(mOriginalWidth).arg(mOiginalHeight);
-	float myNumber = mImage->byteCount()/(float)1024;
-	if (myNumber > 1024)
-		mImageSize = mLocale->toString(myNumber/(float)1024,'f', 2).append(" MiB");
-	else mImageSize = mLocale->toString(myNumber,'f', 2).append(" KiB");
+	float mNumber = mImage->byteCount()/(float)1024;
+	if (mNumber > 1024)
+		mImageSize = mLocale->toString(mNumber/(float)1024,'f', 2).append(" MiB");
+	else mImageSize = mLocale->toString(mNumber,'f', 2).append(" KiB");
 
 // 	qDebug() << "myImageZoom: " << mImageZoom;
 // 	qDebug() << "myImageSize: " << mImageSize;
@@ -79,9 +79,9 @@ void WindowImage::zoomOut() {
 
 
 void WindowImage::zoomBestFit() {
-	float correctF = 0.98; // This correct factor allows the image fits to the space of the main window without scrollbars.
-	int scrollWidth = scrollArea->size().width();
-	int scrollHeight = scrollArea->size().height();
+	float correctF = 0.98; // This correct factor allows the image fits the main window area without scrollbars.
+	int scrollWidth = uiScrollArea->size().width();
+	int scrollHeight = uiScrollArea->size().height();
 
 	float relationScroll = scrollWidth/(float)scrollHeight;
 	float relationImage = mOriginalWidth/(float)mOiginalHeight;
@@ -141,7 +141,7 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 // 	mPixmap = QPixmap::fromImage(QImage(imageColor.data, mImage->width(), mImage->height(), imageColor.step, QImage::Format_RGB32)); // With Format_RGB888 it doesn't work. It can be Format_ARGB32 as well
 	mPixmap = QPixmap::fromImage(convertMat2QImage(imageHarris8U)); // This should be faster than the above three lines
 	mModified = true;
-	myLabelImage->setPixmap(mPixmap);
+	uiLabelImage->setPixmap(mPixmap);
 	
 	
 	// The same that above but with IplImage and C fuctions. The dst in cvCornerHarris must be CV_32FC1 Mat or "IPL_DEPTH_32F, 1" IplImage.
@@ -169,7 +169,7 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 // 
 // 	mPixmap = QPixmap::fromImage(QImage((uchar*)myIplImageFinal->imageDataOrigin, myIplImageFinal->width, myIplImageFinal->height, QImage::Format_RGB32));
 // 	mModified = true;
-// 	myLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+// 	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 // 	cvReleaseImage(&myIplImage);
 // 	cvReleaseImage(&myIplImageGray);
 // 	cvReleaseImage(&myIplImageHarris);
@@ -203,7 +203,7 @@ void WindowImage::applyFast(int threshold, bool nonMaxSuppression) {
 	mPainter->end();
 	
 	mModified = true;
-	myLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -246,7 +246,7 @@ void WindowImage::applySift(double threshold, double edgeThreshold, int nOctaves
 	mPainter->end();
 	
 	mModified = true;
-	myLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -289,7 +289,7 @@ void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, i
 	mPainter->end();
 	
 	mModified = true;
-	myLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -300,7 +300,7 @@ void WindowImage::resetImage() {
 	mImageTime.clear();
 	mImageKeypoints.clear();
 	mModified = false;
-	myLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -328,10 +328,10 @@ void WindowImage::scaleImage() {
 	qDebug() << "Factor increment: " << mFactorIncrement;
 	qDebug() << "Current factor: " << currentFactor;
 	qDebug() << "";
-// 	myLabelImage->resize(currentFactor*originalSize);
-	myLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-	adjustScrollBar(scrollArea->horizontalScrollBar());
-	adjustScrollBar(scrollArea->verticalScrollBar());
+// 	uiLabelImage->resize(currentFactor*originalSize);
+	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+	adjustScrollBar(uiScrollArea->horizontalScrollBar());
+	adjustScrollBar(uiScrollArea->verticalScrollBar());
 	mImageZoom = tr("%1%").arg((int)(currentFactor*100));
 }
 
@@ -355,10 +355,10 @@ void WindowImage::mousePressEvent(QMouseEvent* event) {
 
 void WindowImage::mouseMoveEvent(QMouseEvent* event) {
 	QPoint myPos = event->pos();
-	int hValue = scrollArea->horizontalScrollBar()->value();
-	int vValue = scrollArea->verticalScrollBar()->value();
-	scrollArea->horizontalScrollBar()->setValue(hValue+(mLastPoint.x()-myPos.x()));
-	scrollArea->verticalScrollBar()->setValue(vValue+(mLastPoint.y()-myPos.y()));
+	int hValue = uiScrollArea->horizontalScrollBar()->value();
+	int vValue = uiScrollArea->verticalScrollBar()->value();
+	uiScrollArea->horizontalScrollBar()->setValue(hValue+(mLastPoint.x()-myPos.x()));
+	uiScrollArea->verticalScrollBar()->setValue(vValue+(mLastPoint.y()-myPos.y()));
 	mLastPoint = myPos;
 }
 

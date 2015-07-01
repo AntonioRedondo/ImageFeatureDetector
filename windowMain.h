@@ -29,9 +29,9 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	QSettings* getSettings();
 
 	enum language {english=0, espanol=1, italiano=2};
-	QToolButton* toolButtonOpenRecent;
-	QMenu* menuRecentFiles;
-	int capturedWebcamImages;
+	QToolButton* mToolButtonOpenRecent;
+	QMenu* mMenuRecentFiles;
+	int mCapturedWebcamImages;
 
   public slots:
 	void open();

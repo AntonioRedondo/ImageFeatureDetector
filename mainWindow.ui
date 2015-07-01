@@ -7,7 +7,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>848</width>
+    <width>909</width>
     <height>715</height>
    </rect>
   </property>
@@ -26,7 +26,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QMdiArea" name="myMdiArea">
+     <widget class="QMdiArea" name="uiMdiArea">
       <property name="activationOrder">
        <enum>QMdiArea::ActivationHistoryOrder</enum>
       </property>
@@ -39,89 +39,89 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>848</width>
+     <width>909</width>
      <height>25</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
     <bool>true</bool>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="uiMenuFile">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionCaptureWebcam"/>
-    <addaction name="actionSaveCopyAs"/>
+    <addaction name="uiActionOpen"/>
+    <addaction name="uiActionCaptureWebcam"/>
+    <addaction name="uiActionSaveCopyAs"/>
     <addaction name="separator"/>
-    <addaction name="actionPreferences"/>
+    <addaction name="uiActionPreferences"/>
     <addaction name="separator"/>
    </widget>
-   <widget class="QMenu" name="menuWindow">
+   <widget class="QMenu" name="uiMenuWindow">
     <property name="title">
      <string>Window</string>
     </property>
-    <addaction name="actionTile"/>
-    <addaction name="actionCascade"/>
+    <addaction name="uiActionTile"/>
+    <addaction name="uiActionCascade"/>
     <addaction name="separator"/>
-    <addaction name="actionNext"/>
-    <addaction name="actionPrevious"/>
+    <addaction name="uiActionNext"/>
+    <addaction name="uiActionPrevious"/>
     <addaction name="separator"/>
-    <addaction name="actionDuplicate"/>
+    <addaction name="uiActionDuplicate"/>
     <addaction name="separator"/>
-    <addaction name="actionClose"/>
-    <addaction name="actionCloseAll"/>
+    <addaction name="uiActionClose"/>
+    <addaction name="uiActionCloseAll"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionWebsite"/>
-    <addaction name="actionAbout"/>
+    <addaction name="uiActionWebsite"/>
+    <addaction name="uiActionAbout"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="actionCopy"/>
-    <addaction name="actionResetImage"/>
+    <addaction name="uiActionCopy"/>
+    <addaction name="uiActionResetImage"/>
    </widget>
    <widget class="QMenu" name="menuFeatures">
     <property name="title">
      <string>Features</string>
     </property>
-    <addaction name="actionHarris"/>
-    <addaction name="actionFAST"/>
-    <addaction name="actionSIFT"/>
-    <addaction name="actionSURF"/>
+    <addaction name="uiActionHarris"/>
+    <addaction name="uiActionFAST"/>
+    <addaction name="uiActionSIFT"/>
+    <addaction name="uiActionSURF"/>
     <addaction name="separator"/>
-    <addaction name="actionDo4"/>
-    <addaction name="actionFastRT"/>
+    <addaction name="uiActionDo4"/>
+    <addaction name="uiActionFastRT"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionStartupDialog"/>
+    <addaction name="uiActionStartupDialog"/>
     <addaction name="separator"/>
-    <addaction name="actionZoomIn"/>
-    <addaction name="actionZoomOut"/>
-    <addaction name="actionZoomOriginal"/>
-    <addaction name="actionZoomBestFit"/>
+    <addaction name="uiActionZoomIn"/>
+    <addaction name="uiActionZoomOut"/>
+    <addaction name="uiActionZoomOriginal"/>
+    <addaction name="uiActionZoomBestFit"/>
    </widget>
-   <addaction name="menuFile"/>
+   <addaction name="uiMenuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuFeatures"/>
-   <addaction name="menuWindow"/>
+   <addaction name="uiMenuWindow"/>
    <addaction name="menuAbout"/>
   </widget>
-  <widget class="QStatusBar" name="myStatusBar">
+  <widget class="QStatusBar" name="uiStatusBar">
    <property name="styleSheet">
     <string notr="true">QStatusBar::item { border: 0px solid black };</string>
    </property>
   </widget>
-  <widget class="QToolBar" name="toolBarFile">
+  <widget class="QToolBar" name="uiToolBarFile">
    <property name="windowTitle">
     <string>File Toolbar</string>
    </property>
@@ -143,12 +143,12 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionCaptureWebcam"/>
-   <addaction name="actionSaveCopyAs"/>
+   <addaction name="uiActionCaptureWebcam"/>
+   <addaction name="uiActionSaveCopyAs"/>
    <addaction name="separator"/>
-   <addaction name="actionPreferences"/>
+   <addaction name="uiActionPreferences"/>
   </widget>
-  <widget class="QToolBar" name="toolBarEdit">
+  <widget class="QToolBar" name="uiToolBarEdit">
    <property name="windowTitle">
     <string>Edit Toolbar</string>
    </property>
@@ -171,10 +171,10 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
-   <addaction name="actionCopy"/>
-   <addaction name="actionResetImage"/>
+   <addaction name="uiActionCopy"/>
+   <addaction name="uiActionResetImage"/>
   </widget>
-  <widget class="QToolBar" name="toolBarZoom">
+  <widget class="QToolBar" name="uiToolBarZoom">
    <property name="windowTitle">
     <string>Zoom Toolbar</string>
    </property>
@@ -197,12 +197,12 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
-   <addaction name="actionZoomIn"/>
-   <addaction name="actionZoomOut"/>
-   <addaction name="actionZoomOriginal"/>
-   <addaction name="actionZoomBestFit"/>
+   <addaction name="uiActionZoomIn"/>
+   <addaction name="uiActionZoomOut"/>
+   <addaction name="uiActionZoomOriginal"/>
+   <addaction name="uiActionZoomBestFit"/>
   </widget>
-  <widget class="QToolBar" name="toolBarFeatures">
+  <widget class="QToolBar" name="uiToolBarFeatures">
    <property name="windowTitle">
     <string>Features Toolbar</string>
    </property>
@@ -225,15 +225,15 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
-   <addaction name="actionHarris"/>
-   <addaction name="actionFAST"/>
-   <addaction name="actionSIFT"/>
-   <addaction name="actionSURF"/>
+   <addaction name="uiActionHarris"/>
+   <addaction name="uiActionFAST"/>
+   <addaction name="uiActionSIFT"/>
+   <addaction name="uiActionSURF"/>
    <addaction name="separator"/>
-   <addaction name="actionDo4"/>
-   <addaction name="actionFastRT"/>
+   <addaction name="uiActionDo4"/>
+   <addaction name="uiActionFastRT"/>
   </widget>
-  <widget class="QToolBar" name="parametersToolBar">
+  <widget class="QToolBar" name="uiToolBarParameters">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -262,7 +262,7 @@
     <bool>true</bool>
    </attribute>
   </widget>
-  <action name="actionOpen">
+  <action name="uiActionOpen">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconshumanity48/document-openB.svg</normaloff>:/icons/iconshumanity48/document-openB.svg</iconset>
@@ -277,7 +277,7 @@
     <bool>true</bool>
    </property>
   </action>
-  <action name="actionSaveCopyAs">
+  <action name="uiActionSaveCopyAs">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -292,7 +292,7 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionWebsite">
+  <action name="uiActionWebsite">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconshumanity16/go-home.svg</normaloff>:/icons/iconshumanity16/go-home.svg</iconset>
@@ -304,7 +304,7 @@
     <string>Project on GitHub</string>
    </property>
   </action>
-  <action name="actionAbout">
+  <action name="uiActionAbout">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconshumanity16/gtk-info.svg</normaloff>:/icons/iconshumanity16/gtk-info.svg</iconset>
@@ -313,7 +313,7 @@
     <string>About...</string>
    </property>
   </action>
-  <action name="actionCaptureWebcam">
+  <action name="uiActionCaptureWebcam">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconshumanity48/camera-web.svg</normaloff>:/icons/iconshumanity48/camera-web.svg</iconset>
@@ -325,7 +325,7 @@
     <bool>true</bool>
    </property>
   </action>
-  <action name="actionPreferences">
+  <action name="uiActionPreferences">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconshumanity48/gconf-editorB.svg</normaloff>:/icons/iconshumanity48/gconf-editorB.svg</iconset>
@@ -337,7 +337,7 @@
     <string>Ctrl+Shift+X</string>
    </property>
   </action>
-  <action name="actionClose">
+  <action name="uiActionClose">
    <property name="text">
     <string>Close</string>
    </property>
@@ -348,7 +348,7 @@
     <bool>true</bool>
    </property>
   </action>
-  <action name="actionCascade">
+  <action name="uiActionCascade">
    <property name="text">
     <string>Cascade</string>
    </property>
@@ -356,7 +356,7 @@
     <string>Ctrl+Shift+T</string>
    </property>
   </action>
-  <action name="actionTile">
+  <action name="uiActionTile">
    <property name="text">
     <string>Tile</string>
    </property>
@@ -364,7 +364,7 @@
     <string>Ctrl+T</string>
    </property>
   </action>
-  <action name="actionDuplicate">
+  <action name="uiActionDuplicate">
    <property name="text">
     <string>Duplicate</string>
    </property>
@@ -372,7 +372,7 @@
     <string>Ctrl+D</string>
    </property>
   </action>
-  <action name="actionCloseAll">
+  <action name="uiActionCloseAll">
    <property name="text">
     <string>Close All</string>
    </property>
@@ -383,7 +383,7 @@
     <string>Ctrl+Shift+W</string>
    </property>
   </action>
-  <action name="actionSIFT">
+  <action name="uiActionSIFT">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -395,7 +395,7 @@
     <string>SIFT Features</string>
    </property>
   </action>
-  <action name="actionSURF">
+  <action name="uiActionSURF">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -407,7 +407,7 @@
     <string>SURF Features</string>
    </property>
   </action>
-  <action name="actionHarris">
+  <action name="uiActionHarris">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -419,7 +419,7 @@
     <string>Harris Features</string>
    </property>
   </action>
-  <action name="actionFAST">
+  <action name="uiActionFAST">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -431,7 +431,7 @@
     <string>FAST Features</string>
    </property>
   </action>
-  <action name="actionZoomIn">
+  <action name="uiActionZoomIn">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconsgnome48/zoom-in.svg</normaloff>:/icons/iconsgnome48/zoom-in.svg</iconset>
@@ -443,7 +443,7 @@
     <string>Ctrl++</string>
    </property>
   </action>
-  <action name="actionZoomOut">
+  <action name="uiActionZoomOut">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconsgnome48/zoom-out.svg</normaloff>:/icons/iconsgnome48/zoom-out.svg</iconset>
@@ -455,7 +455,7 @@
     <string>Ctrl+-</string>
    </property>
   </action>
-  <action name="actionZoomOriginal">
+  <action name="uiActionZoomOriginal">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconsgnome48/zoom-original.svg</normaloff>:/icons/iconsgnome48/zoom-original.svg</iconset>
@@ -467,7 +467,7 @@
     <string>2</string>
    </property>
   </action>
-  <action name="actionZoomBestFit">
+  <action name="uiActionZoomBestFit">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/iconsgnome48/zoom-best-fit.svg</normaloff>:/icons/iconsgnome48/zoom-best-fit.svg</iconset>
@@ -479,7 +479,7 @@
     <string>1</string>
    </property>
   </action>
-  <action name="actionCopy">
+  <action name="uiActionCopy">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -494,7 +494,7 @@
     <string>Ctrl+C</string>
    </property>
   </action>
-  <action name="actionNext">
+  <action name="uiActionNext">
    <property name="text">
     <string>Next</string>
    </property>
@@ -502,7 +502,7 @@
     <string>Ctrl+Tab</string>
    </property>
   </action>
-  <action name="actionPrevious">
+  <action name="uiActionPrevious">
    <property name="text">
     <string>Previous</string>
    </property>
@@ -510,7 +510,7 @@
     <string>Ctrl+Shift+Backtab</string>
    </property>
   </action>
-  <action name="actionResetImage">
+  <action name="uiActionResetImage">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -525,7 +525,7 @@
     <string>Ctrl+Z</string>
    </property>
   </action>
-  <action name="actionStartupDialog">
+  <action name="uiActionStartupDialog">
    <property name="text">
     <string>Startup Dialog</string>
    </property>
@@ -533,7 +533,7 @@
     <string>Ctrl+R</string>
    </property>
   </action>
-  <action name="actionDo4">
+  <action name="uiActionDo4">
    <property name="icon">
     <iconset>
      <normaloff>:/icons/iconsfeatures/Do448.png</normaloff>:/icons/iconsfeatures/Do448.png</iconset>
@@ -545,7 +545,7 @@
     <string>Ctrl+A</string>
    </property>
   </action>
-  <action name="actionFastRT">
+  <action name="uiActionFastRT">
    <property name="icon">
     <iconset>
      <normaloff>:/icons/iconsfeatures/FASTrealtime48.png</normaloff>:/icons/iconsfeatures/FASTrealtime48.png</iconset>

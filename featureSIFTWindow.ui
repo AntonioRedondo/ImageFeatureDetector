@@ -62,7 +62,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="icons.qrc">:/icons/iconsfeatures/SIFT48.png</pixmap>
+      <pixmap>:/icons/iconsfeatures/SIFT48.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -104,12 +104,12 @@
       <string>Threshold:</string>
      </property>
      <property name="buddy">
-      <cstring>doubleSpinBoxThreshold</cstring>
+      <cstring>uiDoubleSpinBoxThreshold</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QDoubleSpinBox" name="doubleSpinBoxThreshold">
+    <widget class="QDoubleSpinBox" name="uiDoubleSpinBoxThreshold">
      <property name="decimals">
       <number>3</number>
      </property>
@@ -140,12 +140,12 @@
       <string>Edge Threshold</string>
      </property>
      <property name="buddy">
-      <cstring>doubleSpinBoxEdgeThreshold</cstring>
+      <cstring>uiDoubleSpinBoxEdgeThreshold</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QDoubleSpinBox" name="doubleSpinBoxEdgeThreshold">
+    <widget class="QDoubleSpinBox" name="uiDoubleSpinBoxEdgeThreshold">
      <property name="decimals">
       <number>1</number>
      </property>
@@ -176,12 +176,12 @@
       <string>Octaves:</string>
      </property>
      <property name="buddy">
-      <cstring>spinBoxOctaves</cstring>
+      <cstring>uiSpinBoxOctaves</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="spinBoxOctaves">
+    <widget class="QSpinBox" name="uiSpinBoxOctaves">
      <property name="minimum">
       <number>1</number>
      </property>
@@ -196,12 +196,12 @@
       <string>Layers/octave:</string>
      </property>
      <property name="buddy">
-      <cstring>spinBoxLayers</cstring>
+      <cstring>uiSpinBoxLayers</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="spinBoxLayers">
+    <widget class="QSpinBox" name="uiSpinBoxLayers">
      <property name="minimum">
       <number>1</number>
      </property>
@@ -218,7 +218,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButtonShowOrientation">
+    <widget class="QPushButton" name="uiPushButtonShowOrientation">
      <property name="toolTip">
       <string>Show Orientation</string>
      </property>
@@ -226,7 +226,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="icons.qrc">
+      <iconset>
        <normaloff>:/icons/iconsfeatures/showOrientation16.png</normaloff>:/icons/iconsfeatures/showOrientation16.png</iconset>
      </property>
      <property name="iconSize">
@@ -285,7 +285,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
+    <widget class="QDialogButtonBox" name="uiButtonBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -300,12 +300,12 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>doubleSpinBoxThreshold</tabstop>
-  <tabstop>doubleSpinBoxEdgeThreshold</tabstop>
-  <tabstop>spinBoxOctaves</tabstop>
-  <tabstop>spinBoxLayers</tabstop>
-  <tabstop>pushButtonShowOrientation</tabstop>
-  <tabstop>buttonBox</tabstop>
+  <tabstop>uiDoubleSpinBoxThreshold</tabstop>
+  <tabstop>uiDoubleSpinBoxEdgeThreshold</tabstop>
+  <tabstop>uiSpinBoxOctaves</tabstop>
+  <tabstop>uiSpinBoxLayers</tabstop>
+  <tabstop>uiPushButtonShowOrientation</tabstop>
+  <tabstop>uiButtonBox</tabstop>
  </tabstops>
  <resources>
   <include location="icons.qrc"/>

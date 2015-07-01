@@ -99,7 +99,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="myLabelRealTime">
+      <widget class="QLabel" name="uiLabelRealTime">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -152,7 +152,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="myLabelCaptured">
+      <widget class="QLabel" name="uiLabelCaptured">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -242,7 +242,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="myPushButtonCapture">
+      <widget class="QPushButton" name="uiPushButtonCapture">
        <property name="minimumSize">
         <size>
          <width>150</width>
@@ -265,7 +265,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="myPushButtonOK">
+      <widget class="QPushButton" name="uiPushButtonOK">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -291,7 +291,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="myPushButtonCancel">
+      <widget class="QPushButton" name="uiPushButtonCancel">
        <property name="minimumSize">
         <size>
          <width>150</width>

@@ -1,24 +1,23 @@
 #include "windowPreferences.h"
 
 
-WindowPreferences::WindowPreferences(QWidget* widgetConstr) : myWidget(widgetConstr), QDialog::QDialog(widgetConstr, Qt::Dialog) {
+WindowPreferences::WindowPreferences(QWidget* widgetConstr)
+		: mWidget(widgetConstr), QDialog::QDialog(widgetConstr, Qt::Dialog) {
 	setupUi(this);
 
-	mySettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
-	if (mySettings->value("recentFiles").toStringList().isEmpty()) {
-		myPushButtonClearRecentFiles->setEnabled(false);
-		myPushButtonClearRecentFiles->setText("Recent Files List Is Empty");
+	mSettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
+	if (mSettings->value("recentFiles").toStringList().isEmpty()) {
+		uiPushButtonClearRecentFiles->setEnabled(false);
+		uiPushButtonClearRecentFiles->setText("Recent Files List Is Empty");
 	}
-	myCheckBoxStartupDialog->setChecked(mySettings->value("startupDialog", true).toBool());
-	myCheckBoxBestFit->setChecked(mySettings->value("bestFit", true).toBool());
-	myCheckBoxRecentFiles->setChecked(mySettings->value("rememberRecentFiles", true).toBool());
-// 	myComboBoxLanguage->setCurrentIndex(mySettings->value("language", Worker::english).toInt());
-
-	QPushButton* myPushButtonRestore = myButtonBox->button(QDialogButtonBox::RestoreDefaults);
-	connect(myPushButtonClearRecentFiles, SIGNAL(clicked()), this, SLOT(clearRecentFilesQuestion()));
-	connect(myPushButtonRestore, SIGNAL(clicked()), this, SLOT(restore()));
-	connect(myButtonBox, SIGNAL(accepted()), this, SLOT(save()));
-	connect(myButtonBox, SIGNAL(rejected()), this, SLOT(close()));
+	uiCheckBoxStartupDialog->setChecked(mSettings->value("startupDialog", true).toBool());
+	uiCheckBoxBestFit->setChecked(mSettings->value("bestFit", true).toBool());
+	uiCheckBoxRecentFiles->setChecked(mSettings->value("rememberRecentFiles", true).toBool());
+	
+	connect(uiPushButtonClearRecentFiles, &QAbstractButton::clicked, this, &WindowPreferences::clearRecentFilesPrompt);
+	connect(uiDialogButtonBox->button(QDialogButtonBox::RestoreDefaults), &QAbstractButton::clicked, this, &WindowPreferences::restore);
+	connect(uiDialogButtonBox, &QDialogButtonBox::accepted, this, &WindowPreferences::save);
+	connect(uiDialogButtonBox, &QDialogButtonBox::rejected, this, &WindowPreferences::close);
 
 	show();
 }
@@ -26,42 +25,42 @@ WindowPreferences::WindowPreferences(QWidget* widgetConstr) : myWidget(widgetCon
 
 
 
-void WindowPreferences::clearRecentFilesQuestion() {
+void WindowPreferences::clearRecentFilesPrompt() {
 	if (QMessageBox::Yes == QMessageBox::warning(this, tr("Image Feature Detector"),
-		tr("Do you want to clear the Recent Files List?"),
-		QMessageBox::Yes | QMessageBox::Cancel)) clearRecentFiles();
+			tr("Do you want to clear the Recent Files List?"),
+			QMessageBox::Yes | QMessageBox::Cancel))
+		clearRecentFiles();
 }
 
 
 
 
 void WindowPreferences::clearRecentFiles() {
-	QStringList files = mySettings->value("recentFiles").toStringList();
+	QStringList files = mSettings->value("recentFiles").toStringList();
 	files.clear();
-	mySettings->setValue("recentFiles", files);
-	myPushButtonClearRecentFiles->setEnabled(false);
-	myPushButtonClearRecentFiles->setText("Recent File List Cleared");
-	qobject_cast<WindowMain*>(myWidget)->updateRecentFilesMenu();
+	mSettings->setValue("recentFiles", files);
+	uiPushButtonClearRecentFiles->setEnabled(false);
+	uiPushButtonClearRecentFiles->setText("Recent File List Cleared");
+	qobject_cast<WindowMain*>(mWidget)->updateRecentFilesMenu();
 }
 
 
 
 
 void WindowPreferences::restore() {
-	myCheckBoxStartupDialog->setChecked(true);
-	myCheckBoxBestFit->setChecked(true);
-	myCheckBoxRecentFiles->setChecked(true);
-// 	myComboBoxLanguage->setCurrentIndex(Worker::english);
+	uiCheckBoxStartupDialog->setChecked(true);
+	uiCheckBoxBestFit->setChecked(true);
+	uiCheckBoxRecentFiles->setChecked(true);
 }
 
 
 
 
 void WindowPreferences::save() {
-	if (!myCheckBoxRecentFiles->isChecked()) clearRecentFiles();
-	mySettings->setValue("rememberRecentFiles", myCheckBoxRecentFiles->isChecked());
-	mySettings->setValue("bestFit", myCheckBoxBestFit->isChecked());
-	mySettings->setValue("startupDialog", myCheckBoxStartupDialog->isChecked());
-// 	mySettings->setValue("language", myComboBoxLanguage->currentIndex());
+	if (!uiCheckBoxRecentFiles->isChecked())
+		clearRecentFiles();
+	mSettings->setValue("rememberRecentFiles", uiCheckBoxRecentFiles->isChecked());
+	mSettings->setValue("bestFit", uiCheckBoxBestFit->isChecked());
+	mSettings->setValue("startupDialog", uiCheckBoxStartupDialog->isChecked());
 	close();
 }

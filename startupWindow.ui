@@ -69,7 +69,7 @@
       <enum>QLayout::SetMinimumSize</enum>
      </property>
      <item>
-      <widget class="QCommandLinkButton" name="commandLinkButtonOpen">
+      <widget class="QCommandLinkButton" name="uiCommandLinkButtonOpen">
        <property name="text">
         <string>Open an image</string>
        </property>
@@ -89,7 +89,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QCommandLinkButton" name="commandLinkButtonCaptureWebcam">
+      <widget class="QCommandLinkButton" name="uiCommandLinkButtonCaptureWebcam">
        <property name="text">
         <string>Capture an image from a camera</string>
        </property>
@@ -127,7 +127,7 @@
         <enum>QLayout::SetMinimumSize</enum>
        </property>
        <item>
-        <widget class="QToolButton" name="toolButtonOpenRecent">
+        <widget class="QToolButton" name="uiToolButtonOpenRecent">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -172,7 +172,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBoxStartup">
+        <widget class="QCheckBox" name="uiCheckBoxStartup">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -191,8 +191,8 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>commandLinkButtonOpen</tabstop>
-  <tabstop>commandLinkButtonCaptureWebcam</tabstop>
+  <tabstop>uiCommandLinkButtonOpen</tabstop>
+  <tabstop>uiCommandLinkButtonCaptureWebcam</tabstop>
  </tabstops>
  <resources>
   <include location="images.qrc"/>

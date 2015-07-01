@@ -51,7 +51,7 @@
     <number>20</number>
    </property>
    <item>
-    <widget class="QCheckBox" name="myCheckBoxStartupDialog">
+    <widget class="QCheckBox" name="uiCheckBoxStartupDialog">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -64,7 +64,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="myCheckBoxBestFit">
+    <widget class="QCheckBox" name="uiCheckBoxBestFit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -82,7 +82,7 @@
       <number>10</number>
      </property>
      <item>
-      <widget class="QCheckBox" name="myCheckBoxRecentFiles">
+      <widget class="QCheckBox" name="uiCheckBoxRecentFiles">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -108,7 +108,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="myPushButtonClearRecentFiles">
+      <widget class="QPushButton" name="uiPushButtonClearRecentFiles">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -142,7 +142,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="myButtonBox">
+    <widget class="QDialogButtonBox" name="uiDialogButtonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
      </property>
@@ -154,9 +154,9 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>myCheckBoxRecentFiles</tabstop>
-  <tabstop>myPushButtonClearRecentFiles</tabstop>
-  <tabstop>myButtonBox</tabstop>
+  <tabstop>uiCheckBoxRecentFiles</tabstop>
+  <tabstop>uiPushButtonClearRecentFiles</tabstop>
+  <tabstop>uiDialogButtonBox</tabstop>
  </tabstops>
  <resources>
   <include location="icons.qrc"/>

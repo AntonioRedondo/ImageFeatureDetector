@@ -1,37 +1,38 @@
 #include "windowFastRealTime.h"
 
-WindowFastRealTime::WindowFastRealTime(QWidget* _widget) : QDialog(_widget, Qt::Dialog) {
+WindowFastRealTime::WindowFastRealTime(QWidget* widget)
+		: QDialog(widget, Qt::Dialog) {
 	setupUi(this);
-	mySettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
-	myTimer = new QTimer();
-	myLocale = new QLocale(QLocale::English);
-	detecting = false;
+	mSettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
+	mTimer = new QTimer();
+	mLocale = new QLocale(QLocale::English);
+	mDetecting = false;
 
-	spinBoxThresholdFAST->setValue(mySettings->value("fastRT/threshold", 25).toInt());
-	pushButtonNonMaxFAST->setChecked(mySettings->value("fastRT/nonMaxSuppression", true).toBool());
+	uiSpinBoxThresholdFAST->setValue(mSettings->value("fastRT/threshold", 25).toInt());
+	uiPushButtonNonMaxFAST->setChecked(mSettings->value("fastRT/nonMaxSuppression", true).toBool());
+	
+	connect(uiPushButtonNonMaxFAST, &QPushButton::toggled, this, &WindowFastRealTime::saveFastParams);
+	connect(uiSpinBoxThresholdFAST, &QSpinBox::editingFinished, this, &WindowFastRealTime::saveFastParams);
+	connect(uiPushButtonResetFAST, &QAbstractButton::clicked, this, &WindowFastRealTime::resetFastParams);
+	connect(uiPushButtonDetect, &QAbstractButton::clicked, this, &WindowFastRealTime::detect);
+	connect(uiPushButtonCancel, &QAbstractButton::clicked, this, &WindowFastRealTime::close);
+	connect(mTimer, &QTimer::timeout, this, &WindowFastRealTime::compute);
 
-	connect(pushButtonNonMaxFAST, SIGNAL(toggled(bool)), this, SLOT(fastSaveParams()));
-	connect(spinBoxThresholdFAST, SIGNAL(editingFinished()), this, SLOT(fastSaveParams()));
-	connect(pushButtonResetFAST, SIGNAL(clicked(bool)), this, SLOT(fastReset()));
-	connect(myPushButtonDetect, SIGNAL(clicked(bool)), this, SLOT(detect()));
-	connect(myPushButtonCancel, SIGNAL(clicked(bool)), this, SLOT(close()));
-	connect(myTimer, SIGNAL(timeout()), this, SLOT(compute()));
-
-	myCamera = cvCaptureFromCAM(-1);
-	if (myCamera!=NULL) {
+	mCamera = cvCaptureFromCAM(-1);
+	if (mCamera!=NULL) {
 // 		qDebug() << cvSetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_WIDTH, 320);
 // 		qDebug() << cvSetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_HEIGHT, 240);
-		qDebug() << "Camera Resolution: " << cvGetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_WIDTH)
-			<< cvGetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_HEIGHT);
+		qDebug() << "Camera Resolution: " << cvGetCaptureProperty(mCamera, CV_CAP_PROP_FRAME_WIDTH)
+			<< cvGetCaptureProperty(mCamera, CV_CAP_PROP_FRAME_HEIGHT);
 			
-		myIplImage320 = cvCreateImage(cvSize(320, 240), IPL_DEPTH_8U, 3);
-		myIplImage320Gray = cvCreateImage(cvSize(320, 240), IPL_DEPTH_8U, 1);
-		myPainter = new QPainter();
+		mIplImage320 = cvCreateImage(cvSize(320, 240), IPL_DEPTH_8U, 3);
+		mIplImage320Gray = cvCreateImage(cvSize(320, 240), IPL_DEPTH_8U, 1);
+		mPainter = new QPainter();
 
-		myTimer->start(40); //25fps
+		mTimer->start(40); //25fps
 	} else {
-		myLabelRealTime->setText("Capture from webcam: there is some problem with the cam.\nCannot get images.");
-		myPushButtonDetect->setEnabled(false);
+		uiLabelRealTime->setText("Capture from webcam: there is some problem with the cam.\nCannot get images.");
+		uiPushButtonDetect->setEnabled(false);
 	}
 
 	show();
@@ -41,15 +42,14 @@ WindowFastRealTime::WindowFastRealTime(QWidget* _widget) : QDialog(_widget, Qt::
 
 
 void WindowFastRealTime::detect() {
-	if (detecting==false) {
-		detecting = true;
-		myPushButtonDetect->setIcon(QIcon("../icons24/media-playback-stop.png"));
-		myPushButtonDetect->setText("Stop Detecting");
-	}
-	else {
-		detecting = false;
-		myPushButtonDetect->setIcon(QIcon("../icons24/media-playback-start.png"));
-		myPushButtonDetect->setText("Detect");
+	if (mDetecting==false) {
+		mDetecting = true;
+		uiPushButtonDetect->setIcon(QIcon("../icons24/media-playback-stop.png"));
+		uiPushButtonDetect->setText("Stop Detecting");
+	} else {
+		mDetecting = false;
+		uiPushButtonDetect->setIcon(QIcon("../icons24/media-playback-start.png"));
+		uiPushButtonDetect->setText("Detect");
 	}
 }
 
@@ -57,11 +57,11 @@ void WindowFastRealTime::detect() {
 
 
 void WindowFastRealTime::close() {
-	myTimer->stop();
-	cvReleaseCapture(&myCamera);
-	cvReleaseImage(&myIplImageRealTime);
-	cvReleaseImage(&myIplImage320);
-	cvReleaseImage(&myIplImage320Gray);
+	mTimer->stop();
+	cvReleaseCapture(&mCamera);
+	cvReleaseImage(&mIplImageRealTime);
+	cvReleaseImage(&mIplImage320);
+	cvReleaseImage(&mIplImage320Gray);
 	QWidget::close();
 }
 
@@ -76,18 +76,18 @@ void WindowFastRealTime::closeEvent(QCloseEvent* _event) {
 
 
 
-void WindowFastRealTime::fastSaveParams() {
-	mySettings->setValue("fastRT/threshold", spinBoxThresholdFAST->value());
-	mySettings->setValue("fastRT/nonMaxSuppression", pushButtonNonMaxFAST->isChecked());
+void WindowFastRealTime::saveFastParams() {
+	mSettings->setValue("fastRT/threshold", uiSpinBoxThresholdFAST->value());
+	mSettings->setValue("fastRT/nonMaxSuppression", uiPushButtonNonMaxFAST->isChecked());
 }
 
 
 
 
-void WindowFastRealTime::fastReset() {
-	spinBoxThresholdFAST->setValue(25);
-	pushButtonNonMaxFAST->setChecked(true);
-	fastSaveParams();
+void WindowFastRealTime::resetFastParams() {
+	uiSpinBoxThresholdFAST->setValue(25);
+	uiPushButtonNonMaxFAST->setChecked(true);
+	saveFastParams();
 }
 
 
@@ -95,32 +95,32 @@ void WindowFastRealTime::fastReset() {
 
 void WindowFastRealTime::compute() {
 // 	Warning! cvQueryFrame() sometimes causes memory overflow. I don't know why it occurs sometimes and another ones it doesn't.
-	myIplImageRealTime = cvQueryFrame(myCamera);
-	cvResize(myIplImageRealTime, myIplImage320);
-	cvCvtColor(myIplImage320, myIplImage320Gray, CV_BGR2GRAY);
+	mIplImageRealTime = cvQueryFrame(mCamera);
+	cvResize(mIplImageRealTime, mIplImage320);
+	cvCvtColor(mIplImage320, mIplImage320Gray, CV_BGR2GRAY);
 	
 // 	Mat image(myImage->size().width(), myImage->size().height(), CV_8UC4, myImage->bits());//, (size_t)myImage->bytesPerLine()
 // 	Mat imageGray(myImage->size().width(), myImage->size().height(), CV_8UC1);
 // 	cvtColor(image, imageGray, CV_RGBA2GRAY);
 
-	if (detecting) {
-		time = (float)cvGetTickCount();
-		Mat aa = cvarrToMat(myIplImage320Gray);
-		FAST(aa, myKeypoints, mySettings->value("fastRT/threshold", true).toInt(), mySettings->value("fastRT/nonMaxSuppression", true).toBool());
-		myLabelTime->setText(QString::fromUtf8("Detecting Time: ").append(myLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2).append(" ms")));
-		myLabelKeypoints->setText(QString::fromUtf8("Keypoints: ").append(myLocale->toString((float)myKeypoints.size(),'f', 0).append(" keypoints")));
+	if (mDetecting) {
+		mTime = (float)cvGetTickCount();
+		Mat aa = cvarrToMat(mIplImage320Gray);
+		FAST(aa, mKeypoints, mSettings->value("fastRT/threshold", true).toInt(), mSettings->value("fastRT/nonMaxSuppression", true).toBool());
+		uiLabelTime->setText(QString::fromUtf8("Detecting Time: ").append(mLocale->toString((float)((cvGetTickCount()-mTime)/(cvGetTickFrequency()*1000)),'f', 2).append(" ms")));
+		uiLabelKeypoints->setText(QString::fromUtf8("Keypoints: ").append(mLocale->toString((float)mKeypoints.size(),'f', 0).append(" keypoints")));
 		
-		myPixmap = QPixmap::fromImage(QImage((uchar*)myIplImage320->imageData, 320, 240, QImage::Format_RGB888).rgbSwapped());
-		myPainter->begin(&myPixmap);
-		myPainter->setPen(QColor::fromRgb(255, 0, 0));
+		mPixmap = QPixmap::fromImage(QImage((uchar*)mIplImage320->imageData, 320, 240, QImage::Format_RGB888).rgbSwapped());
+		mPainter->begin(&mPixmap);
+		mPainter->setPen(QColor::fromRgb(255, 0, 0));
 	// 	myPainter->setRenderHint(QPainter::Antialiasing);
-		for(int n=0; n<myKeypoints.size(); ++n)
-			myPainter->drawEllipse((int)myKeypoints.at(n).pt.x, (int)myKeypoints.at(n).pt.y, 3, 3);
-		myPainter->end();
-		myLabelRealTime->setPixmap(myPixmap);
+		for(int n=0; n<mKeypoints.size(); ++n)
+			mPainter->drawEllipse((int)mKeypoints.at(n).pt.x, (int)mKeypoints.at(n).pt.y, 3, 3);
+		mPainter->end();
+		uiLabelRealTime->setPixmap(mPixmap);
 	} else {
-		myLabelRealTime->setPixmap(QPixmap::fromImage(QImage((uchar*)myIplImage320->imageData, 320, 240, QImage::Format_RGB888).rgbSwapped()));
-		myLabelTime->setText("Detecting Time: -");
-		myLabelKeypoints->setText("Keypoints: -");
+		uiLabelRealTime->setPixmap(QPixmap::fromImage(QImage((uchar*)mIplImage320->imageData, 320, 240, QImage::Format_RGB888).rgbSwapped()));
+		uiLabelTime->setText("Detecting Time: -");
+		uiLabelKeypoints->setText("Keypoints: -");
 	}
 }

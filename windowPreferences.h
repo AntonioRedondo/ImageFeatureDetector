@@ -17,15 +17,14 @@
 class WindowPreferences : public QDialog, private Ui::preferencesWindow {
   Q_OBJECT
   public:
-	//If we pass diretcly a Worker object we get a "ISO C++ forbids declaration of ‘Worker’ with no type" error.
 	WindowPreferences(QWidget* widgetConstr);
 
   private:
-	QWidget* myWidget;
-	QSettings* mySettings;
+	QWidget* mWidget;
+	QSettings* mSettings;
 
   private slots:
-	void clearRecentFilesQuestion();
+	void clearRecentFilesPrompt();
 	void clearRecentFiles();
 	void restore();
 	void save();

@@ -47,7 +47,7 @@
       <number>10</number>
      </property>
      <item>
-      <widget class="QLabel" name="myLabelRealTime">
+      <widget class="QLabel" name="uiLabelRealTime">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -105,7 +105,7 @@
             </size>
            </property>
            <property name="pixmap">
-            <pixmap resource="icons.qrc">:/icons/iconsfeatures/FAST48.png</pixmap>
+            <pixmap>:/icons/iconsfeatures/FAST48.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -142,7 +142,7 @@
             <string>Threshold</string>
            </property>
            <property name="buddy">
-            <cstring>spinBoxThresholdFAST</cstring>
+            <cstring>uiSpinBoxThresholdFAST</cstring>
            </property>
           </widget>
          </item>
@@ -160,7 +160,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBoxThresholdFAST">
+          <widget class="QSpinBox" name="uiSpinBoxThresholdFAST">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -181,7 +181,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButtonNonMaxFAST">
+        <widget class="QPushButton" name="uiPushButtonNonMaxFAST">
          <property name="text">
           <string>Non-Max Suppression</string>
          </property>
@@ -201,7 +201,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButtonResetFAST">
+        <widget class="QPushButton" name="uiPushButtonResetFAST">
          <property name="text">
           <string>Reset</string>
          </property>
@@ -231,14 +231,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="myLabelTime">
+        <widget class="QLabel" name="uiLabelTime">
          <property name="text">
           <string>Detecting Time: -</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="myLabelKeypoints">
+        <widget class="QLabel" name="uiLabelKeypoints">
          <property name="text">
           <string>KeyPoints: -</string>
          </property>
@@ -261,7 +261,7 @@
       <number>15</number>
      </property>
      <item>
-      <widget class="QPushButton" name="myPushButtonDetect">
+      <widget class="QPushButton" name="uiPushButtonDetect">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -293,7 +293,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="myPushButtonCancel">
+      <widget class="QPushButton" name="uiPushButtonCancel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>

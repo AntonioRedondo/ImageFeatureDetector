@@ -25,31 +25,31 @@ class WindowFastRealTime : public QDialog, Ui::fastRealTimeWindow {
 	WindowFastRealTime(QWidget* _widget);
 	void closeEvent(QCloseEvent* _event);
 
-	QWidget* myWidget;
+	QWidget* mWidget;
 
   private:
-	QSettings* mySettings;
-	QLocale* myLocale;
-	CvCapture* myCamera;
-	QTimer* myTimer;
-	QPixmap myPixmap;
-	QImage* myImage;
-	QPainter* myPainter;
-	bool detecting;
-	IplImage* myIplImageRealTime;
-	IplImage* myIplImage320;
-	IplImage* myIplImage320Gray;
+	QSettings* mSettings;
+	QLocale* mLocale;
+	CvCapture* mCamera;
+	QTimer* mTimer;
+	QPixmap mPixmap;
+	QImage* mImage;
+	QPainter* mPainter;
+	bool mDetecting;
+	IplImage* mIplImageRealTime;
+	IplImage* mIplImage320;
+	IplImage* mIplImage320Gray;
 // 	Mat myIplImage320;
 // 	Mat myIplImage320Gray;
-	vector<KeyPoint> myKeypoints;
-	float time;
+	vector<KeyPoint> mKeypoints;
+	float mTime;
 
   private slots:
 	void detect();
 	void compute();
 	void close();
-	void fastSaveParams();
-	void fastReset();
+	void saveFastParams();
+	void resetFastParams();
 };
 
 #endif

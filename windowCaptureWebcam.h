@@ -22,17 +22,17 @@ using namespace std;
 class WindowCaptureWebcam : public QDialog, private Ui::captureWebcamWindow {
   Q_OBJECT
   public:
-	WindowCaptureWebcam(QWidget* _widget);
-	void closeEvent(QCloseEvent* _event);
+	WindowCaptureWebcam(QWidget* widget);
+	void closeEvent(QCloseEvent* event);
 	
-	QWidget* myWidget;
+	QWidget* mWidget;
 	
   private:
-	CvCapture* myCamera;
-	QTimer* myTimer;
-	IplImage* myIplImageRealTime;
-	IplImage* myIplImage320;
-	QImage* myImage;
+	CvCapture* mCamera;
+	QTimer* mTimer;
+	IplImage* mIplImageRealTime;
+	IplImage* mIplImage320;
+	QImage* mImage;
 // 	VideoCapture myCamera;
 // 	Mat myImage;
 

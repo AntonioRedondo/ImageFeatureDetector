@@ -1,24 +1,26 @@
 #include "windowStartup.h"
 
 
-WindowStartup::WindowStartup(QWidget* widgetConstr) : mWidget(widgetConstr), QDialog::QDialog(widgetConstr, Qt::Dialog) {
+WindowStartup::WindowStartup(QWidget* widgetConstr)
+		: mWidget(widgetConstr), QDialog::QDialog(widgetConstr, Qt::Dialog) {
 	setupUi(this);
 
 	mSettings = new QSettings("imageFeatureDetectorSettings.ini", QSettings::IniFormat);
 	
-	checkBoxStartup->setChecked(mSettings->value("startupDialog", true).toBool());
+	uiCheckBoxStartup->setChecked(mSettings->value("startupDialog", true).toBool());
 	if (mSettings->value("recentFiles").toStringList().isEmpty()) {
-		toolButtonOpenRecent->setEnabled(false);
-		toolButtonOpenRecent->setText("There Is No Recent Files");
+		uiToolButtonOpenRecent->setEnabled(false);
+		uiToolButtonOpenRecent->setText("There Is No Recent Files");
 	}
 
-	QMenu* recentFiles = qobject_cast<WindowMain*>(mWidget)->menuRecentFiles;
-	toolButtonOpenRecent->setMenu(recentFiles);
-	connect(commandLinkButtonOpen, SIGNAL(clicked()), this, SLOT(open()));
-	connect(commandLinkButtonCaptureWebcam, SIGNAL(clicked()), this, SLOT(captureWebcam()));
-	connect(checkBoxStartup, SIGNAL(clicked()), this, SLOT(saveSettings()));
-	connect(recentFiles, SIGNAL(triggered(QAction*)), this, SLOT(close()));
-	connect(recentFiles, SIGNAL(aboutToHide()), this, SLOT(close()));
+	QMenu* recentFiles = qobject_cast<WindowMain*>(mWidget)->mMenuRecentFiles;
+	uiToolButtonOpenRecent->setMenu(recentFiles);	
+	
+	connect(uiCommandLinkButtonOpen, &QAbstractButton::clicked, this, &WindowStartup::open);
+	connect(uiCommandLinkButtonCaptureWebcam, &QAbstractButton::clicked, this, &WindowStartup::captureWebcam);
+	connect(uiCheckBoxStartup, &QAbstractButton::clicked, this, &WindowStartup::saveSettings);
+	connect(recentFiles, &QMenu::triggered, this, &WindowStartup::close);
+	connect(recentFiles, &QMenu::aboutToHide, this, &WindowStartup::close);
 
 	show();
 }
@@ -43,5 +45,5 @@ void WindowStartup::captureWebcam() {
 
 
 void WindowStartup::saveSettings() {
-	mSettings->setValue("startupDialog", checkBoxStartup->isChecked());
+	mSettings->setValue("startupDialog", uiCheckBoxStartup->isChecked());
 }

@@ -1,11 +1,12 @@
 #include "windowCaptureWebcam.h"
 
-WindowCaptureWebcam::WindowCaptureWebcam(QWidget* _widget) : myWidget(_widget), QDialog(_widget, Qt::Dialog), myCamera(NULL), myTimer(NULL) {
+WindowCaptureWebcam::WindowCaptureWebcam(QWidget* widget)
+		: mWidget(widget), QDialog(widget, Qt::Dialog), mCamera(NULL), mTimer(NULL) {
 	setupUi(this);
-
-	connect(myPushButtonCapture, SIGNAL(clicked(bool)), this, SLOT(capture()));
-	connect(myPushButtonOK, SIGNAL(clicked(bool)), this, SLOT(ok()));
-	connect(myPushButtonCancel, SIGNAL(clicked(bool)), this, SLOT(close()));
+	
+	connect(uiPushButtonCapture, &QAbstractButton::clicked, this, &WindowCaptureWebcam::capture);
+	connect(uiPushButtonCapture, &QAbstractButton::clicked, this, &WindowCaptureWebcam::ok);
+	connect(uiPushButtonCapture, &QAbstractButton::clicked, this, &WindowCaptureWebcam::close);
 	
 	
 	
@@ -27,24 +28,25 @@ WindowCaptureWebcam::WindowCaptureWebcam(QWidget* _widget) : myWidget(_widget), 
 	
 	
 
-// 	myCamera = cvCaptureFromCAM(-1);
-// 	myCapture;
-// 	myCapture.open(0);
-	if (myCamera) {
-		if (!myTimer) {
-			myTimer = new QTimer();
-			connect(myTimer, SIGNAL(timeout()), this, SLOT(compute()));
+// 	mCamera = cvCaptureFromCAM(-1);
+// 	mCapture;
+// 	mCapture.open(0);
+	if (mCamera) {
+		if (!mTimer) {
+			mTimer = new QTimer();
+			connect(mTimer, SIGNAL(timeout()), this, SLOT(compute()));
 		}
-		qDebug() << "Camera Resolution: " << cvGetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_WIDTH)
-			<< cvGetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_HEIGHT);
-		myIplImage320 = cvCreateImage(cvSize(320, 240), IPL_DEPTH_8U, 3);
-		myTimer->start(40); //25fps
+		qDebug() << "Camera Resolution: " << cvGetCaptureProperty(mCamera, CV_CAP_PROP_FRAME_WIDTH)
+			<< cvGetCaptureProperty(mCamera, CV_CAP_PROP_FRAME_HEIGHT);
+		mIplImage320 = cvCreateImage(cvSize(320, 240), IPL_DEPTH_8U, 3);
+		mTimer->start(40); //25fps
 	} else {
-		myLabelRealTime->setText("Capture from webcam: there is some problem with the cam.\nCannot get images.");
-		myLabelCaptured->setText("Damn!");
-		myPushButtonOK->setEnabled(false);
-		myPushButtonCapture->setEnabled(false);
+		uiLabelRealTime->setText("Capture from webcam: there is some problem with the cam.\nCannot get images.");
+		uiLabelCaptured->setText("Damn!");
+		uiPushButtonOK->setEnabled(false);
+		uiPushButtonCapture->setEnabled(false);
 	}
+	
 	show();
 }
 
@@ -52,31 +54,29 @@ WindowCaptureWebcam::WindowCaptureWebcam(QWidget* _widget) : myWidget(_widget), 
 
 
 void WindowCaptureWebcam::capture() {
-	myLabelCaptured->setPixmap(QPixmap::fromImage(QImage((uchar*)myIplImageRealTime->imageData, myIplImageRealTime->width, myIplImageRealTime->height, QImage::Format_RGB888)));
-	myImage = new QImage((uchar*)myIplImageRealTime->imageData, myIplImageRealTime->width, myIplImageRealTime->height, QImage::Format_RGB888);
-	myPushButtonOK->setEnabled(true);
+	uiLabelCaptured->setPixmap(QPixmap::fromImage(QImage((uchar*)mIplImageRealTime->imageData, mIplImageRealTime->width, mIplImageRealTime->height, QImage::Format_RGB888)));
+	mImage = new QImage((uchar*)mIplImageRealTime->imageData, mIplImageRealTime->width, mIplImageRealTime->height, QImage::Format_RGB888);
+	uiPushButtonOK->setEnabled(true);
 }
 
 
 
 
 void WindowCaptureWebcam::ok() {
-	WindowMain* myWorker = qobject_cast<WindowMain*>(myWidget);
-	WindowImage* myWindowImage;
-	myWindowImage = new WindowImage(myImage, tr("WebCam Captured Image %1").arg(++myWorker->capturedWebcamImages), WindowImage::capturedWebcam);
+	WindowMain* windowMain = qobject_cast<WindowMain*>(mWidget);
+	WindowImage* windowImage = new WindowImage(mImage, tr("WebCam Captured Image %1").arg(++windowMain->mCapturedWebcamImages), WindowImage::capturedWebcam);
 // 	else myWindowImage = new windowImage(new QImage(myLabelRealTime->pixmap()->toImage()), tr("WebCam Captured Image %1").arg(++myWorker->capturedWebcamImages), windowImage::capturedWebcam);
-	myWorker->myMdiArea->addSubWindow(myWindowImage);
+	windowMain->uiMdiArea->addSubWindow(windowImage);
+	windowImage->show();
 	close();
-	myWindowImage->show();
 }
 
 
 
 
 void WindowCaptureWebcam::close() {
-	if (myCamera) {
-		myTimer->stop();
-	}
+	if (mCamera)
+		mTimer->stop();
 // 	cvReleaseCapture(&myCamera);
 // 	cvReleaseImage(&myIplImageRealTime);
 // 	cvReleaseImage(&myIplImage320);
@@ -98,8 +98,8 @@ void WindowCaptureWebcam::closeEvent(QCloseEvent* _event) {
 void WindowCaptureWebcam::compute() {
 // 	myCamera->retrieve(myImage);
 // 	Warning! cvQueryFrame() sometimes causes memory overflow. I don't know why it occurs sometimes and another ones doesn't.
-	myIplImageRealTime = cvQueryFrame(myCamera);
-	cvCvtColor(myIplImageRealTime, myIplImageRealTime, CV_BGR2RGB);
-	cvResize(myIplImageRealTime, myIplImage320);
-	myLabelRealTime->setPixmap(QPixmap::fromImage(QImage((uchar*)myIplImage320->imageData, 320, 240, QImage::Format_RGB888)));
+	mIplImageRealTime = cvQueryFrame(mCamera);
+	cvCvtColor(mIplImageRealTime, mIplImageRealTime, CV_BGR2RGB);
+	cvResize(mIplImageRealTime, mIplImage320);
+	uiLabelRealTime->setPixmap(QPixmap::fromImage(QImage((uchar*)mIplImage320->imageData, 320, 240, QImage::Format_RGB888)));
 }

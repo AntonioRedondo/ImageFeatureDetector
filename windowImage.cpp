@@ -38,13 +38,6 @@ WindowImage::WindowImage(QImage* imageConstr, QString windowTitleConstr, int tit
 	if (mNumber > 1024)
 		mImageSize = mLocale->toString(mNumber/(float)1024,'f', 2).append(" MiB");
 	else mImageSize = mLocale->toString(mNumber,'f', 2).append(" KiB");
-
-// 	qDebug() << "myImageZoom: " << mImageZoom;
-// 	qDebug() << "myImageSize: " << mImageSize;
-// 	qDebug() << "myImageDimensions: " << mImageDimensions;
-// 	qDebug() << "myImageChannels: " << mImage->format();
-// 	qDebug() << "Factor increment: " << mFactorIncrement;
-// 	qDebug() << "Current factor: " << currentFactor;
 }
 
 
@@ -136,10 +129,10 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 	shift = -minVal*scale+min;
 	imageHarris.convertTo(imageHarris8U, CV_8UC1, scale, shift);
 	
+	mPixmap = QPixmap::fromImage(convertMat2QImage(imageHarris8U)); // This should be faster than the below three lines
 // 	Mat imageColor(mImage->height(), mImage->width(), CV_8UC4); // With CV_8UC3 it doesn't work
 // 	cvtColor(imageHarris8U, imageColor, CV_GRAY2RGBA); // With CV_GRAY2RGB it doesn't work
 // 	mPixmap = QPixmap::fromImage(QImage(imageColor.data, mImage->width(), mImage->height(), imageColor.step, QImage::Format_RGB32)); // With Format_RGB888 it doesn't work. It can be Format_ARGB32 as well
-	mPixmap = QPixmap::fromImage(convertMat2QImage(imageHarris8U)); // This should be faster than the above three lines
 	mModified = true;
 	uiLabelImage->setPixmap(mPixmap);
 	
@@ -325,9 +318,6 @@ QImage WindowImage::convertMat2QImage(const cv::Mat_<double> &src) {
 
 
 void WindowImage::scaleImage() {
-	qDebug() << "Factor increment: " << mFactorIncrement;
-	qDebug() << "Current factor: " << currentFactor;
-	qDebug() << "";
 // 	uiLabelImage->resize(currentFactor*originalSize);
 	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 	adjustScrollBar(uiScrollArea->horizontalScrollBar());

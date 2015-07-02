@@ -20,8 +20,6 @@ WindowFastRealTime::WindowFastRealTime(QWidget* widget)
 
 	mCamera = cvCaptureFromCAM(-1);
 	if (mCamera!=NULL) {
-// 		qDebug() << cvSetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_WIDTH, 320);
-// 		qDebug() << cvSetCaptureProperty(myCamera, CV_CAP_PROP_FRAME_HEIGHT, 240);
 		qDebug() << "Camera Resolution: " << cvGetCaptureProperty(mCamera, CV_CAP_PROP_FRAME_WIDTH)
 			<< cvGetCaptureProperty(mCamera, CV_CAP_PROP_FRAME_HEIGHT);
 			

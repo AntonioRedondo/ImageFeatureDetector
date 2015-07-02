@@ -769,7 +769,11 @@ void WindowMain::loadFile(QString filePath) {
 			setRecentFile(filePath);
 			WindowImage* windowImage = new WindowImage(image, filePath);
 			uiMdiArea->addSubWindow(windowImage);
-			windowImage->parentWidget()->setGeometry(0,0,image->width()+8,image->height()+30); // 8 and 30 are hardcoded values for the decorations of the subwindow
+			windowImage->parentWidget()->setGeometry(0, 0, image->width()+8, image->height()+30); // 8 and 30 are hardcoded values for the decorations of the subwindow
+			if (image->width() > uiMdiArea->width())
+				windowImage->parentWidget()->setGeometry(0, 0, uiMdiArea->width(), windowImage->parentWidget()->height());
+			if (image->height() > uiMdiArea->height())
+				windowImage->parentWidget()->setGeometry(0, 0, windowImage->parentWidget()->width(), uiMdiArea->height());
 			windowImage->show();
 			uiToolBarParameters->setEnabled(true);
 		} else {

@@ -27,8 +27,7 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	WindowMain();
 	void updateRecentFilesMenu();
 	QSettings* getSettings();
-
-	enum language {english=0, espanol=1, italiano=2};
+	
 	QToolButton* mToolButtonOpenRecent;
 	QMenu* mMenuRecentFiles;
 	int mCapturedWebcamImages;

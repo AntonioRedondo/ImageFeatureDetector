@@ -1,23 +1,23 @@
 #include "windowImage.h"
 
-WindowImage::WindowImage(QImage* imageConstr, QString windowTitleConstr, int titleTypeConstr, int imageNConstr)
-		: mImage(imageConstr), windowImageTitle(windowTitleConstr), titleType(titleTypeConstr), imageN(imageNConstr) {
+WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType, int imageN)
+		: mImage(image), mWindowTitle(windowTitle), mWindowType(windowType), nImageN(imageN) {
 	setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
 	mPainter = new QPainter();
 	mLocale = new QLocale(QLocale::English);
-	if (titleTypeConstr == duplicated)
-		setWindowTitle(windowTitleConstr.append(" (Duplicated %1)").arg(imageNConstr));
-	else setWindowTitle(windowTitleConstr);
+	if (mWindowType == duplicated)
+		setWindowTitle(mWindowTitle.append(" (Duplicated %1)").arg(nImageN));
+	else setWindowTitle(mWindowTitle);
 
 	uiScrollAreaWidgetContents->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 
 	mPixmap = QPixmap::fromImage(*mImage);
-	if (titleType==capturedWebcam) {
+	if (mWindowType==fromWebcam) {
 		// Whit this we redirect the pointer mImage to a new perdurable variable.
 		// myIplImageRealTime which was the former target is deleted when we call to QWidget::close() in the capture window
-		mImageOriginal = QImage(mPixmap.toImage());
-		mImage = &mImageOriginal;
+		mImageOriginal = new QImage(mPixmap.toImage());
+		mImage = mImageOriginal;
 	}
 	mPixmapOriginal = mPixmap;
 	uiLabelImage->setPixmap(mPixmap);
@@ -26,30 +26,30 @@ WindowImage::WindowImage(QImage* imageConstr, QString windowTitleConstr, int tit
 	mScaleFactorAbove100 = 0.5;
 	mScaleFactorUnder100 = 0.25;
 	mFactorIncrement = 0;
-	currentFactor = 1.0;
+	mCurrentFactor = 1.0;
 
 	mOriginalSize = mImage->size();
-	mOriginalWidth = mImage->size().width();
-	mOiginalHeight = mImage->size().height();
+	mOriginalWidth = mImage->width();
+	mOiginalHeight = mImage->height();
 
-	mImageZoom = tr("%1%").arg((int)(currentFactor*100));
+	mImageZoom = tr("%1%").arg((int)(mCurrentFactor*100));
 	mImageDimensions = tr("%1x%2 px").arg(mOriginalWidth).arg(mOiginalHeight);
-	float mNumber = mImage->byteCount()/(float)1024;
-	if (mNumber > 1024)
-		mImageSize = mLocale->toString(mNumber/(float)1024,'f', 2).append(" MiB");
-	else mImageSize = mLocale->toString(mNumber,'f', 2).append(" KiB");
+	float sizeInKiB = mImage->byteCount()/(float)1024;
+	if (sizeInKiB > 1024)
+		mImageSize = mLocale->toString(sizeInKiB/(float)1024,'f', 2).append(" MiB");
+	else mImageSize = mLocale->toString(sizeInKiB,'f', 2).append(" KiB");
 }
 
 
 
 
 void WindowImage::zoomIn() {
-	if (currentFactor>=1.0) {
-		mFactorIncrement = (currentFactor+mScaleFactorAbove100)/currentFactor;
-		currentFactor += mScaleFactorAbove100;
+	if (mCurrentFactor>=1.0) {
+		mFactorIncrement = (mCurrentFactor+mScaleFactorAbove100)/mCurrentFactor;
+		mCurrentFactor += mScaleFactorAbove100;
 	} else {
-		mFactorIncrement = (currentFactor+mScaleFactorUnder100)/currentFactor;
-		currentFactor += mScaleFactorUnder100;
+		mFactorIncrement = (mCurrentFactor+mScaleFactorUnder100)/mCurrentFactor;
+		mCurrentFactor += mScaleFactorUnder100;
 	}
 	scaleImage();
 }
@@ -58,12 +58,12 @@ void WindowImage::zoomIn() {
 
 
 void WindowImage::zoomOut() {
-	if (currentFactor>1.0) {
-		mFactorIncrement = (currentFactor-mScaleFactorAbove100)/currentFactor;
-		currentFactor -= mScaleFactorAbove100;
+	if (mCurrentFactor>1.0) {
+		mFactorIncrement = (mCurrentFactor-mScaleFactorAbove100)/mCurrentFactor;
+		mCurrentFactor -= mScaleFactorAbove100;
 	} else {
-		mFactorIncrement = (currentFactor-mScaleFactorUnder100)/currentFactor;
-		currentFactor -= mScaleFactorUnder100;
+		mFactorIncrement = (mCurrentFactor-mScaleFactorUnder100)/mCurrentFactor;
+		mCurrentFactor -= mScaleFactorUnder100;
 	}
 	scaleImage();
 }
@@ -73,8 +73,8 @@ void WindowImage::zoomOut() {
 
 void WindowImage::zoomBestFit() {
 	float correctF = 0.98; // This correct factor allows the image fits the main window area without scrollbars.
-	int scrollWidth = uiScrollArea->size().width();
-	int scrollHeight = uiScrollArea->size().height();
+	int scrollWidth = width();
+	int scrollHeight = height();
 
 	float relationScroll = scrollWidth/(float)scrollHeight;
 	float relationImage = mOriginalWidth/(float)mOiginalHeight;
@@ -84,14 +84,14 @@ void WindowImage::zoomBestFit() {
 
 	if (relationScroll > relationImage) {
 		if (correctF*scaleHeight>1.0)
-			mFactorIncrement = correctF*scaleHeight/currentFactor;
-		else mFactorIncrement = correctF*scaleHeight/currentFactor;
-		currentFactor = correctF*scaleHeight;
+			mFactorIncrement = correctF*scaleHeight/mCurrentFactor;
+		else mFactorIncrement = correctF*scaleHeight/mCurrentFactor;
+		mCurrentFactor = correctF*scaleHeight;
 	} else {
 		if (correctF*scaleWidth>1.0)
-			mFactorIncrement = correctF*scaleWidth/currentFactor;
-		else mFactorIncrement = correctF*scaleWidth/currentFactor;
-		currentFactor = correctF*scaleWidth;
+			mFactorIncrement = correctF*scaleWidth/mCurrentFactor;
+		else mFactorIncrement = correctF*scaleWidth/mCurrentFactor;
+		mCurrentFactor = correctF*scaleWidth;
 	}
 	
 	scaleImage();
@@ -101,8 +101,8 @@ void WindowImage::zoomBestFit() {
 
 
 void WindowImage::zoomOriginal() {
-	mFactorIncrement = 1/currentFactor;
-	currentFactor = 1.0;
+	mFactorIncrement = 1/mCurrentFactor;
+	mCurrentFactor = 1.0;
 	scaleImage();
 }
 
@@ -162,7 +162,7 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 // 
 // 	mPixmap = QPixmap::fromImage(QImage((uchar*)myIplImageFinal->imageDataOrigin, myIplImageFinal->width, myIplImageFinal->height, QImage::Format_RGB32));
 // 	mModified = true;
-// 	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+// 	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 // 	cvReleaseImage(&myIplImage);
 // 	cvReleaseImage(&myIplImageGray);
 // 	cvReleaseImage(&myIplImageHarris);
@@ -196,7 +196,7 @@ void WindowImage::applyFast(int threshold, bool nonMaxSuppression) {
 	mPainter->end();
 	
 	mModified = true;
-	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -239,7 +239,7 @@ void WindowImage::applySift(double threshold, double edgeThreshold, int nOctaves
 	mPainter->end();
 	
 	mModified = true;
-	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -282,7 +282,7 @@ void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, i
 	mPainter->end();
 	
 	mModified = true;
-	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -293,7 +293,7 @@ void WindowImage::resetImage() {
 	mImageTime.clear();
 	mImageKeypoints.clear();
 	mModified = false;
-	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -318,11 +318,11 @@ QImage WindowImage::convertMat2QImage(const cv::Mat_<double> &src) {
 
 
 void WindowImage::scaleImage() {
-// 	uiLabelImage->resize(currentFactor*originalSize);
-	uiLabelImage->setPixmap(mPixmap.scaled(currentFactor*mOriginalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-	adjustScrollBar(uiScrollArea->horizontalScrollBar());
-	adjustScrollBar(uiScrollArea->verticalScrollBar());
-	mImageZoom = tr("%1%").arg((int)(currentFactor*100));
+// 	uiLabelImage->resize(mCurrentFactor*originalSize);
+	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+	adjustScrollBar(horizontalScrollBar());
+	adjustScrollBar(verticalScrollBar());
+	mImageZoom = tr("%1%").arg((int)(mCurrentFactor*100));
 }
 
 
@@ -345,10 +345,10 @@ void WindowImage::mousePressEvent(QMouseEvent* event) {
 
 void WindowImage::mouseMoveEvent(QMouseEvent* event) {
 	QPoint myPos = event->pos();
-	int hValue = uiScrollArea->horizontalScrollBar()->value();
-	int vValue = uiScrollArea->verticalScrollBar()->value();
-	uiScrollArea->horizontalScrollBar()->setValue(hValue+(mLastPoint.x()-myPos.x()));
-	uiScrollArea->verticalScrollBar()->setValue(vValue+(mLastPoint.y()-myPos.y()));
+	int hValue = horizontalScrollBar()->value();
+	int vValue = verticalScrollBar()->value();
+	horizontalScrollBar()->setValue(hValue+(mLastPoint.x()-myPos.x()));
+	verticalScrollBar()->setValue(vValue+(mLastPoint.y()-myPos.y()));
 	mLastPoint = myPos;
 }
 
@@ -366,3 +366,4 @@ void WindowImage::mouseReleaseEvent(QMouseEvent* event) {
 // 	if (event->button()==Qt::LeftButton) zoomIn();
 // 	else zoomOut();
 // }
+

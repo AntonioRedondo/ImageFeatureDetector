@@ -1,7 +1,7 @@
 #include "windowFastRealTime.h"
 
-WindowFastRealTime::WindowFastRealTime(QWidget* widget)
-		: QDialog(widget, Qt::Dialog) {
+WindowFastRealTime::WindowFastRealTime(QWidget* parentWidget)
+		: QDialog(parentWidget, Qt::Dialog) {
 	setupUi(this);
 	mSettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
 	mTimer = new QTimer();
@@ -66,9 +66,9 @@ void WindowFastRealTime::close() {
 
 
 
-void WindowFastRealTime::closeEvent(QCloseEvent* _event) {
+void WindowFastRealTime::closeEvent(QCloseEvent* closeEvent) {
 	close();
-	QWidget::closeEvent(_event);
+	QWidget::closeEvent(closeEvent);
 }
 
 

@@ -22,8 +22,8 @@ using namespace std;
 class WindowFastRealTime : public QDialog, Ui::fastRealTimeWindow {
   Q_OBJECT
   public:
-	WindowFastRealTime(QWidget* _widget);
-	void closeEvent(QCloseEvent* _event);
+	WindowFastRealTime(QWidget* parentWidget);
+	void closeEvent(QCloseEvent* closeEvent);
 
 	QWidget* mWidget;
 

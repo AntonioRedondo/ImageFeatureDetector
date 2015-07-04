@@ -22,8 +22,8 @@ using namespace std;
 class WindowCaptureWebcam : public QDialog, private Ui::captureWebcamWindow {
   Q_OBJECT
   public:
-	WindowCaptureWebcam(QWidget* widget);
-	void closeEvent(QCloseEvent* event);
+	WindowCaptureWebcam(QWidget* parentWidget);
+	void closeEvent(QCloseEvent* closeEvent);
 	
 	QWidget* mWidget;
 	

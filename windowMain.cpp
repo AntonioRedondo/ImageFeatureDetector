@@ -243,7 +243,7 @@ void WindowMain::captureWebcam() {
 
 
 void WindowMain::saveCopyAs() {
-	QString myFileName = QFileDialog::getSaveFileName(0, tr("Save Copy As"), QFileInfo(mActiveWindowImage->windowImageTitle).baseName().append(".png"), tr("Images (*.bmp *.png)"));
+	QString myFileName = QFileDialog::getSaveFileName(0, tr("Save Copy As"), QFileInfo(mActiveWindowImage->mWindowTitle).baseName().append(".png"), tr("Images (*.bmp *.png)"));
 	if (!myFileName.isEmpty()) mActiveWindowImage->mPixmap.save(myFileName);
 }
 
@@ -289,8 +289,8 @@ void WindowMain::zoom() {
 	else if (sender()==uiActionZoomBestFit)
 		mActiveWindowImage->zoomBestFit();
 	
-	uiActionZoomIn->setEnabled(mActiveWindowImage->currentFactor < 3.0);
-	uiActionZoomOut->setEnabled(mActiveWindowImage->currentFactor > 0.25);
+	uiActionZoomIn->setEnabled(mActiveWindowImage->mCurrentFactor < 3.0);
+	uiActionZoomOut->setEnabled(mActiveWindowImage->mCurrentFactor > 0.25);
 	mStatusBarLabelZoom->setText(mActiveWindowImage->mImageZoom);
 }
 
@@ -331,7 +331,7 @@ void WindowMain::applyHarris() {
 			mSettings->value("harris/harrisApertureSize", 2).toInt(),
 			mSettings->value("harris/kValue", 0.01).toDouble());
 	uiActionResetImage->setEnabled(true);
-	mActiveWindowImage->feature=WindowImage::harrisType;
+	mActiveWindowImage->mFeatureType=WindowImage::harris;
 	mActiveWindow->setWindowIcon(*mIconHarris);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime);
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints);
@@ -377,7 +377,7 @@ void WindowMain::restFastParams() {
 void WindowMain::applyFast() {
 	mActiveWindowImage->applyFast(mSettings->value("fast/threshold", 50).toInt(), mSettings->value("fast/nonMaxSuppression", true).toBool());
 	uiActionResetImage->setEnabled(true);
-	mActiveWindowImage->feature=WindowImage::fastType;
+	mActiveWindowImage->mFeatureType=WindowImage::fast;
 	mActiveWindow->setWindowIcon(*mIconFAST);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime);
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints);
@@ -429,7 +429,7 @@ void WindowMain::applySift() {
 			mSettings->value("sift/layers", 1).toInt(),
 			mSettings->value("sift/showOrientation", true).toBool());
 	uiActionResetImage->setEnabled(true);
-	mActiveWindowImage->feature=WindowImage::siftType;
+	mActiveWindowImage->mFeatureType=WindowImage::sift;
 	mActiveWindow->setWindowIcon(*mIconSIFT);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime);
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints);
@@ -483,7 +483,7 @@ void WindowMain::applySurf() {
 			0,
 			mSettings->value("surf/showOrientation", true).toBool());
 	uiActionResetImage->setEnabled(true);
-	mActiveWindowImage->feature=WindowImage::surfType;
+	mActiveWindowImage->mFeatureType=WindowImage::surf;
 	mActiveWindow->setWindowIcon(*mIconSURF);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime);
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints);
@@ -509,7 +509,7 @@ void WindowMain::saveSurfParams() {
 void WindowMain::resetImage() {
 	mActiveWindowImage->resetImage();
 	uiActionResetImage->setEnabled(false);
-	mActiveWindowImage->feature=WindowImage::none;
+	mActiveWindowImage->mFeatureType=WindowImage::none;
 	mActiveWindow->setWindowIcon(QApplication::windowIcon());
 	mStatusBarLabelIcon->clear();
 	mStatusBarLabelIcon->setVisible(false);
@@ -526,47 +526,49 @@ void WindowMain::do4() {
 	uiStatusBar->showMessage("Calculating features...");
 	applySurf();
 
-	WindowImage* harrisImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->windowImageTitle,
-		WindowImage::duplicated, mActiveWindowImage->imageN);
+	WindowImage* harrisImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle,
+		WindowImage::duplicated, mActiveWindowImage->nImageN);
 	uiMdiArea->addSubWindow(harrisImage);
 	QList<QMdiSubWindow*> windowsList = uiMdiArea->subWindowList();
 	for (int n=0; n<windowsList.size(); ++n) {
 		WindowImage* windowImageCopy = qobject_cast<WindowImage*>(windowsList.at(n)->widget());
 		if (windowImageCopy == harrisImage) {
-			++windowImageCopy->imageN;
+			++windowImageCopy->nImageN;
 			mActiveWindow=windowsList.at(n);
 			mActiveWindowImage=windowImageCopy;
 			applyHarris();
 		}
 	}
 
-	WindowImage* fastImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->windowImageTitle,
-		WindowImage::duplicated, mActiveWindowImage->imageN);
+	WindowImage* fastImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle,
+		WindowImage::duplicated, mActiveWindowImage->nImageN);
 	uiMdiArea->addSubWindow(fastImage);
 	windowsList = uiMdiArea->subWindowList();
 	for (int n=0; n<windowsList.size(); ++n) {
 		WindowImage* windowImageCopy = qobject_cast<WindowImage*>(windowsList.at(n)->widget());
 		if (windowImageCopy == fastImage) {
-			++windowImageCopy->imageN;
+			++windowImageCopy->nImageN;
 			mActiveWindow=windowsList.at(n);
 			mActiveWindowImage=windowImageCopy;
 			applyFast();
 		}
 	}
 
-	WindowImage* siftImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->windowImageTitle,
-		WindowImage::duplicated, mActiveWindowImage->imageN);
+	WindowImage* siftImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle,
+		WindowImage::duplicated, mActiveWindowImage->nImageN);
 	uiMdiArea->addSubWindow(siftImage);
 	windowsList = uiMdiArea->subWindowList();
 	for (int n=0; n<windowsList.size(); ++n) {
 		WindowImage* windowImageCopy = qobject_cast<WindowImage*>(windowsList.at(n)->widget());
 		if (windowImageCopy == siftImage) {
-			++windowImageCopy->imageN;
+			++windowImageCopy->nImageN;
 			mActiveWindow=windowsList.at(n);
 			mActiveWindowImage=windowImageCopy;
 			applySift();
 		}
 	}
+	
+// 	WindowDo4* windowDo4 = new WindowDo4(this);
 
 	siftImage->show();
 	fastImage->show();
@@ -613,15 +615,15 @@ void WindowMain::cascade() {
 
 
 void WindowMain::duplicate() {
-	WindowImage* windowImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->windowImageTitle,
-		WindowImage::duplicated, mActiveWindowImage->imageN);
+	WindowImage* windowImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle,
+		WindowImage::duplicated, mActiveWindowImage->nImageN);
 	uiMdiArea->addSubWindow(windowImage);
 
 	QList<QMdiSubWindow*> myListWindows = uiMdiArea->subWindowList();
 	for (int n=0; n<myListWindows.size(); ++n) {
 		WindowImage* windowImageCopy = qobject_cast<WindowImage*>(myListWindows.at(n)->widget());
-		if (windowImageCopy->windowImageTitle==windowImage->windowImageTitle)
-			++windowImageCopy->imageN;
+		if (windowImageCopy->mWindowTitle==windowImage->mWindowTitle)
+			++windowImageCopy->nImageN;
 	}
 
 	windowImage->show();
@@ -691,16 +693,16 @@ void WindowMain::updateWindowMenu(QMdiSubWindow* mdiSubWindow) {
 		mActionGroupZoom->setEnabled(true);
 		mActionGroupFeatures->setEnabled(true);
 		mActionGroupWindow->setEnabled(true);
-		uiActionZoomIn->setEnabled(mActiveWindowImage->currentFactor < 3.0);
-		uiActionZoomOut->setEnabled(mActiveWindowImage->currentFactor > 0.25);
+		uiActionZoomIn->setEnabled(mActiveWindowImage->mCurrentFactor < 3.0);
+		uiActionZoomOut->setEnabled(mActiveWindowImage->mCurrentFactor > 0.25);
 		
 		if (!mActiveWindowImage->mImageTime.isEmpty()) {
 			uiActionResetImage->setEnabled(true);
-			switch (mActiveWindowImage->feature) {
-				case WindowImage::harrisType: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris48.png"))); break;
-				case WindowImage::fastType: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/FAST48.png"))); break;
-				case WindowImage::siftType: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/SIFT48.png"))); break;
-				case WindowImage::surfType: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/SURF48.png"))); break;
+			switch (mActiveWindowImage->mFeatureType) {
+				case WindowImage::harris: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris48.png"))); break;
+				case WindowImage::fast: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/FAST48.png"))); break;
+				case WindowImage::sift: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/SIFT48.png"))); break;
+				case WindowImage::surf: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/SURF48.png"))); break;
 			}
 			mStatusBarLabelIcon->setVisible(true);
 			mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime);
@@ -769,7 +771,7 @@ void WindowMain::loadFile(QString filePath) {
 			setRecentFile(filePath);
 			WindowImage* windowImage = new WindowImage(image, filePath);
 			uiMdiArea->addSubWindow(windowImage);
-			windowImage->parentWidget()->setGeometry(0, 0, image->width()+8, image->height()+30); // 8 and 30 are hardcoded values for the decorations of the subwindow
+			windowImage->parentWidget()->setGeometry(0, 0, image->width()+8, image->height()+31); // 8 and 31 are hardcoded values for the decorations of the subwindow
 			if (image->width() > uiMdiArea->width())
 				windowImage->parentWidget()->setGeometry(0, 0, uiMdiArea->width(), windowImage->parentWidget()->height());
 			if (image->height() > uiMdiArea->height())

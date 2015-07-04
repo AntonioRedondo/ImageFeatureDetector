@@ -31,6 +31,9 @@
   <property name="windowTitle">
    <string>Image Feature Detector - Welcome</string>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <property name="spacing">
     <number>12</number>

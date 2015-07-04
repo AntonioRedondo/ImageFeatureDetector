@@ -17,7 +17,7 @@
 class WindowPreferences : public QDialog, private Ui::preferencesWindow {
   Q_OBJECT
   public:
-	WindowPreferences(QWidget* widgetConstr);
+	WindowPreferences(QWidget* parentWidget);
 
   private:
 	QWidget* mWidget;

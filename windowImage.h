@@ -21,33 +21,33 @@ using namespace xfeatures2d;
        \brief
        @author authorname
 */
-class WindowImage : public QWidget, Ui::imageWindow {
+class WindowImage : public QScrollArea, Ui::imageWindow {
   Q_OBJECT
   public:
-	WindowImage(QImage* imageConstr, QString windowTitleConstr, int titleTypeConstr=normal, int imageNConstr=1);
+	WindowImage(QImage* image, QString windowTitle, int windowType=normal, int imageN=1);
 	void zoomIn();
 	void zoomOut();
 	void zoomOriginal();
 	void zoomBestFit();
 	void resetImage();
 	void applyHarris(int sobelApertureSize, int harrisApertureSize, double kValue);
-	void applyFast(int threshold, bool nonmax_suppression);
-	void applySift(double _threshold, double _edgeThreshold, int _nOctaves, int _nOctaveLayers, bool _showOrientation);
+	void applyFast(int threshold, bool nonMaxSuppression);
+	void applySift(double threshold, double edgeThreshold, int nOctaves, int nOctaveLayers, bool showOrientation);
 	void applySurf(double threshold, int nOctaves, int nOctaveLayers, int extended, bool showOrientation);
 
-	enum windowTitleType {normal=0, duplicated=1, capturedWebcam=2, capturedRoboLab=3};
-	enum featureType {none=0, harrisType=1, fastType=2, siftType=3, surfType=4};
+	enum windowType {normal=0, duplicated=1, fromWebcam=2, do4=3};
+	enum featureType {none=0, harris=1, fast=2, sift=3, surf=4};
 	QImage* mImage;
-	QImage mImageOriginal;
+	QImage* mImageOriginal;
 	QPixmap mPixmap;
 	QString mImageZoom;
 	QString mImageTime;
 	QString mImageKeypoints;
 	QString mImageDimensions;
 	QString mImageSize;
-	QString windowImageTitle;
-	int titleType, imageN, feature;
-	float currentFactor;
+	QString mWindowTitle;
+	int mWindowType, mFeatureType, nImageN;
+	float mCurrentFactor;
 
   protected:
 	void mousePressEvent(QMouseEvent* event);
@@ -67,8 +67,6 @@ class WindowImage : public QWidget, Ui::imageWindow {
 	QPoint mLastPoint;
 	QLocale* mLocale;
 	QPainter* mPainter;
-// 	QLabel* myLabelImage;
-// 	QScrollArea* mySrollArea;
 	bool mModified;
 	int mOriginalWidth, mOiginalHeight;
 	float mScaleFactorAbove100, mScaleFactorUnder100, mFactorIncrement;

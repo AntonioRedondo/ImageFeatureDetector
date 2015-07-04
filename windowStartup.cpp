@@ -1,8 +1,8 @@
 #include "windowStartup.h"
 
 
-WindowStartup::WindowStartup(QWidget* widgetConstr)
-		: mWidget(widgetConstr), QDialog::QDialog(widgetConstr, Qt::Dialog) {
+WindowStartup::WindowStartup(QWidget* parentWidget)
+		: mParentWidget(parentWidget), QDialog::QDialog(parentWidget, Qt::Dialog) {
 	setupUi(this);
 
 	mSettings = new QSettings("imageFeatureDetectorSettings.ini", QSettings::IniFormat);
@@ -13,7 +13,7 @@ WindowStartup::WindowStartup(QWidget* widgetConstr)
 		uiToolButtonOpenRecent->setText("There Is No Recent Files");
 	}
 
-	QMenu* recentFiles = qobject_cast<WindowMain*>(mWidget)->mMenuRecentFiles;
+	QMenu* recentFiles = qobject_cast<WindowMain*>(mParentWidget)->mMenuRecentFiles;
 	uiToolButtonOpenRecent->setMenu(recentFiles);	
 	
 	connect(uiCommandLinkButtonOpen, &QAbstractButton::clicked, this, &WindowStartup::open);
@@ -30,14 +30,14 @@ WindowStartup::WindowStartup(QWidget* widgetConstr)
 
 void WindowStartup::open() {
 	close();
-	qobject_cast<WindowMain*>(mWidget)->open();
+	qobject_cast<WindowMain*>(mParentWidget)->open();
 }
 
 
 
 
 void WindowStartup::captureWebcam() {
-	qobject_cast<WindowMain*>(mWidget)->captureWebcam();
+	qobject_cast<WindowMain*>(mParentWidget)->captureWebcam();
 	close();
 }
 

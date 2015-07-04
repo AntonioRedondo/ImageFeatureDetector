@@ -17,10 +17,10 @@
 class WindowStartup : public QDialog, private Ui::startupWindow {
   Q_OBJECT
   public:
-	WindowStartup(QWidget* widgetConstr);
+	WindowStartup(QWidget* parentWidget);
 
   private:
-	QWidget* mWidget;
+	QWidget* mParentWidget;
 	QSettings* mSettings;
 
   private slots:

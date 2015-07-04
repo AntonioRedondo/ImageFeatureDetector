@@ -1,8 +1,8 @@
 #include "windowPreferences.h"
 
 
-WindowPreferences::WindowPreferences(QWidget* widgetConstr)
-		: mWidget(widgetConstr), QDialog::QDialog(widgetConstr, Qt::Dialog) {
+WindowPreferences::WindowPreferences(QWidget* parentWidget)
+		: mWidget(parentWidget), QDialog::QDialog(parentWidget, Qt::Dialog) {
 	setupUi(this);
 
 	mSettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);

@@ -35,6 +35,7 @@ WindowMain::WindowMain() {
 	mActionExit->setObjectName(QString::fromUtf8("actionExit"));
 	mActionExit->setText(QApplication::translate("mainWindow", "Exit", 0));
 	mActionExit->setShortcut(QApplication::translate("mainWindow", "Ctrl+Q", 0));
+	mActionExit->setIcon(QIcon("iconsBreeze/window-close.svg"));
 	uiMenuFile->addAction(mActionExit);
 
 	mToolButtonOpenRecent = new QToolButton(this);
@@ -594,18 +595,23 @@ void WindowMain::cascade() {
 
 
 void WindowMain::duplicate() {
-	WindowImage* windowImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle,
-		WindowImage::duplicated, mActiveWindowImage->nImageN);
-	uiMdiArea->addSubWindow(windowImage);
-
-	QList<QMdiSubWindow*> myListWindows = uiMdiArea->subWindowList();
-	for (int n=0; n<myListWindows.size(); ++n) {
-		WindowImage* windowImageCopy = qobject_cast<WindowImage*>(myListWindows.at(n)->widget());
-		if (windowImageCopy->mWindowTitle==windowImage->mWindowTitle)
-			++windowImageCopy->nImageN;
+	WindowImage* windowImageOriginal;
+	QList<QMdiSubWindow*> subwindows = uiMdiArea->subWindowList();
+	for (int n=0; n<subwindows.size(); ++n) {
+		windowImageOriginal = qobject_cast<WindowImage*>(subwindows.at(n)->widget());
+		// If two different images have the same name, oh-oh, this will mess it up...
+		if (windowImageOriginal->mWindowTitle == mActiveWindowImage->mOriginalTitle) {
+			++windowImageOriginal->nImageN;
+			break;
+		}
 	}
-
-	windowImage->show();
+	
+	QString title;
+	if (mActiveWindowImage->mWindowType == WindowImage::duplicated) {
+		title = mActiveWindowImage->mOriginalTitle + QString(" (Duplicated %1)").arg(windowImageOriginal->nImageN);
+	} else title = mActiveWindowImage->mOriginalTitle + " (Duplicated 1)";
+	
+	showWindowImage(new WindowImage(mActiveWindowImage->mImage, title, WindowImage::duplicated, windowImageOriginal->nImageN, mActiveWindowImage->mOriginalTitle));
 }
 
 
@@ -736,19 +742,25 @@ void WindowMain::loadFile(QString filePath) {
 		QImage* image = new QImage(filePath);
 		if (!image->isNull()) {
 			setRecentFile(filePath);
-			WindowImage* windowImage = new WindowImage(image, filePath);
-			uiMdiArea->addSubWindow(windowImage);
-			windowImage->parentWidget()->setGeometry(0, 0, image->width()+8, image->height()+31); // 8 and 31 are hardcoded values for the decorations of the subwindow
-			if (image->width() > uiMdiArea->width())
-				windowImage->parentWidget()->setGeometry(0, 0, uiMdiArea->width(), windowImage->parentWidget()->height());
-			if (image->height() > uiMdiArea->height())
-				windowImage->parentWidget()->setGeometry(0, 0, windowImage->parentWidget()->width(), uiMdiArea->height());
-			windowImage->show();
+			showWindowImage(new WindowImage(image, filePath));
 			uiToolBarParameters->setEnabled(true);
 		} else {
 			QMessageBox::warning(this, tr("Image Feature Detector"), tr("Cannot open %1.").arg(filePath));
 		}
 	}
+}
+
+
+
+
+void WindowMain::showWindowImage(WindowImage* windowImage) {
+	uiMdiArea->addSubWindow(windowImage);
+	windowImage->parentWidget()->setGeometry(0, 0, windowImage->mImage->width()+8, windowImage->mImage->height()+31); // 8 and 31 are hardcoded values for the decorations of the subwindow
+	if (windowImage->mImage->width() > uiMdiArea->width())
+		windowImage->parentWidget()->setGeometry(0, 0, uiMdiArea->width(), windowImage->parentWidget()->height());
+	if (windowImage->mImage->height() > uiMdiArea->height())
+		windowImage->parentWidget()->setGeometry(0, 0, windowImage->parentWidget()->width(), uiMdiArea->height());
+	windowImage->show();
 }
 
 

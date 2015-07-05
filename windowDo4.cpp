@@ -6,6 +6,7 @@ WindowDo4::WindowDo4(QString windowTitle, WindowImage* harrisImage, WindowImage*
 	setupUi(this);
 	
 	setWindowTitle(windowTitle + " - Do4!");
+	setWindowIcon(QIcon("icons/Do448.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
 	
 	uiHLayout1->insertWidget(1, mHarrisImage);

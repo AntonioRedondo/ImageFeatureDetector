@@ -29,7 +29,6 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	void updateRecentFilesMenu();
 	QSettings* getSettings();
 
-	enum language {english=0, espanol=1, italiano=2};
 	QToolButton* mToolButtonOpenRecent;
 	QMenu* mMenuRecentFiles;
 	int mCapturedWebcamImages;
@@ -39,10 +38,10 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	void captureWebcam();
 
   private:
-	void loadFile(QString fileName);
-	void closeEvent(QCloseEvent* eventConstr);
+	void loadFile(QString);
+	void closeEvent(QCloseEvent*);
 	void saveSettings();
-	void setRecentFile(QString fileName);
+	void setRecentFile(QString);
 
 	bool mSeparatorOpenWindowsAdded; // Adding the separator on Qt Designer doesn't work
 	QSettings* mSettings;
@@ -130,6 +129,7 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	void website();
 	void about();
 
+	void showWindowImage(WindowImage*);
 	void updateWindowMenu(QMdiSubWindow*);
 	void openRecentFile();
 	void setActiveSubWindow(QWidget*);

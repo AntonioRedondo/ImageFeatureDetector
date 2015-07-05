@@ -24,7 +24,7 @@ using namespace xfeatures2d;
 class WindowImage : public QScrollArea, Ui::imageWindow {
   Q_OBJECT
   public:
-	WindowImage(QImage* image, QString windowTitle, int windowType=normal, int imageN=1);
+	WindowImage(QImage* image, QString windowTitle, int windowType=normal, int imageN=0, QString originalTitle = 0);
 	void zoomIn();
 	void zoomOut();
 	void zoomOriginal();
@@ -46,6 +46,7 @@ class WindowImage : public QScrollArea, Ui::imageWindow {
 	QString mImageDimensions;
 	QString mImageSize;
 	QString mWindowTitle;
+	QString mOriginalTitle;
 	int mWindowType, mFeatureType, nImageN;
 	float mCurrentFactor;
 

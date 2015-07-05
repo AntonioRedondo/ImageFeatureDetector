@@ -1,14 +1,14 @@
 #include "windowImage.h"
 
-WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType, int imageN)
-		: mImage(image), mWindowTitle(windowTitle), mWindowType(windowType), nImageN(imageN) {
+WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType, int imageN, QString originalTitle)
+		: mImage(image), mWindowTitle(windowTitle), mWindowType(windowType), nImageN(imageN), mOriginalTitle(originalTitle) {
 	setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
 	mPainter = new QPainter();
 	mLocale = new QLocale(QLocale::English);
-	if (mWindowType == duplicated)
-		setWindowTitle(mWindowTitle.append(" (Duplicated %1)").arg(nImageN));
-	else setWindowTitle(mWindowTitle);
+	setWindowTitle(mWindowTitle);
+	if (mOriginalTitle == 0)
+		mOriginalTitle = mWindowTitle;
 
 	uiScrollAreaWidgetContents->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 

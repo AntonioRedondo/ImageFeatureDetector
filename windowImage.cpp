@@ -72,7 +72,7 @@ void WindowImage::zoomOut() {
 
 
 void WindowImage::zoomBestFit() {
-	float correctF = 0.98; // This correct factor allows the image fits the main window area without scrollbars.
+	float correctF = 0.99; // This correct factor allows the image fits the main window area without scrollbars.
 	int scrollWidth = width();
 	int scrollHeight = height();
 
@@ -362,8 +362,8 @@ void WindowImage::mouseReleaseEvent(QMouseEvent* event) {
 
 
 
-// void windowImage::mouseDoubleClickEvent(QMouseEvent* event) {
-// 	if (event->button()==Qt::LeftButton) zoomIn();
-// 	else zoomOut();
-// }
-
+void WindowImage::mouseDoubleClickEvent(QMouseEvent* event) {
+	if (event->button()==Qt::LeftButton)
+		zoomIn();
+	else zoomOut();
+}

@@ -11,6 +11,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/features2d.hpp>
 #include "ui_fastRealTimeWindow.h"
+#include "windowMain.h"
 
 using namespace cv;
 using namespace std;
@@ -22,10 +23,8 @@ using namespace std;
 class WindowFastRealTime : public QDialog, Ui::fastRealTimeWindow {
   Q_OBJECT
   public:
-	WindowFastRealTime(QWidget* parentWidget);
+	WindowFastRealTime(WindowMain* windowMain);
 	void closeEvent(QCloseEvent* closeEvent);
-
-	QWidget* mWidget;
 
   private:
 	QSettings* mSettings;

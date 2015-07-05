@@ -1,3 +1,4 @@
+# http://cmake.org/runningcmake
 # http://doc.qt.io/qt-5/cmake-manual.html
 
 cmake_minimum_required(VERSION 2.8.11)

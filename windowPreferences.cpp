@@ -1,8 +1,8 @@
 #include "windowPreferences.h"
 
 
-WindowPreferences::WindowPreferences(QWidget* parentWidget)
-		: mWidget(parentWidget), QDialog::QDialog(parentWidget, Qt::Dialog) {
+WindowPreferences::WindowPreferences(WindowMain* windowMain)
+		: mWindowMain(windowMain), QDialog::QDialog(windowMain, Qt::Dialog) {
 	setupUi(this);
 
 	mSettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
@@ -41,7 +41,7 @@ void WindowPreferences::clearRecentFiles() {
 	mSettings->setValue("recentFiles", files);
 	uiPushButtonClearRecentFiles->setEnabled(false);
 	uiPushButtonClearRecentFiles->setText("Recent File List Cleared");
-	qobject_cast<WindowMain*>(mWidget)->updateRecentFilesMenu();
+	mWindowMain->updateRecentFilesMenu();
 }
 
 

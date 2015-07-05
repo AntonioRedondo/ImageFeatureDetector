@@ -14,13 +14,16 @@
        \brief
        @author authorname
 */
+
+class WindowMain; // http://stackoverflow.com/questions/2133250/does-not-name-a-type-error-in-c
+
 class WindowPreferences : public QDialog, private Ui::preferencesWindow {
   Q_OBJECT
   public:
-	WindowPreferences(QWidget* parentWidget);
+	WindowPreferences(WindowMain* windowMain);
 
   private:
-	QWidget* mWidget;
+	WindowMain* mWindowMain;
 	QSettings* mSettings;
 
   private slots:

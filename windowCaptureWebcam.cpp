@@ -1,7 +1,7 @@
 #include "windowCaptureWebcam.h"
 
-WindowCaptureWebcam::WindowCaptureWebcam(QWidget* parentWidget)
-		: mWidget(parentWidget), QDialog(parentWidget, Qt::Dialog), mCamera(NULL), mTimer(NULL) {
+WindowCaptureWebcam::WindowCaptureWebcam(WindowMain* windowMain)
+		: mWindowMain(windowMain), QDialog(windowMain, Qt::Dialog), mCamera(NULL), mTimer(NULL) {
 	setupUi(this);
 	
 	connect(uiPushButtonCapture, &QAbstractButton::clicked, this, &WindowCaptureWebcam::capture);
@@ -63,10 +63,9 @@ void WindowCaptureWebcam::capture() {
 
 
 void WindowCaptureWebcam::ok() {
-	WindowMain* windowMain = qobject_cast<WindowMain*>(mWidget);
-	WindowImage* windowImage = new WindowImage(mImage, tr("WebCam Captured Image %1").arg(++windowMain->mCapturedWebcamImages), WindowImage::fromWebcam);
+	WindowImage* windowImage = new WindowImage(mImage, tr("WebCam Captured Image %1").arg(++mWindowMain->mCapturedWebcamImages), WindowImage::fromWebcam);
 // 	else myWindowImage = new windowImage(new QImage(myLabelRealTime->pixmap()->toImage()), tr("WebCam Captured Image %1").arg(++myWorker->capturedWebcamImages), windowImage::capturedWebcam);
-	windowMain->uiMdiArea->addSubWindow(windowImage);
+	mWindowMain->uiMdiArea->addSubWindow(windowImage);
 	windowImage->show();
 	close();
 }

@@ -17,7 +17,7 @@ class WindowAbout : public QDialog, private Ui::aboutWindow {
   Q_OBJECT
   public:
 	WindowAbout();
-	WindowAbout(QWidget* widgetConstr) : QDialog(widgetConstr, Qt::Dialog) {
+	WindowAbout(QWidget* windowMain) : QDialog(windowMain, Qt::Dialog) {
 		setupUi(this);
 // 		setWindowFlags(Qt::Dialog);
 		show();

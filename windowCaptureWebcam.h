@@ -15,6 +15,8 @@
 using namespace cv;
 using namespace std;
 
+class WindowMain; // http://stackoverflow.com/questions/2133250/does-not-name-a-type-error-in-c
+
 /**
        \brief
        @author authorname
@@ -22,10 +24,10 @@ using namespace std;
 class WindowCaptureWebcam : public QDialog, private Ui::captureWebcamWindow {
   Q_OBJECT
   public:
-	WindowCaptureWebcam(QWidget* parentWidget);
+	WindowCaptureWebcam(WindowMain* windowMain);
 	void closeEvent(QCloseEvent* closeEvent);
 	
-	QWidget* mWidget;
+	WindowMain* mWindowMain;
 	
   private:
 	CvCapture* mCamera;

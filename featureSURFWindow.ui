@@ -65,7 +65,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>:/icons/iconsfeatures/SURF48.png</pixmap>
+      <pixmap>icons/SURF48.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -205,7 +205,7 @@
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>:/icons/iconsfeatures/showOrientation16.png</normaloff>:/icons/iconsfeatures/showOrientation16.png</iconset>
+       <normaloff>icons/showOrientation16.png</normaloff>icons/showOrientation16.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -286,7 +286,7 @@
  </tabstops>
  <resources>
   <include location="icons.qrc"/>
-  <include location="../../.designer/backup/icons.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections/>
 </ui>

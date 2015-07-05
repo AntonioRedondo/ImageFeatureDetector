@@ -65,7 +65,7 @@
       </size>
      </property>
      <property name="pixmap">
-      <pixmap>:/icons/iconsfeatures/FAST48.png</pixmap>
+      <pixmap>icons/FAST48.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -205,7 +205,7 @@
  </widget>
  <resources>
   <include location="icons.qrc"/>
-  <include location="../../.designer/backup/icons.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections/>
 </ui>

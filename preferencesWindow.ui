@@ -21,13 +21,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
+    <width>440</width>
     <height>200</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>470</width>
+    <width>440</width>
     <height>200</height>
    </size>
   </property>
@@ -125,8 +125,8 @@
         <string>Crear Recent Files List</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/iconshumanity48/edit-clear.svg</normaloff>:/icons/iconshumanity48/edit-clear.svg</iconset>
+        <iconset>
+         <normaloff>iconshumanity48/edit-clear.svg</normaloff>iconshumanity48/edit-clear.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -146,9 +146,6 @@
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
      </property>
-     <property name="centerButtons">
-      <bool>false</bool>
-     </property>
     </widget>
    </item>
   </layout>
@@ -158,8 +155,6 @@
   <tabstop>uiPushButtonClearRecentFiles</tabstop>
   <tabstop>uiDialogButtonBox</tabstop>
  </tabstops>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

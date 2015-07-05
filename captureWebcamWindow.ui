@@ -253,8 +253,8 @@
         <string>Capture</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/iconshumanity48/camera-photo.svg</normaloff>:/icons/iconshumanity48/camera-photo.svg</iconset>
+        <iconset>
+         <normaloff>iconshumanity48/camera-photo.svg</normaloff>iconshumanity48/camera-photo.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -279,8 +279,8 @@
         <string>OK</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/iconshumanity48/dialog-apply.svg</normaloff>:/icons/iconshumanity48/dialog-apply.svg</iconset>
+        <iconset>
+         <normaloff>iconshumanity48/dialog-apply.svg</normaloff>iconshumanity48/dialog-apply.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -302,8 +302,8 @@
         <string>Cancel</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/iconshumanity48/process-stop.svg</normaloff>:/icons/iconshumanity48/process-stop.svg</iconset>
+        <iconset>
+         <normaloff>iconshumanity48/process-stop.svg</normaloff>iconshumanity48/process-stop.svg</iconset>
        </property>
        <property name="iconSize">
         <size>

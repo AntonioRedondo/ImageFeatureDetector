@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>909</width>
-    <height>715</height>
+    <width>1100</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>909</width>
+     <width>1100</width>
      <height>25</height>
     </rect>
    </property>
@@ -264,8 +264,8 @@
   </widget>
   <action name="uiActionOpen">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconshumanity48/document-openB.svg</normaloff>:/icons/iconshumanity48/document-openB.svg</iconset>
+    <iconset>
+     <normaloff>iconshumanity48/document-open.svg</normaloff>iconshumanity48/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>Open...</string>
@@ -282,8 +282,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconshumanity48/document-save-asB.svg</normaloff>:/icons/iconshumanity48/document-save-asB.svg</iconset>
+    <iconset>
+     <normaloff>iconshumanity48/document-save-as.svg</normaloff>iconshumanity48/document-save-as.svg</iconset>
    </property>
    <property name="text">
     <string>Save Copy As...</string>
@@ -294,8 +294,8 @@
   </action>
   <action name="uiActionWebsite">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconshumanity16/go-home.svg</normaloff>:/icons/iconshumanity16/go-home.svg</iconset>
+    <iconset>
+     <normaloff>iconshumanity16/go-home.svg</normaloff>iconshumanity16/go-home.svg</iconset>
    </property>
    <property name="text">
     <string>Project on GitHub</string>
@@ -306,8 +306,8 @@
   </action>
   <action name="uiActionAbout">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconshumanity16/gtk-info.svg</normaloff>:/icons/iconshumanity16/gtk-info.svg</iconset>
+    <iconset>
+     <normaloff>iconshumanity16/gtk-info.svg</normaloff>iconshumanity16/gtk-info.svg</iconset>
    </property>
    <property name="text">
     <string>About...</string>
@@ -315,8 +315,8 @@
   </action>
   <action name="uiActionCaptureWebcam">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconshumanity48/camera-web.svg</normaloff>:/icons/iconshumanity48/camera-web.svg</iconset>
+    <iconset>
+     <normaloff>iconshumanity48/camera-web.svg</normaloff>iconshumanity48/camera-web.svg</iconset>
    </property>
    <property name="text">
     <string>Capture from Webcam...</string>
@@ -327,8 +327,8 @@
   </action>
   <action name="uiActionPreferences">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconshumanity48/gconf-editorB.svg</normaloff>:/icons/iconshumanity48/gconf-editorB.svg</iconset>
+    <iconset>
+     <normaloff>iconshumanity48/gconf-editorB.svg</normaloff>iconshumanity48/gconf-editorB.svg</iconset>
    </property>
    <property name="text">
     <string>Preferences...</string>
@@ -389,7 +389,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>:/icons/iconsfeatures/SIFT48.png</normaloff>:/icons/iconsfeatures/SIFT48.png</iconset>
+     <normaloff>icons/SIFT48.png</normaloff>icons/SIFT48.png</iconset>
    </property>
    <property name="text">
     <string>SIFT Features</string>
@@ -401,7 +401,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>:/icons/iconsfeatures/SURF48.png</normaloff>:/icons/iconsfeatures/SURF48.png</iconset>
+     <normaloff>icons/SURF48.png</normaloff>icons/SURF48.png</iconset>
    </property>
    <property name="text">
     <string>SURF Features</string>
@@ -413,7 +413,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>:/icons/iconsfeatures/Harris48.png</normaloff>:/icons/iconsfeatures/Harris48.png</iconset>
+     <normaloff>icons/Harris48.png</normaloff>icons/Harris48.png</iconset>
    </property>
    <property name="text">
     <string>Harris Features</string>
@@ -425,7 +425,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>:/icons/iconsfeatures/FAST48.png</normaloff>:/icons/iconsfeatures/FAST48.png</iconset>
+     <normaloff>icons/FAST48.png</normaloff>icons/FAST48.png</iconset>
    </property>
    <property name="text">
     <string>FAST Features</string>
@@ -433,8 +433,8 @@
   </action>
   <action name="uiActionZoomIn">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconsgnome48/zoom-in.svg</normaloff>:/icons/iconsgnome48/zoom-in.svg</iconset>
+    <iconset>
+     <normaloff>iconsgnome48/zoom-in.svg</normaloff>iconsgnome48/zoom-in.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom In</string>
@@ -445,8 +445,8 @@
   </action>
   <action name="uiActionZoomOut">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconsgnome48/zoom-out.svg</normaloff>:/icons/iconsgnome48/zoom-out.svg</iconset>
+    <iconset>
+     <normaloff>iconsgnome48/zoom-out.svg</normaloff>iconsgnome48/zoom-out.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -457,8 +457,8 @@
   </action>
   <action name="uiActionZoomOriginal">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconsgnome48/zoom-original.svg</normaloff>:/icons/iconsgnome48/zoom-original.svg</iconset>
+    <iconset>
+     <normaloff>iconsgnome48/zoom-original.svg</normaloff>iconsgnome48/zoom-original.svg</iconset>
    </property>
    <property name="text">
     <string>Normal Size</string>
@@ -469,8 +469,8 @@
   </action>
   <action name="uiActionZoomBestFit">
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconsgnome48/zoom-best-fit.svg</normaloff>:/icons/iconsgnome48/zoom-best-fit.svg</iconset>
+    <iconset>
+     <normaloff>iconsgnome48/zoom-best-fit.svg</normaloff>iconsgnome48/zoom-best-fit.svg</iconset>
    </property>
    <property name="text">
     <string>Best Fit</string>
@@ -484,8 +484,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconshumanity48/edit-copy.svg</normaloff>:/icons/iconshumanity48/edit-copy.svg</iconset>
+    <iconset>
+     <normaloff>iconshumanity48/edit-copy.svg</normaloff>iconshumanity48/edit-copy.svg</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -515,8 +515,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/icons/iconshumanity48/edit-undo.svg</normaloff>:/icons/iconshumanity48/edit-undo.svg</iconset>
+    <iconset>
+     <normaloff>iconshumanity48/edit-undo.svg</normaloff>iconshumanity48/edit-undo.svg</iconset>
    </property>
    <property name="text">
     <string>Reset Image</string>
@@ -536,7 +536,7 @@
   <action name="uiActionDo4">
    <property name="icon">
     <iconset>
-     <normaloff>:/icons/iconsfeatures/Do448.png</normaloff>:/icons/iconsfeatures/Do448.png</iconset>
+     <normaloff>icons/Do448.png</normaloff>icons/Do448.png</iconset>
    </property>
    <property name="text">
     <string>Do4!</string>
@@ -548,7 +548,7 @@
   <action name="uiActionFastRT">
    <property name="icon">
     <iconset>
-     <normaloff>:/icons/iconsfeatures/FASTrealtime48.png</normaloff>:/icons/iconsfeatures/FASTrealtime48.png</iconset>
+     <normaloff>icons/FASTrealtime48.png</normaloff>icons/FASTrealtime48.png</iconset>
    </property>
    <property name="text">
     <string>FAST Features in Real Time</string>

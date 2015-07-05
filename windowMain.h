@@ -20,6 +20,7 @@
 #include "windowAbout.h"
 #include "windowStartup.h"
 #include "windowFastRealTime.h"
+#include "windowDo4.h"
 
 class WindowMain : public QMainWindow, public Ui::mainWindow {
   Q_OBJECT
@@ -27,7 +28,8 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	WindowMain();
 	void updateRecentFilesMenu();
 	QSettings* getSettings();
-	
+
+	enum language {english=0, espanol=1, italiano=2};
 	QToolButton* mToolButtonOpenRecent;
 	QMenu* mMenuRecentFiles;
 	int mCapturedWebcamImages;
@@ -35,9 +37,6 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
   public slots:
 	void open();
 	void captureWebcam();
-
-  protected:
-	void mouseDoubleClickEvent(QMouseEvent* event);
 
   private:
 	void loadFile(QString fileName);

@@ -523,61 +523,40 @@ void WindowMain::resetImage() {
 
 
 void WindowMain::do4() {
-	uiStatusBar->showMessage("Calculating features...");
-	applySurf();
-
-	WindowImage* harrisImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle,
-		WindowImage::duplicated, mActiveWindowImage->nImageN);
-	uiMdiArea->addSubWindow(harrisImage);
-	QList<QMdiSubWindow*> windowsList = uiMdiArea->subWindowList();
-	for (int n=0; n<windowsList.size(); ++n) {
-		WindowImage* windowImageCopy = qobject_cast<WindowImage*>(windowsList.at(n)->widget());
-		if (windowImageCopy == harrisImage) {
-			++windowImageCopy->nImageN;
-			mActiveWindow=windowsList.at(n);
-			mActiveWindowImage=windowImageCopy;
-			applyHarris();
-		}
+	WindowImage* harrisImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle);
+	int sobelApertureSize = 0;
+	switch (mSettings->value("harris/sobelApertureSize", 1).toInt()) {
+		case 0: sobelApertureSize=1; break;
+		case 1: sobelApertureSize=3; break;
+		case 2: sobelApertureSize=5; break;
+		case 3: sobelApertureSize=7;
 	}
+	harrisImage->applyHarris(sobelApertureSize,
+			mSettings->value("harris/harrisApertureSize", 2).toInt(),
+			mSettings->value("harris/kValue", 0.01).toDouble());
 
-	WindowImage* fastImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle,
-		WindowImage::duplicated, mActiveWindowImage->nImageN);
-	uiMdiArea->addSubWindow(fastImage);
-	windowsList = uiMdiArea->subWindowList();
-	for (int n=0; n<windowsList.size(); ++n) {
-		WindowImage* windowImageCopy = qobject_cast<WindowImage*>(windowsList.at(n)->widget());
-		if (windowImageCopy == fastImage) {
-			++windowImageCopy->nImageN;
-			mActiveWindow=windowsList.at(n);
-			mActiveWindowImage=windowImageCopy;
-			applyFast();
-		}
-	}
-
-	WindowImage* siftImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle,
-		WindowImage::duplicated, mActiveWindowImage->nImageN);
-	uiMdiArea->addSubWindow(siftImage);
-	windowsList = uiMdiArea->subWindowList();
-	for (int n=0; n<windowsList.size(); ++n) {
-		WindowImage* windowImageCopy = qobject_cast<WindowImage*>(windowsList.at(n)->widget());
-		if (windowImageCopy == siftImage) {
-			++windowImageCopy->nImageN;
-			mActiveWindow=windowsList.at(n);
-			mActiveWindowImage=windowImageCopy;
-			applySift();
-		}
-	}
 	
-// 	WindowDo4* windowDo4 = new WindowDo4(this);
+	WindowImage* fastImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle);
+	fastImage->applyFast(mSettings->value("fast/threshold", 50).toInt(), mSettings->value("fast/nonMaxSuppression", true).toBool());
 
-	siftImage->show();
-	fastImage->show();
-	harrisImage->show();
-	uiMdiArea->tileSubWindows();
-	for (int n=0; n<windowsList.size(); ++n)
-		qobject_cast<WindowImage*>(windowsList.at(n)->widget())->zoomBestFit();
-	uiStatusBar->clearMessage();
-	mStatusBarLabelZoom->setText(mActiveWindowImage->mImageZoom);
+	
+	WindowImage* siftImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle);
+	siftImage->applySift(mSettings->value("sift/threshold", 0.014).toDouble(),
+			mSettings->value("sift/edgeThreshold", 10.0).toDouble(),
+			mSettings->value("sift/octaves", 3).toInt(),
+			mSettings->value("sift/layers", 1).toInt(),
+			mSettings->value("sift/showOrientation", true).toBool());
+
+	
+	WindowImage* surfImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle);
+	surfImage->applySurf(mSettings->value("surf/threshold", 4000).toInt(),
+			mSettings->value("surf/octaves", 3).toInt(),
+			mSettings->value("surf/layers", 1).toInt(),
+			0,
+			mSettings->value("surf/showOrientation", true).toBool());
+	
+	
+	new WindowDo4(mActiveWindowImage->mWindowTitle, harrisImage, fastImage, siftImage, surfImage);
 }
 
 
@@ -655,18 +634,6 @@ void WindowMain::website() {
 
 void WindowMain::about() {
 	new WindowAbout(this);
-}
-
-
-
-
-void WindowMain::mouseDoubleClickEvent(QMouseEvent* event) {
-	qDebug() << "mouseDoubleClickEvent";
-// 	if(qobject_cast<windowImage*>(uiMdiArea->activeSubWindow())->childrenRect().contains(event->globalPos())) {
-// 	qDebug() << qobject_cast<windowImage*>(uiMdiArea->activeSubWindow())->childrenRect();
-// 		if (event->button()==Qt::LeftButton) zoom();
-// 		else zoom();
-// 	}
 }
 
 

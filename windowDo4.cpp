@@ -17,6 +17,8 @@ WindowDo4::WindowDo4(QString windowTitle, WindowImage* harrisImage, WindowImage*
 	connect(uiPushButtonZoomBestFit, &QPushButton::released, this, &WindowDo4::zoomBestFit);
 	connect(mTimer, &QTimer::timeout, this, &WindowDo4::zoomBestFit);
 	
+	// http://wiki.qt.io/Center_a_Window_on_the_Screen
+	setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
 	show();
 	
 	// This timer is to resize the images once the WindowStateChange event is fired because the window is actually resized

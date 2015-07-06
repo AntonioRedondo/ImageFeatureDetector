@@ -6,11 +6,11 @@ WindowMain::WindowMain() {
 	mSubwindowActions = new QList<QAction*>();
 	mSeparatorOpenWindowsAdded = false;
 
-	QApplication::setWindowIcon(QIcon("IFD128.png"));
-	mIconHarris = new QIcon("icons/Harris48.png");
-	mIconFAST = new QIcon("icons/FAST48.png");
-	mIconSIFT = new QIcon("icons/SIFT48.png");
-	mIconSURF = new QIcon("icons/SURF48.png");
+	QApplication::setWindowIcon(QIcon("IFDicon.png"));
+	mIconHarris = new QIcon("icons/Harris.png");
+	mIconFAST = new QIcon("icons/Fast.png");
+	mIconSIFT = new QIcon("icons/Sift.png");
+	mIconSURF = new QIcon("icons/Surf.png");
 	
 	setContextMenuPolicy(Qt::PreventContextMenu);
 	
@@ -643,10 +643,10 @@ void WindowMain::updateWindowMenu(QMdiSubWindow* mdiSubWindow) {
 		if (!mActiveWindowImage->mImageTime.isEmpty()) {
 			uiActionResetImage->setEnabled(true);
 			switch (mActiveWindowImage->mFeatureType) {
-				case WindowImage::harris: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris48.png"))); break;
-				case WindowImage::fast: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/FAST48.png"))); break;
-				case WindowImage::sift: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/SIFT48.png"))); break;
-				case WindowImage::surf: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/SURF48.png"))); break;
+				case WindowImage::harris: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris.png"))); break;
+				case WindowImage::fast: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Fast.png"))); break;
+				case WindowImage::sift: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Sift.png"))); break;
+				case WindowImage::surf: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Surf.png"))); break;
 			}
 			mStatusBarLabelIcon->setVisible(true);
 			mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime);

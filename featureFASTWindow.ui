@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>755</width>
+    <width>1050</width>
     <height>40</height>
    </rect>
   </property>
@@ -65,17 +65,10 @@
       </size>
      </property>
      <property name="pixmap">
-      <pixmap>icons/FAST48.png</pixmap>
+      <pixmap>icons/Fast.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>FAST Parameters</string>
      </property>
     </widget>
    </item>
@@ -89,13 +82,13 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>25</width>
+       <width>20</width>
        <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>25</width>
+       <width>20</width>
        <height>16777215</height>
       </size>
      </property>
@@ -157,13 +150,13 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>12</width>
+       <width>40</width>
        <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>10</width>
+       <width>40</width>
        <height>16777215</height>
       </size>
      </property>
@@ -172,6 +165,19 @@
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="uiButtonBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Reset</set>
      </property>
     </widget>
    </item>
@@ -188,24 +194,8 @@
      </property>
     </spacer>
    </item>
-   <item>
-    <widget class="QDialogButtonBox" name="uiButtonBox">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Apply|QDialogButtonBox::Reset</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
- <resources>
-  <include location="icons.qrc"/>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

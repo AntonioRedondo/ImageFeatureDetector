@@ -254,7 +254,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconshumanity48/camera-photo.svg</normaloff>iconshumanity48/camera-photo.svg</iconset>
+         <normaloff>iconsBreeze/camera-photo-symbolic.svg</normaloff>iconsBreeze/camera-photo-symbolic.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -280,7 +280,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconshumanity48/dialog-apply.svg</normaloff>iconshumanity48/dialog-apply.svg</iconset>
+         <normaloff>iconsBreeze/dialog-ok-apply.svg</normaloff>iconsBreeze/dialog-ok-apply.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -303,7 +303,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconshumanity48/process-stop.svg</normaloff>iconshumanity48/process-stop.svg</iconset>
+         <normaloff>iconsBreeze/process-stop.svg</normaloff>iconsBreeze/process-stop.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -330,8 +330,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

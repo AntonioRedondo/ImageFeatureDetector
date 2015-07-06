@@ -105,7 +105,7 @@
             </size>
            </property>
            <property name="pixmap">
-            <pixmap>icons/FAST48.png</pixmap>
+            <pixmap>icons/Fast.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -207,7 +207,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>iconshumanity48/edit-clear.svg</normaloff>iconshumanity48/edit-clear.svg</iconset>
+           <normaloff>iconsBreeze/edit-clear.svg</normaloff>iconsBreeze/edit-clear.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -279,7 +279,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconshumanity48/media-playback-start.svg</normaloff>iconshumanity48/media-playback-start.svg</iconset>
+         <normaloff>iconsBreeze/media-playback-play.svg</normaloff>iconsBreeze/media-playback-play.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -311,7 +311,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconshumanity48/process-stop.svg</normaloff>iconshumanity48/process-stop.svg</iconset>
+         <normaloff>iconsBreeze/process-stop.svg</normaloff>iconsBreeze/process-stop.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -328,8 +328,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -78,7 +78,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconshumanity48/document-open.svg</normaloff>iconshumanity48/document-open.svg</iconset>
+         <normaloff>iconsBreeze/fileopen.svg</normaloff>iconsBreeze/fileopen.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -98,7 +98,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconshumanity48/camera-web.svg</normaloff>iconshumanity48/camera-web.svg</iconset>
+         <normaloff>iconsBreeze/camera-video-symbolic.svg</normaloff>iconsBreeze/camera-video-symbolic.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -142,7 +142,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>iconshumanity48/document-open-recent.svg</normaloff>iconshumanity48/document-open-recent.svg</iconset>
+           <normaloff>iconsBreeze/document-open-recent.svg</normaloff>iconsBreeze/document-open-recent.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -197,9 +197,6 @@
   <tabstop>uiCommandLinkButtonOpen</tabstop>
   <tabstop>uiCommandLinkButtonCaptureWebcam</tabstop>
  </tabstops>
- <resources>
-  <include location="images.qrc"/>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

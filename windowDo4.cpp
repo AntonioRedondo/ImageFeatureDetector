@@ -6,7 +6,7 @@ WindowDo4::WindowDo4(QString windowTitle, QSettings* settings, WindowImage* harr
 	setupUi(this);
 	
 	setWindowTitle(windowTitle + " - Do4!");
-	setWindowIcon(QIcon("icons/Do448.png"));
+	setWindowIcon(QIcon("icons/Do4!.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
 	
 	

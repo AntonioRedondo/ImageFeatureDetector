@@ -126,7 +126,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconshumanity48/edit-clear.svg</normaloff>iconshumanity48/edit-clear.svg</iconset>
+         <normaloff>iconsBreeze/edit-clear.svg</normaloff>iconsBreeze/edit-clear.svg</iconset>
        </property>
        <property name="iconSize">
         <size>

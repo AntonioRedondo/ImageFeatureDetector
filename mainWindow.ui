@@ -265,7 +265,7 @@
   <action name="uiActionOpen">
    <property name="icon">
     <iconset>
-     <normaloff>iconshumanity48/document-open.svg</normaloff>iconshumanity48/document-open.svg</iconset>
+     <normaloff>iconsBreeze/fileopen.svg</normaloff>iconsBreeze/fileopen.svg</iconset>
    </property>
    <property name="text">
     <string>Open...</string>
@@ -283,7 +283,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>iconshumanity48/document-save-as.svg</normaloff>iconshumanity48/document-save-as.svg</iconset>
+     <normaloff>iconsBreeze/document-save.svg</normaloff>iconsBreeze/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>Save Copy As...</string>
@@ -295,7 +295,7 @@
   <action name="uiActionWebsite">
    <property name="icon">
     <iconset>
-     <normaloff>iconshumanity16/go-home.svg</normaloff>iconshumanity16/go-home.svg</iconset>
+     <normaloff>iconsBreeze/go-home.svg</normaloff>iconsBreeze/go-home.svg</iconset>
    </property>
    <property name="text">
     <string>Project on GitHub</string>
@@ -307,7 +307,7 @@
   <action name="uiActionAbout">
    <property name="icon">
     <iconset>
-     <normaloff>iconshumanity16/gtk-info.svg</normaloff>iconshumanity16/gtk-info.svg</iconset>
+     <normaloff>iconsBreeze/help-about.svg</normaloff>iconsBreeze/help-about.svg</iconset>
    </property>
    <property name="text">
     <string>About...</string>
@@ -316,7 +316,7 @@
   <action name="uiActionCaptureWebcam">
    <property name="icon">
     <iconset>
-     <normaloff>iconshumanity48/camera-web.svg</normaloff>iconshumanity48/camera-web.svg</iconset>
+     <normaloff>iconsBreeze/camera-video-symbolic.svg</normaloff>iconsBreeze/camera-video-symbolic.svg</iconset>
    </property>
    <property name="text">
     <string>Capture from Webcam...</string>
@@ -328,7 +328,7 @@
   <action name="uiActionPreferences">
    <property name="icon">
     <iconset>
-     <normaloff>iconshumanity48/gconf-editorB.svg</normaloff>iconshumanity48/gconf-editorB.svg</iconset>
+     <normaloff>iconsBreeze/configure-shortcuts.svg</normaloff>iconsBreeze/configure-shortcuts.svg</iconset>
    </property>
    <property name="text">
     <string>Preferences...</string>
@@ -389,7 +389,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons/SIFT48.png</normaloff>icons/SIFT48.png</iconset>
+     <normaloff>icons/Sift.png</normaloff>icons/Sift.png</iconset>
    </property>
    <property name="text">
     <string>SIFT Features</string>
@@ -401,7 +401,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons/SURF48.png</normaloff>icons/SURF48.png</iconset>
+     <normaloff>icons/Surf.png</normaloff>icons/Surf.png</iconset>
    </property>
    <property name="text">
     <string>SURF Features</string>
@@ -413,7 +413,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons/Harris48.png</normaloff>icons/Harris48.png</iconset>
+     <normaloff>icons/Harris.png</normaloff>icons/Harris.png</iconset>
    </property>
    <property name="text">
     <string>Harris Features</string>
@@ -425,7 +425,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons/FAST48.png</normaloff>icons/FAST48.png</iconset>
+     <normaloff>icons/Fast.png</normaloff>icons/Fast.png</iconset>
    </property>
    <property name="text">
     <string>FAST Features</string>
@@ -434,7 +434,7 @@
   <action name="uiActionZoomIn">
    <property name="icon">
     <iconset>
-     <normaloff>iconsgnome48/zoom-in.svg</normaloff>iconsgnome48/zoom-in.svg</iconset>
+     <normaloff>iconsBreeze/zoom-in.svg</normaloff>iconsBreeze/zoom-in.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom In</string>
@@ -446,7 +446,7 @@
   <action name="uiActionZoomOut">
    <property name="icon">
     <iconset>
-     <normaloff>iconsgnome48/zoom-out.svg</normaloff>iconsgnome48/zoom-out.svg</iconset>
+     <normaloff>iconsBreeze/zoom-out.svg</normaloff>iconsBreeze/zoom-out.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -458,7 +458,7 @@
   <action name="uiActionZoomOriginal">
    <property name="icon">
     <iconset>
-     <normaloff>iconsgnome48/zoom-original.svg</normaloff>iconsgnome48/zoom-original.svg</iconset>
+     <normaloff>iconsBreeze/zoom-original.svg</normaloff>iconsBreeze/zoom-original.svg</iconset>
    </property>
    <property name="text">
     <string>Normal Size</string>
@@ -470,7 +470,7 @@
   <action name="uiActionZoomBestFit">
    <property name="icon">
     <iconset>
-     <normaloff>iconsgnome48/zoom-best-fit.svg</normaloff>iconsgnome48/zoom-best-fit.svg</iconset>
+     <normaloff>iconsBreeze/zoom-fit-best.svg</normaloff>iconsBreeze/zoom-fit-best.svg</iconset>
    </property>
    <property name="text">
     <string>Best Fit</string>
@@ -485,7 +485,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>iconshumanity48/edit-copy.svg</normaloff>iconshumanity48/edit-copy.svg</iconset>
+     <normaloff>iconsBreeze/edit-copy.svg</normaloff>iconsBreeze/edit-copy.svg</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -516,7 +516,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>iconshumanity48/edit-undo.svg</normaloff>iconshumanity48/edit-undo.svg</iconset>
+     <normaloff>iconsBreeze/edit-undo.svg</normaloff>iconsBreeze/edit-undo.svg</iconset>
    </property>
    <property name="text">
     <string>Reset Image</string>
@@ -536,7 +536,7 @@
   <action name="uiActionDo4">
    <property name="icon">
     <iconset>
-     <normaloff>icons/Do448.png</normaloff>icons/Do448.png</iconset>
+     <normaloff>icons/Do4!.png</normaloff>icons/Do4!.png</iconset>
    </property>
    <property name="text">
     <string>Do4!</string>
@@ -548,7 +548,7 @@
   <action name="uiActionFastRT">
    <property name="icon">
     <iconset>
-     <normaloff>icons/FASTrealtime48.png</normaloff>icons/FASTrealtime48.png</iconset>
+     <normaloff>icons/FastRT.png</normaloff>icons/FastRT.png</iconset>
    </property>
    <property name="text">
     <string>FAST Features in Real Time</string>
@@ -561,8 +561,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

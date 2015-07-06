@@ -15,7 +15,6 @@ WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType, int
 	mPixmap = QPixmap::fromImage(*mImage);
 	if (mWindowType==fromWebcam) {
 		// Whit this we redirect the pointer mImage to a new perdurable variable.
-		// myIplImageRealTime which was the former target is deleted when we call to QWidget::close() in the capture window
 		mImageOriginal = new QImage(mPixmap.toImage());
 		mImage = mImageOriginal;
 	}
@@ -118,7 +117,7 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 	float time = (float) getTickCount();
 	cornerHarris(imageGray, imageHarris, harrisApertureSize, sobelApertureSize, kValue);
 	
-	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2).append(" ms");
+	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
 	mImageKeypoints = "--";
 	
 	// Incrises the contrast. If not only an almost black image would be seen
@@ -185,8 +184,8 @@ void WindowImage::applyFast(int threshold, bool nonMaxSuppression) {
 	float time = (float) getTickCount();
 	FAST(imageGray, keypoints, threshold, nonMaxSuppression);
 	
-	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2).append(" ms");
-	mImageKeypoints = mLocale->toString((float)keypoints.size(),'f', 0).append(" keypoints");
+	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2);
+	mImageKeypoints = mLocale->toString((float)keypoints.size(),'f', 0);
 	
 	mPainter->begin(&mPixmap);
 	mPainter->setPen(QColor::fromRgb(255, 0, 0));
@@ -215,8 +214,8 @@ void WindowImage::applySift(double threshold, double edgeThreshold, int nOctaves
 	Ptr<Feature2D> feature = SIFT::create(nOctaveLayers, nOctaves, threshold, edgeThreshold);
 	feature->detect(imageGray, keypoints);
 	
-	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2).append(" ms");
-	mImageKeypoints = mLocale->toString((float)keypoints.size(),'f', 0).append(" keypoints");
+	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2);
+	mImageKeypoints = mLocale->toString((float)keypoints.size(),'f', 0);
 	
 	QPoint center;
 	int radius;
@@ -258,8 +257,8 @@ void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, i
 	Ptr<Feature2D> feature = SURF::create(threshold, nOctaves, nOctaveLayers, false, false);
 	feature->detect(imageGray, keypoints);
 	
-	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2).append(" ms");
-	mImageKeypoints = mLocale->toString((float) keypoints.size(),'f', 0).append(" keypoints");
+	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2);
+	mImageKeypoints = mLocale->toString((float) keypoints.size(),'f', 0);
 
 	QPoint center;
 	int radius;

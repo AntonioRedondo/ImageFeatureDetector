@@ -1,7 +1,7 @@
 #include "windowDo4.h"
 
 
-WindowDo4::WindowDo4(QString windowTitle, QSettings* settings, WindowImage* harrisImage, WindowImage* fastImage, WindowImage* siftImage, WindowImage* surfImage)
+WindowDo4::WindowDo4(QString windowTitle, WindowImage* harrisImage, WindowImage* fastImage, WindowImage* siftImage, WindowImage* surfImage)
 		: mHarrisImage(harrisImage), mFastImage(fastImage), mSiftImage(siftImage), mSurfImage(surfImage), mTimer(new QTimer()) {
 	setupUi(this);
 	
@@ -9,39 +9,10 @@ WindowDo4::WindowDo4(QString windowTitle, QSettings* settings, WindowImage* harr
 	setWindowIcon(QIcon("icons/Do4!.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
 	
-	
-	int sobelApertureSize = 0;
-	switch (settings->value("harris/sobelApertureSize", 1).toInt()) {
-		case 0: sobelApertureSize=1; break;
-		case 1: sobelApertureSize=3; break;
-		case 2: sobelApertureSize=5; break;
-		case 3: sobelApertureSize=7;
-	}
-	mHarrisImage->applyHarris(sobelApertureSize,
-			settings->value("harris/harrisApertureSize", 2).toInt(),
-			settings->value("harris/kValue", 0.01).toDouble());
-
-	mFastImage->applyFast(settings->value("fast/threshold", 50).toInt(), settings->value("fast/nonMaxSuppression", true).toBool());
-
-	mSiftImage->applySift(settings->value("sift/threshold", 0.014).toDouble(),
-			settings->value("sift/edgeThreshold", 10.0).toDouble(),
-			settings->value("sift/octaves", 3).toInt(),
-			settings->value("sift/layers", 1).toInt(),
-			settings->value("sift/showOrientation", true).toBool());
-
-	mSurfImage->applySurf(settings->value("surf/threshold", 4000).toInt(),
-			settings->value("surf/octaves", 3).toInt(),
-			settings->value("surf/layers", 1).toInt(),
-			0,
-			settings->value("surf/showOrientation", true).toBool());
-	
 	uiHLayout1->insertWidget(1, mHarrisImage);
 	uiHLayout1->insertWidget(3, mFastImage);
 	uiHLayout2->insertWidget(1, mSiftImage);
 	uiHLayout2->insertWidget(3, mSurfImage);
-	
-	connect(uiPushButtonZoomBestFit, &QPushButton::released, this, &WindowDo4::zoomBestFit);
-	connect(mTimer, &QTimer::timeout, this, &WindowDo4::zoomBestFit);
 	
 	uiHarrisTimeLabel->setText(mHarrisImage->mImageTime);
 	uiHarrisKPLabel->setText(mHarrisImage->mImageKeypoints);
@@ -51,6 +22,9 @@ WindowDo4::WindowDo4(QString windowTitle, QSettings* settings, WindowImage* harr
 	uiSiftKPLabel->setText(mSiftImage->mImageKeypoints);
 	uiSurfTimeLabel->setText(mSurfImage->mImageTime);
 	uiSurfKPLabel->setText(mSurfImage->mImageKeypoints);
+	
+	connect(uiPushButtonZoomBestFit, &QPushButton::released, this, &WindowDo4::zoomBestFit);
+	connect(mTimer, &QTimer::timeout, this, &WindowDo4::zoomBestFit);
 	
 	// http://wiki.qt.io/Center_a_Window_on_the_Screen
 	setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));

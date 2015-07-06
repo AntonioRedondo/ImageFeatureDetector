@@ -523,12 +523,38 @@ void WindowMain::resetImage() {
 
 
 
-void WindowMain::do4() {	
-	new WindowDo4(mActiveWindowImage->mWindowTitle, mSettings,
-			new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle),
-			new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle),
-			new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle),
-			new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle));
+void WindowMain::do4() {
+	WindowImage* harrisImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle);
+	WindowImage* fastImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle);
+	WindowImage* siftImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle);
+	WindowImage* surfImage = new WindowImage(mActiveWindowImage->mImage, mActiveWindowImage->mWindowTitle);
+	
+	int sobelApertureSize = 0;
+	switch (mSettings->value("harris/sobelApertureSize", 1).toInt()) {
+		case 0: sobelApertureSize=1; break;
+		case 1: sobelApertureSize=3; break;
+		case 2: sobelApertureSize=5; break;
+		case 3: sobelApertureSize=7;
+	}
+	harrisImage->applyHarris(sobelApertureSize,
+			mSettings->value("harris/harrisApertureSize", 2).toInt(),
+			mSettings->value("harris/kValue", 0.01).toDouble());
+
+	fastImage->applyFast(mSettings->value("fast/threshold", 50).toInt(), mSettings->value("fast/nonMaxSuppression", true).toBool());
+
+	siftImage->applySift(mSettings->value("sift/threshold", 0.014).toDouble(),
+			mSettings->value("sift/edgeThreshold", 10.0).toDouble(),
+			mSettings->value("sift/octaves", 3).toInt(),
+			mSettings->value("sift/layers", 1).toInt(),
+			mSettings->value("sift/showOrientation", true).toBool());
+
+	surfImage->applySurf(mSettings->value("surf/threshold", 4000).toInt(),
+			mSettings->value("surf/octaves", 3).toInt(),
+			mSettings->value("surf/layers", 1).toInt(),
+			0,
+			mSettings->value("surf/showOrientation", true).toBool());
+	
+	new WindowDo4(mActiveWindowImage->mWindowTitle, harrisImage, fastImage, siftImage, surfImage);
 }
 
 

@@ -1,5 +1,13 @@
-#include "windowDo4.h"
+/*
+* 2010-2015 (C) Antonio Redondo
+* http://antonioredondo.com
+* https://github.com/AntonioRedondo/ImageFeatureDetector
+*
+* Code under the terms of the GNU General Public License v3.
+*
+*/
 
+#include "windowDo4.h"
 
 WindowDo4::WindowDo4(QString windowTitle, WindowImage* harrisImage, WindowImage* fastImage, WindowImage* siftImage, WindowImage* surfImage)
 		: mHarrisImage(harrisImage), mFastImage(fastImage), mSiftImage(siftImage), mSurfImage(surfImage), mTimer(new QTimer()) {

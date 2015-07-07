@@ -1,5 +1,13 @@
-#include "windowStartup.h"
+/*
+* 2010-2015 (C) Antonio Redondo
+* http://antonioredondo.com
+* https://github.com/AntonioRedondo/ImageFeatureDetector
+*
+* Code under the terms of the GNU General Public License v3.
+*
+*/
 
+#include "windowStartup.h"
 
 WindowStartup::WindowStartup(WindowMain* windowMain)
 		: mWindowMain(windowMain), QDialog::QDialog(windowMain, Qt::Dialog) {

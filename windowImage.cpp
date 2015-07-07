@@ -1,3 +1,12 @@
+/*
+* 2010-2015 (C) Antonio Redondo
+* http://antonioredondo.com
+* https://github.com/AntonioRedondo/ImageFeatureDetector
+*
+* Code under the terms of the GNU General Public License v3.
+*
+*/
+
 #include "windowImage.h"
 
 WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType, int imageN, QString originalTitle)
@@ -6,6 +15,8 @@ WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType, int
 	setAttribute(Qt::WA_DeleteOnClose);
 	mPainter = new QPainter();
 	mLocale = new QLocale(QLocale::English);
+	
+	setObjectName(windowTitle);
 	setWindowTitle(mWindowTitle);
 	if (mOriginalTitle == 0)
 		mOriginalTitle = mWindowTitle;
@@ -134,39 +145,6 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 // 	mPixmap = QPixmap::fromImage(QImage(imageColor.data, mImage->width(), mImage->height(), imageColor.step, QImage::Format_RGB32)); // With Format_RGB888 it doesn't work. It can be Format_ARGB32 as well
 	mModified = true;
 	uiLabelImage->setPixmap(mPixmap);
-	
-	
-	// The same that above but with IplImage and C fuctions. The dst in cvCornerHarris must be CV_32FC1 Mat or "IPL_DEPTH_32F, 1" IplImage.
-	
-// 	IplImage* myIplImage = cvCreateImage(cvSize(mImage->size().width(), mImage->size().height()), IPL_DEPTH_8U, 4);
-// 	memcpy((uchar*)myIplImage->imageDataOrigin, mImage->bits(), sizeof(uchar)*mImage->byteCount());
-// 	IplImage* myIplImageGray = cvCreateImage(cvGetSize(myIplImage), IPL_DEPTH_8U, 1);
-// 	cvCvtColor(myIplImage, myIplImageGray, CV_RGBA2GRAY);
-// 
-// 	IplImage* myIplImageHarris = cvCreateImage(cvSize(mImage->size().width(), mImage->size().height()), IPL_DEPTH_32F, 1);
-// 	float time = (float)cvGetTickCount();
-// 	cvCornerHarris(myIplImageGray, myIplImageHarris, harrisApertureSize, sobelApertureSize, kValue);
-// 	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2).append(" ms");
-// 	mImageKeypoints = "-";
-// 
-// 	IplImage* myIplImageHarris8U = cvCreateImage(cvGetSize(myIplImage), IPL_DEPTH_8U, 1);
-// 	IplImage* myIplImageFinal = cvCreateImage(cvGetSize(myIplImage), IPL_DEPTH_8U, 4);
-// 
-// 	double min=0, max=255, minVal=0.0, maxVal=0.0, scale, shift;
-// 	cvMinMaxLoc(myIplImageHarris, &minVal, &maxVal);
-// 	scale = (max-min)/(maxVal-minVal);
-// 	shift = -minVal*scale+min;
-// 	cvConvertScale(myIplImageHarris, myIplImageHarris8U, scale, shift);
-// 	cvCvtColor(myIplImageHarris8U, myIplImageFinal, CV_GRAY2RGBA);
-// 
-// 	mPixmap = QPixmap::fromImage(QImage((uchar*)myIplImageFinal->imageDataOrigin, myIplImageFinal->width, myIplImageFinal->height, QImage::Format_RGB32));
-// 	mModified = true;
-// 	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-// 	cvReleaseImage(&myIplImage);
-// 	cvReleaseImage(&myIplImageGray);
-// 	cvReleaseImage(&myIplImageHarris);
-// 	cvReleaseImage(&myIplImageHarris8U);
-// 	cvReleaseImage(&myIplImageFinal);
 }
 
 

@@ -67,7 +67,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>IFDicon.png</pixmap>
+        <pixmap>icons/IFDicon.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

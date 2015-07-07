@@ -1,3 +1,12 @@
+/*
+* 2010-2015 (C) Antonio Redondo
+* http://antonioredondo.com
+* https://github.com/AntonioRedondo/ImageFeatureDetector
+*
+* Code under the terms of the GNU General Public License v3.
+*
+*/
+
 #include "windowMain.h"
 
 WindowMain::WindowMain() {
@@ -5,8 +14,7 @@ WindowMain::WindowMain() {
 	
 	mSubwindowActions = new QList<QAction*>();
 	mSeparatorOpenWindowsAdded = false;
-
-	QApplication::setWindowIcon(QIcon("IFDicon.png"));
+	
 	mIconHarris = new QIcon("icons/Harris.png");
 	mIconFAST = new QIcon("icons/Fast.png");
 	mIconSIFT = new QIcon("icons/Sift.png");
@@ -123,7 +131,6 @@ WindowMain::WindowMain() {
 	
 	mHarrisToolBar = new QWidget();
 	mHarrisToolBar->setVisible(false);
-// 	mHarrisToolBar->setObjectName(QString::fromUtf8("Harris Features"));
 	mUIHarris.setupUi(mHarrisToolBar);
 	mUIHarris.uiComboBoxSobelApertureSize->setCurrentIndex(mSettings->value("harris/sobelApertureSize", 2).toInt());
 	mUIHarris.uiSpinBoxHarrisApertureSize->setValue(mSettings->value("harris/harrisApertureSize", 1).toInt());
@@ -592,16 +599,19 @@ void WindowMain::cascade() {
 
 
 void WindowMain::duplicate() {
-	WindowImage* windowImageOriginal;
-	QList<QMdiSubWindow*> subwindows = uiMdiArea->subWindowList();
-	for (int n=0; n<subwindows.size(); ++n) {
-		windowImageOriginal = qobject_cast<WindowImage*>(subwindows.at(n)->widget());
-		// If two different images have the same name, oh-oh, this will mess it up...
-		if (windowImageOriginal->mWindowTitle == mActiveWindowImage->mOriginalTitle) {
-			++windowImageOriginal->nImageN;
-			break;
-		}
-	}
+	// If two different images have the same original title, oh-oh, this will mess it up...
+	WindowImage* windowImageOriginal = uiMdiArea->findChild<WindowImage*>(mActiveWindowImage->mOriginalTitle);
+	++windowImageOriginal->nImageN;
+	
+// 	QList<QMdiSubWindow*> subwindows = uiMdiArea->subWindowList();
+// 	for (int n=0; n<subwindows.size(); ++n) {
+// 		windowImageOriginal = qobject_cast<WindowImage*>(subwindows.at(n)->widget());
+// 		// If two different images have the same name, oh-oh, this will mess it up...
+// 		if (windowImageOriginal->mWindowTitle == mActiveWindowImage->mOriginalTitle) {
+// 			++windowImageOriginal->nImageN;
+// 			break;
+// 		}
+// 	}
 	
 	QString title;
 	if (mActiveWindowImage->mWindowType == WindowImage::duplicated) {

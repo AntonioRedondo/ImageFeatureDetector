@@ -14,6 +14,10 @@
   <property name="windowTitle">
    <string>Image Feature Detector</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/IFDicon.png</normaloff>icons/IFDicon.png</iconset>
+  </property>
   <property name="iconSize">
    <size>
     <width>32</width>

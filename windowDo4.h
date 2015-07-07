@@ -1,8 +1,11 @@
-/* Copyright (C) 2010-2011 Antonio Redondo López.
- * This file is part of Image Feature Detector.
- * Source code published under the GNU GPL v3.
- * For further information visit http://code.google.com/p/image-feature-detector/
- */
+/*
+* 2010-2015 (C) Antonio Redondo
+* http://antonioredondo.com
+* https://github.com/AntonioRedondo/ImageFeatureDetector
+*
+* Code under the terms of the GNU General Public License v3.
+*
+*/
 
 #ifndef WINDOWDO4_H
 #define WINDOWDO4_H
@@ -12,10 +15,6 @@
 
 using namespace std;
 
-/**
-       \brief
-       @author authorname
-*/
 class WindowDo4 : public QWidget, Ui::do4Window {
   Q_OBJECT
   public:

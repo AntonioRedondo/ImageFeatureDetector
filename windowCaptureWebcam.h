@@ -1,8 +1,11 @@
-/* Copyright (C) 2010-2011 Antonio Redondo López.
- * This file is part of Image Feature Detector.
- * Source code published under the GNU GPL v3.
- * For further information visit http://code.google.com/p/image-feature-detector/
- */
+/*
+* 2010-2015 (C) Antonio Redondo
+* http://antonioredondo.com
+* https://github.com/AntonioRedondo/ImageFeatureDetector
+*
+* Code under the terms of the GNU General Public License v3.
+*
+*/
 
 #ifndef WINDOWCAPTUREWEBCAM_H
 #define WINDOWCAPTUREWEBCAM_H
@@ -17,10 +20,6 @@ using namespace std;
 
 class WindowMain; // http://stackoverflow.com/questions/2133250/does-not-name-a-type-error-in-c
 
-/**
-       \brief
-       @author authorname
-*/
 class WindowCaptureWebcam : public QDialog, private Ui::captureWebcamWindow {
   Q_OBJECT
   public:

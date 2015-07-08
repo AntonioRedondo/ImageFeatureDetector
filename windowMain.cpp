@@ -9,7 +9,7 @@
 
 #include "windowMain.h"
 
-WindowMain::WindowMain() {
+WindowMain::WindowMain() : mTotalImages(0) {
 	setupUi(this);
 	
 	mSubwindowActions = new QList<QAction*>();
@@ -599,26 +599,13 @@ void WindowMain::cascade() {
 
 
 void WindowMain::duplicate() {
-	// If two different images have the same original title, oh-oh, this will mess it up...
-	WindowImage* windowImageOriginal = uiMdiArea->findChild<WindowImage*>(mActiveWindowImage->mOriginalTitle);
-	++windowImageOriginal->nImageN;
-	
-// 	QList<QMdiSubWindow*> subwindows = uiMdiArea->subWindowList();
-// 	for (int n=0; n<subwindows.size(); ++n) {
-// 		windowImageOriginal = qobject_cast<WindowImage*>(subwindows.at(n)->widget());
-// 		// If two different images have the same name, oh-oh, this will mess it up...
-// 		if (windowImageOriginal->mWindowTitle == mActiveWindowImage->mOriginalTitle) {
-// 			++windowImageOriginal->nImageN;
-// 			break;
-// 		}
-// 	}
-	
-	QString title;
-	if (mActiveWindowImage->mWindowType == WindowImage::duplicated) {
-		title = mActiveWindowImage->mOriginalTitle + QString(" (Duplicated %1)").arg(windowImageOriginal->nImageN);
-	} else title = mActiveWindowImage->mOriginalTitle + " (Duplicated 1)";
-	
-	showWindowImage(new WindowImage(mActiveWindowImage->mImage, title, WindowImage::duplicated, windowImageOriginal->nImageN, mActiveWindowImage->mOriginalTitle));
+	WindowImage* imageOriginal = uiMdiArea->findChild<WindowImage*>(QString(mActiveWindowImage->mOriginalUid));
+	++imageOriginal->mImageN;
+	WindowImage* imageDuplicated = new WindowImage(mActiveWindowImage->mImage,
+							imageOriginal->mWindowTitle + QString(" (Duplicated %1)").arg(imageOriginal->mImageN),
+							WindowImage::duplicated);
+	imageDuplicated->mOriginalUid = imageOriginal->mUid;
+	showWindowImage(imageDuplicated);
 }
 
 
@@ -752,6 +739,7 @@ void WindowMain::loadFile(QString filePath) {
 			showWindowImage(new WindowImage(image, filePath));
 			uiToolBarParameters->setEnabled(true);
 		} else {
+			removeRecentFile(filePath);
 			QMessageBox::warning(this, tr("Image Feature Detector"), tr("Cannot open %1.").arg(filePath));
 		}
 	}
@@ -761,6 +749,10 @@ void WindowMain::loadFile(QString filePath) {
 
 
 void WindowMain::showWindowImage(WindowImage* windowImage) {
+	windowImage->mUid = ++mTotalImages;
+	if (windowImage->mWindowType != WindowImage::duplicated)
+		windowImage->mOriginalUid = mTotalImages;
+	windowImage->setObjectName(QString(mTotalImages));
 	uiMdiArea->addSubWindow(windowImage);
 	windowImage->parentWidget()->setGeometry(0, 0, windowImage->mImage->width()+8, windowImage->mImage->height()+31); // 8 and 31 are hardcoded values for the decorations of the subwindow
 	if (windowImage->mImage->width() > uiMdiArea->width())
@@ -788,6 +780,16 @@ void WindowMain::setRecentFile(QString filePath) {
 
 
 
+void WindowMain::removeRecentFile(QString filePath) {
+	QStringList files = mSettings->value("recentFiles").toStringList();
+	files.removeAll(filePath);
+	mSettings->setValue("recentFiles", files);
+	updateRecentFilesMenu();
+}
+
+
+
+
 // http://doc.qt.io/qt-5/qtwidgets-mainwindows-recentfiles-example.html
 void WindowMain::updateRecentFilesMenu() {
 	QStringList files = mSettings->value("recentFiles").toStringList();
@@ -805,13 +807,6 @@ void WindowMain::updateRecentFilesMenu() {
 	}
 	for (int n=numRecentFiles; n<maxRecentFiles; ++n)
 		mActionRecentFiles[n]->setVisible(false);
-}
-
-
-
-
-QSettings* WindowMain::getSettings() {
-	return mSettings;
 }
 
 

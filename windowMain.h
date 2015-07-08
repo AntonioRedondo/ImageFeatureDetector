@@ -30,11 +30,12 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
   public:
 	WindowMain();
 	void updateRecentFilesMenu();
-	QSettings* getSettings();
+	void showWindowImage(WindowImage*);
 
 	QToolButton* mToolButtonOpenRecent;
 	QMenu* mMenuRecentFiles;
 	int mCapturedWebcamImages;
+	int mTotalImages;
 
   public slots:
 	void open();
@@ -45,6 +46,7 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	void closeEvent(QCloseEvent*);
 	void saveSettings();
 	void setRecentFile(QString);
+	void removeRecentFile(QString);
 
 	bool mSeparatorOpenWindowsAdded; // Adding the separator on Qt Designer doesn't work
 	QSettings* mSettings;
@@ -132,7 +134,6 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	void website();
 	void about();
 
-	void showWindowImage(WindowImage*);
 	void updateWindowMenu(QMdiSubWindow*);
 	void openRecentFile();
 	void setActiveSubWindow(QWidget*);

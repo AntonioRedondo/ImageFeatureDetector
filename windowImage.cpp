@@ -9,17 +9,14 @@
 
 #include "windowImage.h"
 
-WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType, int imageN, QString originalTitle)
-		: mImage(image), mWindowTitle(windowTitle), mWindowType(windowType), nImageN(imageN), mOriginalTitle(originalTitle) {
+WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType)
+		: mImage(image), mWindowTitle(windowTitle), mWindowType(windowType), mImageN(0) {
 	setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
 	mPainter = new QPainter();
 	mLocale = new QLocale(QLocale::English);
 	
-	setObjectName(windowTitle);
 	setWindowTitle(mWindowTitle);
-	if (mOriginalTitle == 0)
-		mOriginalTitle = mWindowTitle;
 
 	uiScrollAreaWidgetContents->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 
@@ -131,7 +128,7 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
 	mImageKeypoints = "--";
 	
-	// Incrises the contrast. If not only an almost black image would be seen
+	// Increases the contrast. If not only an almost black image would be seen
 	Mat imageHarris8U(mImage->height(), mImage->width(), CV_8UC1);
 	double min=0, max=255, minVal, maxVal, scale, shift;
 	minMaxLoc(imageHarris, &minVal, &maxVal);

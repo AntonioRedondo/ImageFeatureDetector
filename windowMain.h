@@ -40,6 +40,7 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
   public slots:
 	void open();
 	void captureWebcam();
+	void openFastRT();
 
   private:
 	void loadFile(QString);
@@ -123,7 +124,6 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	void resetSurfParams();
 	
 	void do4();
-	void openFastRT();
 	
 	void tile();
 	void cascade();

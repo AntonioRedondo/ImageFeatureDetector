@@ -10,36 +10,31 @@
 #ifndef WINDOWFASTREALTIME_H
 #define WINDOWFASTREALTIME_H
 
-#include <qt5/QtWidgets/QtWidgets>
 #include <opencv2/opencv.hpp>
 #include <opencv2/features2d.hpp>
 #include "ui_fastRealTimeWindow.h"
 #include "windowMain.h"
 
-using namespace cv;
 using namespace std;
+using namespace cv;
+using namespace xfeatures2d;
 
 class WindowFastRealTime : public QDialog, Ui::fastRealTimeWindow {
   Q_OBJECT
   public:
-	WindowFastRealTime(WindowMain* windowMain);
-	void closeEvent(QCloseEvent* closeEvent);
+	WindowFastRealTime(WindowMain*);
+	void closeEvent(QCloseEvent*);
 
   private:
 	QSettings* mSettings;
 	QLocale* mLocale;
-	CvCapture* mCamera;
+	VideoCapture mCamera;
 	QTimer* mTimer;
 	QPixmap mPixmap;
-	QImage* mImage;
 	QPainter* mPainter;
-	bool mDetecting;
-	IplImage* mIplImageRealTime;
-	IplImage* mIplImage320;
-	IplImage* mIplImage320Gray;
-// 	Mat myIplImage320;
-// 	Mat myIplImage320Gray;
+	Mat mImageRT;
 	vector<KeyPoint> mKeypoints;
+	bool mDetecting;
 	float mTime;
 
   private slots:

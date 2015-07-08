@@ -27,6 +27,7 @@ class WindowStartup : public QDialog, private Ui::startupWindow {
   private slots:
 	void open();
 	void captureWebcam();
+	void fastRT();
 	void saveSettings();
 };
 

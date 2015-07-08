@@ -22,8 +22,7 @@ WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType)
 
 	mPixmap = QPixmap::fromImage(*mImage);
 	if (mWindowType==fromWebcam) {
-		// Whit this we redirect the pointer mImage to a new perdurable variable.
-		mImageOriginal = new QImage(mPixmap.toImage());
+		mImageOriginal = new QImage(mPixmap.toImage()); // Redirects to a new perdurable variable.
 		mImage = mImageOriginal;
 	}
 	mPixmapOriginal = mPixmap;
@@ -118,17 +117,17 @@ void WindowImage::zoomOriginal() {
 
 void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, double kValue) {
 	Mat image(mImage->height(), mImage->width(), CV_8UC4, mImage->bits(), mImage->bytesPerLine()); // With CV_8UC3 it doesn't work
-	Mat imageGray(mImage->height(), mImage->width(), CV_8UC1);
-	cvtColor(image, imageGray, CV_RGB2GRAY);
+	Mat imageGrey(mImage->height(), mImage->width(), CV_8UC1);
+	cvtColor(image, imageGrey, CV_RGB2GRAY);
 	
 	Mat imageHarris(mImage->height(), mImage->width(), CV_32FC1);
 	float time = (float) getTickCount();
-	cornerHarris(imageGray, imageHarris, harrisApertureSize, sobelApertureSize, kValue);
+	cornerHarris(imageGrey, imageHarris, harrisApertureSize, sobelApertureSize, kValue);
 	
 	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
 	mImageKeypoints = "--";
 	
-	// Increases the contrast. If not only an almost black image would be seen
+	// Increases the contrast. If not only a nearly black image would be seen
 	Mat imageHarris8U(mImage->height(), mImage->width(), CV_8UC1);
 	double min=0, max=255, minVal, maxVal, scale, shift;
 	minMaxLoc(imageHarris, &minVal, &maxVal);
@@ -141,7 +140,7 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 // 	cvtColor(imageHarris8U, imageColor, CV_GRAY2RGBA); // With CV_GRAY2RGB it doesn't work
 // 	mPixmap = QPixmap::fromImage(QImage(imageColor.data, mImage->width(), mImage->height(), imageColor.step, QImage::Format_RGB32)); // With Format_RGB888 it doesn't work. It can be Format_ARGB32 as well
 	mModified = true;
-	uiLabelImage->setPixmap(mPixmap);
+	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 
@@ -152,14 +151,14 @@ void WindowImage::applyFast(int threshold, bool nonMaxSuppression) {
 		mPixmap = mPixmapOriginal;
 	
 	Mat image(mImage->height(), mImage->width(), CV_8UC4, mImage->bits(), mImage->bytesPerLine()); // With CV_8UC3 it doesn't work
-	Mat imageGray(mImage->height(), mImage->width(), CV_8UC1);
-	cvtColor(image, imageGray, CV_RGB2GRAY);
+	Mat imageGrey(mImage->height(), mImage->width(), CV_8UC1);
+	cvtColor(image, imageGrey, CV_RGB2GRAY);
 	
 	vector<KeyPoint> keypoints;
 	float time = (float) getTickCount();
-	FAST(imageGray, keypoints, threshold, nonMaxSuppression);
+	FAST(imageGrey, keypoints, threshold, nonMaxSuppression);
 	
-	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2);
+	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
 	mImageKeypoints = mLocale->toString((float)keypoints.size(),'f', 0);
 	
 	mPainter->begin(&mPixmap);
@@ -181,15 +180,15 @@ void WindowImage::applySift(double threshold, double edgeThreshold, int nOctaves
 		mPixmap = mPixmapOriginal;
 
 	Mat image(mImage->height(), mImage->width(), CV_8UC4, mImage->bits(), mImage->bytesPerLine()); // With CV_8UC3 it doesn't work
-	Mat imageGray(mImage->height(), mImage->width(), CV_8UC1);
-	cvtColor(image, imageGray, CV_RGB2GRAY);
+	Mat imageGrey(mImage->height(), mImage->width(), CV_8UC1);
+	cvtColor(image, imageGrey, CV_RGB2GRAY);
 	
 	vector<KeyPoint> keypoints;
 	float time = (float) getTickCount();
 	Ptr<Feature2D> feature = SIFT::create(nOctaveLayers, nOctaves, threshold, edgeThreshold);
-	feature->detect(imageGray, keypoints);
+	feature->detect(imageGrey, keypoints);
 	
-	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2);
+	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
 	mImageKeypoints = mLocale->toString((float)keypoints.size(),'f', 0);
 	
 	QPoint center;
@@ -224,15 +223,15 @@ void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, i
 		mPixmap = mPixmapOriginal;
 	
 	Mat image(mImage->height(), mImage->width(), CV_8UC4, mImage->bits(), mImage->bytesPerLine()); // With CV_8UC3 it doesn't work
-	Mat imageGray(mImage->height(), mImage->width(), CV_8UC1);
-	cvtColor(image, imageGray, CV_RGB2GRAY);
+	Mat imageGrey(mImage->height(), mImage->width(), CV_8UC1);
+	cvtColor(image, imageGrey, CV_RGB2GRAY);
 	
 	vector<KeyPoint> keypoints;
 	float time = getTickCount();
 	Ptr<Feature2D> feature = SURF::create(threshold, nOctaves, nOctaveLayers, false, false);
-	feature->detect(imageGray, keypoints);
+	feature->detect(imageGrey, keypoints);
 	
-	mImageTime = mLocale->toString((float)((cvGetTickCount()-time)/(cvGetTickFrequency()*1000)),'f', 2);
+	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
 	mImageKeypoints = mLocale->toString((float) keypoints.size(),'f', 0);
 
 	QPoint center;

@@ -26,6 +26,7 @@ WindowStartup::WindowStartup(WindowMain* windowMain)
 	
 	connect(uiCommandLinkButtonOpen, &QAbstractButton::clicked, this, &WindowStartup::open);
 	connect(uiCommandLinkButtonCaptureWebcam, &QAbstractButton::clicked, this, &WindowStartup::captureWebcam);
+	connect(uiCommandLinkButtonFastRT, &QAbstractButton::clicked, this, &WindowStartup::fastRT);
 	connect(uiCheckBoxStartup, &QAbstractButton::clicked, this, &WindowStartup::saveSettings);
 	connect(recentFiles, &QMenu::triggered, this, &WindowStartup::close);
 	connect(recentFiles, &QMenu::aboutToHide, this, &WindowStartup::close);
@@ -46,6 +47,14 @@ void WindowStartup::open() {
 
 void WindowStartup::captureWebcam() {
 	mWindowMain->captureWebcam();
+	close();
+}
+
+
+
+
+void WindowStartup::fastRT() {
+	mWindowMain->openFastRT();
 	close();
 }
 

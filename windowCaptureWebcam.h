@@ -16,26 +16,22 @@
 #include "windowImage.h"
 
 using namespace cv;
-using namespace std;
 
 class WindowMain; // http://stackoverflow.com/questions/2133250/does-not-name-a-type-error-in-c
 
 class WindowCaptureWebcam : public QDialog, private Ui::captureWebcamWindow {
   Q_OBJECT
   public:
-	WindowCaptureWebcam(WindowMain* windowMain);
-	void closeEvent(QCloseEvent* closeEvent);
+	WindowCaptureWebcam(WindowMain*);
+	void closeEvent(QCloseEvent*);
 	
 	WindowMain* mWindowMain;
 	
   private:
-	CvCapture* mCamera;
 	QTimer* mTimer;
-	IplImage* mIplImageRealTime;
-	IplImage* mIplImage320;
+	VideoCapture mCamera;
+	Mat mImageRT;
 	QImage* mImage;
-// 	VideoCapture myCamera;
-// 	Mat myImage;
 
   private slots:
 	void capture();

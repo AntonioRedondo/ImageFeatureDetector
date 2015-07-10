@@ -94,7 +94,7 @@
    <item>
     <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Threshold:</string>
+      <string>Threshold</string>
      </property>
      <property name="buddy">
       <cstring>uiDoubleSpinBoxThreshold</cstring>
@@ -166,7 +166,7 @@
    <item>
     <widget class="QLabel" name="label_7">
      <property name="text">
-      <string>Octaves:</string>
+      <string>Octaves</string>
      </property>
      <property name="buddy">
       <cstring>uiSpinBoxOctaves</cstring>
@@ -184,9 +184,16 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label_8">
      <property name="text">
-      <string>Layers/octave:</string>
+      <string>Layers/octave</string>
      </property>
      <property name="buddy">
       <cstring>uiSpinBoxLayers</cstring>

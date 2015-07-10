@@ -21,8 +21,8 @@ WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType)
 	uiScrollAreaWidgetContents->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 
 	mPixmap = QPixmap::fromImage(*mImage);
-	if (mWindowType==fromWebcam) {
-		mImageOriginal = new QImage(mPixmap.toImage()); // Redirects to a new perdurable variable.
+	if (mWindowType == fromWebcam) { // Redirects to a perdurable variable.
+		mImageOriginal = new QImage(mPixmap.toImage());
 		mImage = mImageOriginal;
 	}
 	mPixmapOriginal = mPixmap;
@@ -78,7 +78,7 @@ void WindowImage::zoomOut() {
 
 
 void WindowImage::zoomBestFit() {
-	float correctF = 0.99; // This correct factor allows the image fits the main window area without scrollbars.
+	float correctF = 0.99; // This correction factor allows the image to fit the subwindow area without scrollbars.
 	int scrollWidth = width();
 	int scrollHeight = height();
 
@@ -115,30 +115,45 @@ void WindowImage::zoomOriginal() {
 
 
 
-void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, double kValue) {
+void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, double kValue, int threshold, bool showProcessed) {
+	mFeatureType = WindowImage::harris;
+	if (mModified)
+		mPixmap = mPixmapOriginal;
+	
 	Mat image(mImage->height(), mImage->width(), CV_8UC4, mImage->bits(), mImage->bytesPerLine()); // With CV_8UC3 it doesn't work
 	Mat imageGrey(mImage->height(), mImage->width(), CV_8UC1);
 	cvtColor(image, imageGrey, CV_RGB2GRAY);
 	
-	Mat imageHarris(mImage->height(), mImage->width(), CV_32FC1);
+	Mat imageHarris(mImage->height(), mImage->width(), CV_8UC1);
 	float time = (float) getTickCount();
 	cornerHarris(imageGrey, imageHarris, harrisApertureSize, sobelApertureSize, kValue);
 	
 	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
-	mImageKeypoints = "--";
 	
 	// Increases the contrast. If not only a nearly black image would be seen
-	Mat imageHarris8U(mImage->height(), mImage->width(), CV_8UC1);
-	double min=0, max=255, minVal, maxVal, scale, shift;
-	minMaxLoc(imageHarris, &minVal, &maxVal);
-	scale = (max-min)/(maxVal-minVal);
-	shift = -minVal*scale+min;
-	imageHarris.convertTo(imageHarris8U, CV_8UC1, scale, shift);
+	Mat imageHarrisNorm;
+	normalize(imageHarris, imageHarrisNorm, 0, 255, NORM_MINMAX, CV_32FC1); // The same than the next five lines
+// 	double min=0, max=255, minVal, maxVal, scale, shift;
+// 	minMaxLoc(imageHarris, &minVal, &maxVal);
+// 	scale = (max-min)/(maxVal-minVal);
+// 	shift = -minVal*scale+min;
+// 	imageHarris.convertTo(imageHarrisNorm, CV_32FC1, scale, shift);
 	
-	mPixmap = QPixmap::fromImage(convertMat2QImage(imageHarris8U)); // This should be faster than the below three lines
-// 	Mat imageColor(mImage->height(), mImage->width(), CV_8UC4); // With CV_8UC3 it doesn't work
-// 	cvtColor(imageHarris8U, imageColor, CV_GRAY2RGBA); // With CV_GRAY2RGB it doesn't work
-// 	mPixmap = QPixmap::fromImage(QImage(imageColor.data, mImage->width(), mImage->height(), imageColor.step, QImage::Format_RGB32)); // With Format_RGB888 it doesn't work. It can be Format_ARGB32 as well
+	int keypoints = 0;
+	mPainter->begin(&mPixmap);
+	mPainter->setPen(QColor::fromRgb(255, 0, 0));
+	mPainter->setRenderHint(QPainter::Antialiasing);
+	for (int j=0; j<imageHarrisNorm.rows ; j++)
+		for (int i=0; i<imageHarrisNorm.cols; i++)
+			if ((int) imageHarrisNorm.at<float>(j,i) > threshold) {
+				mPainter->drawEllipse(i, j, 3, 3);
+				++keypoints;
+			}
+	mPainter->end();
+	mImageKeypoints = mLocale->toString((float) keypoints,'f', 0);
+	
+	if (showProcessed)
+		showProcessedImage(imageHarrisNorm);
 	mModified = true;
 	uiLabelImage->setPixmap(mPixmap.scaled(mCurrentFactor*mOriginalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
@@ -147,6 +162,7 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 
 
 void WindowImage::applyFast(int threshold, bool nonMaxSuppression) {
+	mFeatureType = WindowImage::fast;
 	if (mModified)
 		mPixmap = mPixmapOriginal;
 	
@@ -176,6 +192,7 @@ void WindowImage::applyFast(int threshold, bool nonMaxSuppression) {
 
 
 void WindowImage::applySift(double threshold, double edgeThreshold, int nOctaves, int nOctaveLayers, bool showOrientation) {
+	mFeatureType = WindowImage::sift;
 	if (mModified)
 		mPixmap = mPixmapOriginal;
 
@@ -219,6 +236,7 @@ void WindowImage::applySift(double threshold, double edgeThreshold, int nOctaves
 
 
 void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, int extended, bool showOrientation) {
+	mFeatureType = WindowImage::surf;
 	if (mModified)
 		mPixmap = mPixmapOriginal;
 	
@@ -261,7 +279,21 @@ void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, i
 
 
 
+void WindowImage::showProcessedImage(Mat processedImage) {
+	if (mFeatureType == WindowImage::harris) {
+		mPixmap = QPixmap::fromImage(convertMat2QImage(processedImage)); // This should be faster than the below lines
+// 		Mat imageColor(mImage->height(), mImage->width(), CV_8UC4); // With CV_8UC3 it doesn't work
+// 		cvtColor(processedImage, imageColor, CV_GRAY2RGBA); // With CV_GRAY2RGB it doesn't work
+// 		// With Format_RGB888 it doesn't work. It can be Format_ARGB32 as welL
+// 		mPixmap = QPixmap::fromImage(QImage(imageColor.data, mImage->width(), mImage->height(), imageColor.step, QImage::Format_RGB32));
+	}
+}
+
+
+
+
 void WindowImage::resetImage() {
+	mFeatureType = WindowImage::none;
 	mPixmap = mPixmapOriginal;
 	mImageTime.clear();
 	mImageKeypoints.clear();
@@ -273,8 +305,8 @@ void WindowImage::resetImage() {
 
 
 // http://stackoverflow.com/questions/5026965/how-to-convert-an-opencv-cvmat-to-qimage
-QImage WindowImage::convertMat2QImage(const cv::Mat_<double> &src) {
-        double scale = -255.0;
+QImage WindowImage::convertMat2QImage(const Mat_<double> &src) {
+        double scale = 1; // Value for CV_32FC1 images. Use -255 for CV_8UC1 images.
         QImage dest(src.cols, src.rows, QImage::Format_RGB32);
         for (int y = 0; y < src.rows; ++y) {
                 const double *srcrow = src[y];

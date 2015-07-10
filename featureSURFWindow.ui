@@ -97,7 +97,7 @@
    <item>
     <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Threshold:</string>
+      <string>Threshold</string>
      </property>
      <property name="buddy">
       <cstring>uiSpinBoxThreshold</cstring>
@@ -127,7 +127,7 @@
    <item>
     <widget class="QLabel" name="label_7">
      <property name="text">
-      <string>Octaves:</string>
+      <string>Octaves</string>
      </property>
      <property name="buddy">
       <cstring>uiSpinBoxOctaves</cstring>
@@ -154,7 +154,7 @@
    <item>
     <widget class="QLabel" name="label_8">
      <property name="text">
-      <string>Layers/octave:</string>
+      <string>Layers/octave</string>
      </property>
      <property name="buddy">
       <cstring>uiSpinBoxLayers</cstring>
@@ -181,7 +181,7 @@
    <item>
     <widget class="QPushButton" name="uiPushButtonShowOrientation">
      <property name="toolTip">
-      <string>Show Orientation</string>
+      <string>Show Descriptor Orientation</string>
      </property>
      <property name="text">
       <string/>
@@ -239,6 +239,9 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>Reset Parameters to Their Default Values</string>
      </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Apply|QDialogButtonBox::Reset</set>

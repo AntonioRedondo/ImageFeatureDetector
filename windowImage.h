@@ -29,7 +29,7 @@ class WindowImage : public QScrollArea, Ui::imageWindow {
 	void zoomOriginal();
 	void zoomBestFit();
 	void resetImage();
-	void applyHarris(int sobelApertureSize, int harrisApertureSize, double kValue);
+	void applyHarris(int sobelApertureSize, int harrisApertureSize, double kValue, int threshold, bool showProcessedImage);
 	void applyFast(int threshold, bool nonMaxSuppression);
 	void applySift(double threshold, double edgeThreshold, int nOctaves, int nOctaveLayers, bool showOrientation);
 	void applySurf(double threshold, int nOctaves, int nOctaveLayers, int extended, bool showOrientation);
@@ -57,10 +57,10 @@ class WindowImage : public QScrollArea, Ui::imageWindow {
 	void mouseDoubleClickEvent(QMouseEvent* event);
 
   private:
+	void showProcessedImage(Mat processedImage);
 	void scaleImage();
 	void scrollImage(QPoint* pos);
 	void adjustScrollBar(QScrollBar* scrollBar);
-	QImage Mat2QImageRGB(const cv::Mat3b &src);
 	QImage convertMat2QImage(const cv::Mat_<double> &src);
 
 	QPixmap mPixmapOriginal;

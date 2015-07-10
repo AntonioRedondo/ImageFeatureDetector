@@ -135,10 +135,14 @@ WindowMain::WindowMain() : mTotalImages(0) {
 	mUIHarris.uiComboBoxSobelApertureSize->setCurrentIndex(mSettings->value("harris/sobelApertureSize", 2).toInt());
 	mUIHarris.uiSpinBoxHarrisApertureSize->setValue(mSettings->value("harris/harrisApertureSize", 1).toInt());
 	mUIHarris.uiDoubleSpinBoxKValue->setValue(mSettings->value("harris/kValue", 0.01).toDouble());
+	mUIHarris.uiSpinBoxThreshold->setValue(mSettings->value("harris/threshold", 64).toInt());
+	mUIHarris.uiPushButtonShowProcessedImage->setChecked(mSettings->value("harris/showProcessedImage", false).toBool());
 	// http://stackoverflow.com/questions/16794695/qt5-overloaded-signals-and-slots
 	connect(mUIHarris.uiComboBoxSobelApertureSize, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &WindowMain::saveHarrisParams);
 	connect(mUIHarris.uiSpinBoxHarrisApertureSize, &QSpinBox::editingFinished, this, &WindowMain::saveHarrisParams);
 	connect(mUIHarris.uiDoubleSpinBoxKValue, &QSpinBox::editingFinished, this, &WindowMain::saveHarrisParams);
+	connect(mUIHarris.uiSpinBoxThreshold, &QSpinBox::editingFinished, this, &WindowMain::saveHarrisParams);
+	connect(mUIHarris.uiPushButtonShowProcessedImage, &QPushButton::toggled, this, &WindowMain::saveHarrisParams);
 	connect(mUIHarris.uiButtonBox->button(QDialogButtonBox::Apply), &QAbstractButton::clicked, this, &WindowMain::applyHarris);
 	connect(mUIHarris.uiButtonBox->button(QDialogButtonBox::Reset), &QAbstractButton::clicked, this, &WindowMain::resetHarrisParams);
 	mHarrisAction = uiToolBarParameters->addWidget(mHarrisToolBar);
@@ -321,6 +325,8 @@ void WindowMain::resetHarrisParams() {
 	mUIHarris.uiComboBoxSobelApertureSize->setCurrentIndex(1);
 	mUIHarris.uiSpinBoxHarrisApertureSize->setValue(2);
 	mUIHarris.uiDoubleSpinBoxKValue->setValue(0.01);
+	mUIHarris.uiSpinBoxThreshold->setValue(64);
+	mUIHarris.uiPushButtonShowProcessedImage->setChecked(false);
 	saveHarrisParams();
 }
 
@@ -337,9 +343,10 @@ void WindowMain::applyHarris() {
 	}
 	mActiveWindowImage->applyHarris(sobelApertureSize,
 			mSettings->value("harris/harrisApertureSize", 2).toInt(),
-			mSettings->value("harris/kValue", 0.01).toDouble());
+			mSettings->value("harris/kValue", 0.01).toDouble(),
+			mSettings->value("harris/threshold", 64).toInt(),
+			mSettings->value("harris/showProcessedImage", false).toBool());
 	uiActionResetImage->setEnabled(true);
-	mActiveWindowImage->mFeatureType=WindowImage::harris;
 	mActiveWindow->setWindowIcon(*mIconHarris);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
@@ -356,6 +363,8 @@ void WindowMain::saveHarrisParams() {
 	mSettings->setValue("harris/sobelApertureSize", mUIHarris.uiComboBoxSobelApertureSize->currentIndex());
 	mSettings->setValue("harris/harrisApertureSize", mUIHarris.uiSpinBoxHarrisApertureSize->value());
 	mSettings->setValue("harris/kValue", mUIHarris.uiDoubleSpinBoxKValue->value());
+	mSettings->setValue("harris/threshold", mUIHarris.uiSpinBoxThreshold->value());
+	mSettings->setValue("harris/showProcessedImage", mUIHarris.uiPushButtonShowProcessedImage->isChecked());
 }
 
 
@@ -385,7 +394,6 @@ void WindowMain::restFastParams() {
 void WindowMain::applyFast() {
 	mActiveWindowImage->applyFast(mSettings->value("fast/threshold", 50).toInt(), mSettings->value("fast/nonMaxSuppression", true).toBool());
 	uiActionResetImage->setEnabled(true);
-	mActiveWindowImage->mFeatureType=WindowImage::fast;
 	mActiveWindow->setWindowIcon(*mIconFAST);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
@@ -437,7 +445,6 @@ void WindowMain::applySift() {
 			mSettings->value("sift/layers", 1).toInt(),
 			mSettings->value("sift/showOrientation", true).toBool());
 	uiActionResetImage->setEnabled(true);
-	mActiveWindowImage->mFeatureType=WindowImage::sift;
 	mActiveWindow->setWindowIcon(*mIconSIFT);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
@@ -491,7 +498,6 @@ void WindowMain::applySurf() {
 			0,
 			mSettings->value("surf/showOrientation", true).toBool());
 	uiActionResetImage->setEnabled(true);
-	mActiveWindowImage->mFeatureType=WindowImage::surf;
 	mActiveWindow->setWindowIcon(*mIconSURF);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
@@ -517,7 +523,7 @@ void WindowMain::saveSurfParams() {
 void WindowMain::resetImage() {
 	mActiveWindowImage->resetImage();
 	uiActionResetImage->setEnabled(false);
-	mActiveWindowImage->mFeatureType=WindowImage::none;
+	mActiveWindowImage->mFeatureType = WindowImage::none;
 	mActiveWindow->setWindowIcon(QApplication::windowIcon());
 	mStatusBarLabelIcon->clear();
 	mStatusBarLabelIcon->setVisible(false);
@@ -545,7 +551,9 @@ void WindowMain::do4() {
 	}
 	harrisImage->applyHarris(sobelApertureSize,
 			mSettings->value("harris/harrisApertureSize", 2).toInt(),
-			mSettings->value("harris/kValue", 0.01).toDouble());
+			mSettings->value("harris/kValue", 0.01).toDouble(),
+			mSettings->value("harris/threshold", 64).toInt(),
+			mSettings->value("harris/showProcessedImage", false).toBool());
 
 	fastImage->applyFast(mSettings->value("fast/threshold", 50).toInt(), mSettings->value("fast/nonMaxSuppression", true).toBool());
 

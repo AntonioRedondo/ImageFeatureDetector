@@ -10,7 +10,7 @@
 #include "windowImage.h"
 
 WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType)
-		: mImage(image), mWindowTitle(windowTitle), mWindowType(windowType), mImageN(0) {
+		: mImage(image), mWindowTitle(windowTitle), mWindowType(windowType), mImageN(0), mModified(false) {
 	setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
 	mPainter = new QPainter();
@@ -21,13 +21,8 @@ WindowImage::WindowImage(QImage* image, QString windowTitle, int windowType)
 	uiScrollAreaWidgetContents->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 
 	mPixmap = QPixmap::fromImage(*mImage);
-	if (mWindowType == fromWebcam) { // Redirects to a perdurable variable.
-		mImageOriginal = new QImage(mPixmap.toImage());
-		mImage = mImageOriginal;
-	}
 	mPixmapOriginal = mPixmap;
 	uiLabelImage->setPixmap(mPixmap);
-	mModified = false;
 
 	mScaleFactorAbove100 = 0.5;
 	mScaleFactorUnder100 = 0.25;
@@ -128,7 +123,7 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 	float time = (float) getTickCount();
 	cornerHarris(imageGrey, imageHarris, harrisApertureSize, sobelApertureSize, kValue);
 	
-	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
+	mImageTime = mLocale->toString((float)((getTickCount()-time)*1000/getTickFrequency()),'f', 2);
 	
 	// Increases the contrast. If not only a nearly black image would be seen
 	Mat imageHarrisNorm;
@@ -141,12 +136,14 @@ void WindowImage::applyHarris(int sobelApertureSize, int harrisApertureSize, dou
 	
 	int keypoints = 0;
 	mPainter->begin(&mPixmap);
-	mPainter->setPen(QColor::fromRgb(255, 0, 0));
+	QPen pen(QColor::fromRgb(255, 0, 0));
+	pen.setWidth(2);
+	mPainter->setPen(pen);
 	mPainter->setRenderHint(QPainter::Antialiasing);
 	for (int j=0; j<imageHarrisNorm.rows ; j++)
 		for (int i=0; i<imageHarrisNorm.cols; i++)
 			if ((int) imageHarrisNorm.at<float>(j,i) > threshold) {
-				mPainter->drawEllipse(i, j, 3, 3);
+				mPainter->drawEllipse(i, j, 4, 4);
 				++keypoints;
 			}
 	mPainter->end();
@@ -174,14 +171,16 @@ void WindowImage::applyFast(int threshold, bool nonMaxSuppression) {
 	float time = (float) getTickCount();
 	FAST(imageGrey, keypoints, threshold, nonMaxSuppression);
 	
-	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
+	mImageTime = mLocale->toString((float)((getTickCount()-time)*1000/getTickFrequency()),'f', 2);
 	mImageKeypoints = mLocale->toString((float)keypoints.size(),'f', 0);
 	
 	mPainter->begin(&mPixmap);
-	mPainter->setPen(QColor::fromRgb(255, 0, 0));
+	QPen pen(QColor::fromRgb(255, 0, 0));
+	pen.setWidth(2);
+	mPainter->setPen(pen);
 	mPainter->setRenderHint(QPainter::Antialiasing);
 	for (int n=0; n<keypoints.size(); ++n)
-		mPainter->drawEllipse((int)keypoints.at(n).pt.x, (int)keypoints.at(n).pt.y, 3, 3);
+		mPainter->drawEllipse((int)keypoints.at(n).pt.x, (int)keypoints.at(n).pt.y, 4, 4);
 	mPainter->end();
 	
 	mModified = true;
@@ -205,7 +204,7 @@ void WindowImage::applySift(double threshold, double edgeThreshold, int nOctaves
 	Ptr<Feature2D> feature = SIFT::create(nOctaveLayers, nOctaves, threshold, edgeThreshold);
 	feature->detect(imageGrey, keypoints);
 	
-	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
+	mImageTime = mLocale->toString((float)((getTickCount()-time)*1000/getTickFrequency()),'f', 2);
 	mImageKeypoints = mLocale->toString((float)keypoints.size(),'f', 0);
 	
 	QPoint center;
@@ -249,7 +248,7 @@ void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, i
 	Ptr<Feature2D> feature = SURF::create(threshold, nOctaves, nOctaveLayers, false, false);
 	feature->detect(imageGrey, keypoints);
 	
-	mImageTime = mLocale->toString((float)((getTickCount()-time)/(getTickFrequency()*1000)),'f', 2);
+	mImageTime = mLocale->toString((float)((getTickCount()-time)*1000/getTickFrequency()),'f', 2);
 	mImageKeypoints = mLocale->toString((float) keypoints.size(),'f', 0);
 
 	QPoint center;
@@ -306,17 +305,17 @@ void WindowImage::resetImage() {
 
 // http://stackoverflow.com/questions/5026965/how-to-convert-an-opencv-cvmat-to-qimage
 QImage WindowImage::convertMat2QImage(const Mat_<double> &src) {
-        double scale = 1; // Value for CV_32FC1 images. Use -255 for CV_8UC1 images.
-        QImage dest(src.cols, src.rows, QImage::Format_RGB32);
-        for (int y = 0; y < src.rows; ++y) {
-                const double *srcrow = src[y];
-                QRgb *destrow = (QRgb*) dest.scanLine(y);
-                for (int x = 0; x < src.cols; ++x) {
-                        unsigned int color = srcrow[x] * scale;
-                        destrow[x] = qRgb(color, color, color);
-                }
-        }
-        return dest;
+	double scale = 1; // Value for CV_32FC1 images. Use -255 for CV_8UC1 images.
+	QImage dest(src.cols, src.rows, QImage::Format_RGB32);
+	for (int y = 0; y < src.rows; ++y) {
+		const double *srcrow = src[y];
+		QRgb *destrow = (QRgb*) dest.scanLine(y);
+		for (int x = 0; x < src.cols; ++x) {
+			unsigned int color = srcrow[x] * scale;
+			destrow[x] = qRgb(color, color, color);
+		}
+	}
+	return dest;
 }
 
 

@@ -12,6 +12,8 @@
 WindowCaptureWebcam::WindowCaptureWebcam(WindowMain* windowMain) : mWindowMain(windowMain), QDialog(windowMain, Qt::Dialog), mCamera(VideoCapture(0)), mTimer(0) {
 	setupUi(this);
 	
+	setAttribute(Qt::WA_DeleteOnClose);
+	
 	connect(uiPushButtonCapture, &QAbstractButton::clicked, this, &WindowCaptureWebcam::capture);
 	connect(uiPushButtonOK, &QAbstractButton::clicked, this, &WindowCaptureWebcam::ok);
 	connect(uiPushButtonCancel, &QAbstractButton::clicked, this, &WindowCaptureWebcam::close);
@@ -21,6 +23,12 @@ WindowCaptureWebcam::WindowCaptureWebcam(WindowMain* windowMain) : mWindowMain(w
 		mTimer->start(40); //25fps
 		connect(mTimer, &QTimer::timeout, this, &WindowCaptureWebcam::compute);
 		uiPushButtonCapture->setEnabled(true);
+// 		qDebug() << "Frame format: " << mCamera.get(CV_CAP_PROP_FORMAT);
+// 		qDebug() << "Frame count: " << mCamera.get(CV_CAP_PROP_FRAME_COUNT);
+// 		qDebug() << "Frame mode: " << mCamera.get(CV_CAP_PROP_MODE);
+// 		qDebug() << "Frame rate: " << mCamera.get(CV_CAP_PROP_FPS);
+// 		qDebug() << "Frame width: " << mCamera.get(CV_CAP_PROP_FRAME_WIDTH);
+// 		qDebug() << "Frame height: " << mCamera.get(CV_CAP_PROP_FRAME_HEIGHT);
 	} else {
 		uiLabelRealTime->setText("There is some problem with the cam.\nCannot get images.");
 		uiLabelCaptured->setText("Damn!");
@@ -33,18 +41,23 @@ WindowCaptureWebcam::WindowCaptureWebcam(WindowMain* windowMain) : mWindowMain(w
 
 
 void WindowCaptureWebcam::capture() {
-	mImage = new QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB32);
-	uiLabelCaptured->setPixmap(QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB32)));
+	uiLabelCaptured->setPixmap(QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB888)));
 	uiPushButtonOK->setEnabled(true);
+// 	qDebug() << "Frame camptured?";
+// 	qDebug() << "Frame width: " << mImageRT.cols;
+// 	qDebug() << "Frame height: " << mImageRT.rows;
+// 	qDebug() << "Frame height: " << mImageRT.step;
+// 	qDebug() << "Image type: " << mImageRT.type();
+// 	qDebug() << "CV_8UC3: " << (mImageRT.type() == CV_8UC3);
+// 	qDebug() << "CV_8UC4: " << (mImageRT.type() == CV_8UC4);
+// 	qDebug() << "CV_32FC1: " << (mImageRT.type() == CV_32FC1);
 }
 
 
 
 
 void WindowCaptureWebcam::ok() {
-	WindowImage* windowImage = new WindowImage(mImage, tr("WebCam Captured Image %1").arg(++mWindowMain->mCapturedWebcamImages), WindowImage::fromWebcam);
-	mWindowMain->showWindowImage(windowImage);
-	windowImage->show();
+	mWindowMain->showWindowImage(new WindowImage(new QImage(uiLabelCaptured->pixmap()->toImage()), tr("WebCam Captured Image %1").arg(++mWindowMain->mCapturedWebcamImages), WindowImage::fromWebcam));
 	close();
 }
 
@@ -54,6 +67,7 @@ void WindowCaptureWebcam::ok() {
 void WindowCaptureWebcam::close() {
 	if (mTimer)
 		mTimer->stop();
+	mCamera.release();
 	QWidget::close();
 }
 
@@ -70,6 +84,7 @@ void WindowCaptureWebcam::closeEvent(QCloseEvent* closeEvent) {
 
 void WindowCaptureWebcam::compute() {
 	mCamera >> mImageRT;
-// 	cvtColor(mImageRT, mImageRT, CV_BGR2RGB);
-	uiLabelRealTime->setPixmap(QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB32).rgbSwapped()));
+	cvtColor(mImageRT, mImageRT, CV_BGR2RGB);
+	uiLabelRealTime->setPixmap(QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB888))); // With RGB32 doesn't work
+// 	uiLabelRealTime->setPixmap(QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB888).rgbSwapped()));
 }

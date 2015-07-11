@@ -13,6 +13,7 @@ WindowPreferences::WindowPreferences(WindowMain* windowMain)
 		: mWindowMain(windowMain), QDialog::QDialog(windowMain, Qt::Dialog) {
 	setupUi(this);
 
+	setAttribute(Qt::WA_DeleteOnClose);
 	mSettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
 	if (mSettings->value("recentFiles").toStringList().isEmpty()) {
 		uiPushButtonClearRecentFiles->setEnabled(false);

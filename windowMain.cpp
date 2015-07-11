@@ -745,7 +745,6 @@ void WindowMain::loadFile(QString filePath) {
 		if (!image->isNull()) {
 			setRecentFile(filePath);
 			showWindowImage(new WindowImage(image, filePath));
-			uiToolBarParameters->setEnabled(true);
 		} else {
 			removeRecentFile(filePath);
 			QMessageBox::warning(this, tr("Image Feature Detector"), tr("Cannot open %1.").arg(filePath));
@@ -768,6 +767,7 @@ void WindowMain::showWindowImage(WindowImage* windowImage) {
 	if (windowImage->mImage->height() > uiMdiArea->height())
 		windowImage->parentWidget()->setGeometry(0, 0, windowImage->parentWidget()->width(), uiMdiArea->height());
 	windowImage->show();
+	uiToolBarParameters->setEnabled(true);
 }
 
 

@@ -9,8 +9,10 @@
 
 #include "windowFastRealTime.h"
 
-WindowFastRealTime::WindowFastRealTime(WindowMain* windowMain) : QDialog(windowMain, Qt::Dialog), mDetecting(false), mTimer(0) {
+WindowFastRealTime::WindowFastRealTime(WindowMain* windowMain) : QDialog(windowMain, Qt::Dialog), mDetecting(false), mCamera(VideoCapture(0)), mTimer(0) {
 	setupUi(this);
+	
+	setAttribute(Qt::WA_DeleteOnClose);
 	mSettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
 	mLocale = new QLocale(QLocale::English);
 
@@ -56,6 +58,7 @@ void WindowFastRealTime::detect() {
 void WindowFastRealTime::close() {
 	if (mTimer)
 		mTimer->stop();
+	mCamera.release();
 	QWidget::close();
 }
 
@@ -95,18 +98,20 @@ void WindowFastRealTime::compute() {
 		mTime = (float) getTickCount();
 		FAST(mImageGrey, mKeypoints, mSettings->value("fastRT/threshold", true).toInt(), mSettings->value("fastRT/nonMaxSuppression", true).toBool());
 		uiLabelTime->setText(QString("Detecting Time: ").append(mLocale->toString((float)((getTickCount()-mTime)/(getTickFrequency()*1000)),'f', 2).append(" ms")));
-		uiLabelKeypoints->setText(QString("Keypoints: ").append(mLocale->toString((float)mKeypoints.size(),'f', 0).append(" keypoints")));
+		uiLabelKeypoints->setText(QString("Keypoints: ").append(mLocale->toString((float)mKeypoints.size(),'f', 0)));
 		
-		mPixmap = QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB32).rgbSwapped());
+		mPixmap = QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB888).rgbSwapped());
 		mPainter->begin(&mPixmap);
-		mPainter->setPen(QColor::fromRgb(255, 0, 0));
+		QPen pen(QColor::fromRgb(255, 0, 0));
+		pen.setWidth(2);
+		mPainter->setPen(pen);
 		mPainter->setRenderHint(QPainter::Antialiasing);
 		for(int n=0; n<mKeypoints.size(); ++n)
-			mPainter->drawEllipse((int)mKeypoints.at(n).pt.x, (int)mKeypoints.at(n).pt.y, 3, 3);
+			mPainter->drawEllipse((int)mKeypoints.at(n).pt.x, (int)mKeypoints.at(n).pt.y, 4, 4);
 		mPainter->end();
 		uiLabelRealTime->setPixmap(mPixmap);
 	} else {
-		uiLabelRealTime->setPixmap(QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB32).rgbSwapped()));
+		uiLabelRealTime->setPixmap(QPixmap::fromImage(QImage(mImageRT.data, mImageRT.cols, mImageRT.rows, mImageRT.step, QImage::Format_RGB888).rgbSwapped()));
 		uiLabelTime->setText("Detecting Time: -");
 		uiLabelKeypoints->setText("Keypoints: -");
 	}

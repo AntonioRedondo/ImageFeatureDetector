@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>formFeaturesHarris</class>
- <widget class="QWidget" name="formFeaturesHarris">
+ <class>barFeaturesSift</class>
+ <widget class="QWidget" name="barFeaturesSift">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -32,9 +32,9 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Harris Parameters Toolbar</string>
+   <string>SIFT Parameters Toolbar</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
    <property name="topMargin">
     <number>2</number>
    </property>
@@ -45,7 +45,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="label_5">
+    <widget class="QLabel" name="label">
      <property name="minimumSize">
       <size>
        <width>24</width>
@@ -62,7 +62,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>icons/Harris.png</pixmap>
+      <pixmap>icons/Sift.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -70,7 +70,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame_3">
+    <widget class="QFrame" name="frame_9">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -92,66 +92,31 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Sobel Aperture (px)</string>
+      <string>Threshold</string>
      </property>
      <property name="buddy">
-      <cstring>uiComboBoxSobelApertureSize</cstring>
+      <cstring>uiDoubleSpinBoxThreshold</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="uiComboBoxSobelApertureSize">
-     <property name="currentIndex">
-      <number>1</number>
+    <widget class="QDoubleSpinBox" name="uiDoubleSpinBoxThreshold">
+     <property name="decimals">
+      <number>3</number>
      </property>
-     <item>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>3</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>5</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>7</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Harris Aperture (px)</string>
-     </property>
-     <property name="buddy">
-      <cstring>uiSpinBoxHarrisApertureSize</cstring>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QSpinBox" name="uiSpinBoxHarrisApertureSize">
      <property name="minimum">
-      <number>1</number>
+      <double>0.001000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>10.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.001000000000000</double>
      </property>
      <property name="value">
-      <number>2</number>
+      <double>0.014000000000000</double>
      </property>
     </widget>
    </item>
@@ -163,49 +128,58 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="label_5">
      <property name="text">
-      <string>k Value</string>
+      <string>Edge Threshold</string>
      </property>
      <property name="buddy">
-      <cstring>uiDoubleSpinBoxKValue</cstring>
+      <cstring>uiDoubleSpinBoxEdgeThreshold</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QDoubleSpinBox" name="uiDoubleSpinBoxKValue">
+    <widget class="QDoubleSpinBox" name="uiDoubleSpinBoxEdgeThreshold">
+     <property name="decimals">
+      <number>1</number>
+     </property>
      <property name="minimum">
-      <double>0.010000000000000</double>
+      <double>1.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>99.900000000000006</double>
      </property>
      <property name="singleStep">
-      <double>0.010000000000000</double>
+      <double>0.100000000000000</double>
      </property>
      <property name="value">
-      <double>0.010000000000000</double>
+      <double>10.000000000000000</double>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_3">
+    <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="label_7">
      <property name="text">
-      <string>Threshold</string>
+      <string>Octaves</string>
+     </property>
+     <property name="buddy">
+      <cstring>uiSpinBoxOctaves</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="uiSpinBoxThreshold">
-     <property name="maximum">
-      <number>255</number>
+    <widget class="QSpinBox" name="uiSpinBoxOctaves">
+     <property name="minimum">
+      <number>1</number>
      </property>
      <property name="value">
-      <number>200</number>
+      <number>3</number>
      </property>
     </widget>
    </item>
@@ -217,16 +191,43 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="uiPushButtonShowProcessedImage">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>Layers/octave</string>
+     </property>
+     <property name="buddy">
+      <cstring>uiSpinBoxLayers</cstring>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="uiSpinBoxLayers">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="value">
+      <number>1</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="uiPushButtonShowOrientation">
      <property name="toolTip">
-      <string>Show Processed Image</string>
+      <string>Show Orientation</string>
      </property>
      <property name="text">
       <string/>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>iconsBreeze/view-grid.svg</normaloff>iconsBreeze/view-grid.svg</iconset>
+       <normaloff>icons/draw-donut.svg</normaloff>icons/draw-donut.svg</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -235,6 +236,9 @@
       </size>
      </property>
      <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
@@ -275,22 +279,19 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="toolTip">
-      <string>Reset Parameters to Their Default Values</string>
-     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Apply|QDialogButtonBox::Reset</set>
      </property>
     </widget>
    </item>
    <item>
-    <spacer name="horizontalSpacer">
+    <spacer name="horizontalSpacer_2">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>40</width>
+       <width>15</width>
        <height>20</height>
       </size>
      </property>
@@ -299,8 +300,11 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>uiSpinBoxHarrisApertureSize</tabstop>
-  <tabstop>uiDoubleSpinBoxKValue</tabstop>
+  <tabstop>uiDoubleSpinBoxThreshold</tabstop>
+  <tabstop>uiDoubleSpinBoxEdgeThreshold</tabstop>
+  <tabstop>uiSpinBoxOctaves</tabstop>
+  <tabstop>uiSpinBoxLayers</tabstop>
+  <tabstop>uiPushButtonShowOrientation</tabstop>
  </tabstops>
  <resources/>
  <connections/>

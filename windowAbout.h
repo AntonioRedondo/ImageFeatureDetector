@@ -10,9 +10,9 @@
 #ifndef WINDOWABOUT_H
 #define WINDOWABOUT_H
 
-#include "ui_aboutWindow.h"
+#include "ui_windowAbout.h"
 
-class WindowAbout : public QDialog, private Ui::aboutWindow {
+class WindowAbout : public QDialog, private Ui::windowAbout {
   Q_OBJECT
   public:
 	WindowAbout();

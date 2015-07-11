@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>startupWindow</class>
- <widget class="QDialog" name="startupWindow">
+ <class>windowStartup</class>
+ <widget class="QDialog" name="windowStartup">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -81,7 +81,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconsBreeze/fileopen.svg</normaloff>iconsBreeze/fileopen.svg</iconset>
+         <normaloff>icons/fileopen.svg</normaloff>icons/fileopen.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -101,7 +101,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconsBreeze/camera-video-symbolic.svg</normaloff>iconsBreeze/camera-video-symbolic.svg</iconset>
+         <normaloff>icons/camera-video-symbolic.svg</normaloff>icons/camera-video-symbolic.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -165,7 +165,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>iconsBreeze/document-open-recent.svg</normaloff>iconsBreeze/document-open-recent.svg</iconset>
+           <normaloff>icons/document-open-recent.svg</normaloff>icons/document-open-recent.svg</iconset>
          </property>
          <property name="iconSize">
           <size>

@@ -13,7 +13,7 @@ WindowFastRealTime::WindowFastRealTime(WindowMain* windowMain) : QDialog(windowM
 	setupUi(this);
 	
 	setAttribute(Qt::WA_DeleteOnClose);
-	mSettings = new QSettings("./imageFeatureDetectorSettings.ini", QSettings::IniFormat);
+	mSettings = new QSettings("imageFeatureDetectorSettings.ini", QSettings::IniFormat);
 	mLocale = new QLocale(QLocale::English);
 
 	uiSpinBoxThresholdFAST->setValue(mSettings->value("fastRT/threshold", 25).toInt());
@@ -43,10 +43,10 @@ WindowFastRealTime::WindowFastRealTime(WindowMain* windowMain) : QDialog(windowM
 
 void WindowFastRealTime::detect() {
 	if (!mDetecting) {
-		uiPushButtonDetect->setIcon(QIcon("./iconsBreeze/media-playback-stop.svg"));
+		uiPushButtonDetect->setIcon(QIcon("icons/media-playback-stop.svg"));
 		uiPushButtonDetect->setText("Stop Detecting");
 	} else {
-		uiPushButtonDetect->setIcon(QIcon("./iconsBreeze/media-playback-start.svg"));
+		uiPushButtonDetect->setIcon(QIcon("icons/media-playback-start.svg"));
 		uiPushButtonDetect->setText("Detect");
 	}
 	mDetecting = !mDetecting;

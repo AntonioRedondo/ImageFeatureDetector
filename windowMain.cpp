@@ -43,7 +43,7 @@ WindowMain::WindowMain() : mTotalImages(0) {
 	mActionExit->setObjectName(QString::fromUtf8("actionExit"));
 	mActionExit->setText(QApplication::translate("mainWindow", "Exit", 0));
 	mActionExit->setShortcut(QApplication::translate("mainWindow", "Ctrl+Q", 0));
-	mActionExit->setIcon(QIcon("iconsBreeze/window-close.svg"));
+	mActionExit->setIcon(QIcon("icons/window-close.svg"));
 	uiMenuFile->addAction(mActionExit);
 
 	mToolButtonOpenRecent = new QToolButton(this);
@@ -132,10 +132,10 @@ WindowMain::WindowMain() : mTotalImages(0) {
 	mHarrisToolBar = new QWidget();
 	mHarrisToolBar->setVisible(false);
 	mUIHarris.setupUi(mHarrisToolBar);
-	mUIHarris.uiComboBoxSobelApertureSize->setCurrentIndex(mSettings->value("harris/sobelApertureSize", 2).toInt());
-	mUIHarris.uiSpinBoxHarrisApertureSize->setValue(mSettings->value("harris/harrisApertureSize", 1).toInt());
+	mUIHarris.uiComboBoxSobelApertureSize->setCurrentIndex(mSettings->value("harris/sobelApertureSize", 1).toInt());
+	mUIHarris.uiSpinBoxHarrisApertureSize->setValue(mSettings->value("harris/harrisApertureSize", 2).toInt());
 	mUIHarris.uiDoubleSpinBoxKValue->setValue(mSettings->value("harris/kValue", 0.01).toDouble());
-	mUIHarris.uiSpinBoxThreshold->setValue(mSettings->value("harris/threshold", 64).toInt());
+	mUIHarris.uiSpinBoxThreshold->setValue(mSettings->value("harris/threshold", 63).toInt());
 	mUIHarris.uiPushButtonShowProcessedImage->setChecked(mSettings->value("harris/showProcessedImage", false).toBool());
 	// http://stackoverflow.com/questions/16794695/qt5-overloaded-signals-and-slots
 	connect(mUIHarris.uiComboBoxSobelApertureSize, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &WindowMain::saveHarrisParams);
@@ -325,7 +325,7 @@ void WindowMain::resetHarrisParams() {
 	mUIHarris.uiComboBoxSobelApertureSize->setCurrentIndex(1);
 	mUIHarris.uiSpinBoxHarrisApertureSize->setValue(2);
 	mUIHarris.uiDoubleSpinBoxKValue->setValue(0.01);
-	mUIHarris.uiSpinBoxThreshold->setValue(64);
+	mUIHarris.uiSpinBoxThreshold->setValue(63);
 	mUIHarris.uiPushButtonShowProcessedImage->setChecked(false);
 	saveHarrisParams();
 }

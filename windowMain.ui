@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <author>Antonio Redondo. University Of Extremadura student, Spain.</author>
- <class>mainWindow</class>
- <widget class="QMainWindow" name="mainWindow">
+ <class>windowMain</class>
+ <widget class="QMainWindow" name="windowMain">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -269,7 +269,7 @@
   <action name="uiActionOpen">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/fileopen.svg</normaloff>iconsBreeze/fileopen.svg</iconset>
+     <normaloff>icons/fileopen.svg</normaloff>icons/fileopen.svg</iconset>
    </property>
    <property name="text">
     <string>Open...</string>
@@ -287,7 +287,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/document-save.svg</normaloff>iconsBreeze/document-save.svg</iconset>
+     <normaloff>icons/document-save.svg</normaloff>icons/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>Save Copy As...</string>
@@ -299,7 +299,7 @@
   <action name="uiActionWebsite">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/go-home.svg</normaloff>iconsBreeze/go-home.svg</iconset>
+     <normaloff>icons/go-home.svg</normaloff>icons/go-home.svg</iconset>
    </property>
    <property name="text">
     <string>Project on GitHub</string>
@@ -311,7 +311,7 @@
   <action name="uiActionAbout">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/help-about.svg</normaloff>iconsBreeze/help-about.svg</iconset>
+     <normaloff>icons/help-about.svg</normaloff>icons/help-about.svg</iconset>
    </property>
    <property name="text">
     <string>About...</string>
@@ -320,7 +320,7 @@
   <action name="uiActionCaptureWebcam">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/camera-video-symbolic.svg</normaloff>iconsBreeze/camera-video-symbolic.svg</iconset>
+     <normaloff>icons/camera-video-symbolic.svg</normaloff>icons/camera-video-symbolic.svg</iconset>
    </property>
    <property name="text">
     <string>Capture from Webcam...</string>
@@ -332,7 +332,7 @@
   <action name="uiActionPreferences">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/configure-shortcuts.svg</normaloff>iconsBreeze/configure-shortcuts.svg</iconset>
+     <normaloff>icons/configure-shortcuts.svg</normaloff>icons/configure-shortcuts.svg</iconset>
    </property>
    <property name="text">
     <string>Preferences...</string>
@@ -438,7 +438,7 @@
   <action name="uiActionZoomIn">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/zoom-in.svg</normaloff>iconsBreeze/zoom-in.svg</iconset>
+     <normaloff>icons/zoom-in.svg</normaloff>icons/zoom-in.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom In</string>
@@ -450,7 +450,7 @@
   <action name="uiActionZoomOut">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/zoom-out.svg</normaloff>iconsBreeze/zoom-out.svg</iconset>
+     <normaloff>icons/zoom-out.svg</normaloff>icons/zoom-out.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -462,7 +462,7 @@
   <action name="uiActionZoomOriginal">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/zoom-original.svg</normaloff>iconsBreeze/zoom-original.svg</iconset>
+     <normaloff>icons/zoom-original.svg</normaloff>icons/zoom-original.svg</iconset>
    </property>
    <property name="text">
     <string>Normal Size</string>
@@ -474,7 +474,7 @@
   <action name="uiActionZoomBestFit">
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/zoom-fit-best.svg</normaloff>iconsBreeze/zoom-fit-best.svg</iconset>
+     <normaloff>icons/zoom-fit-best.svg</normaloff>icons/zoom-fit-best.svg</iconset>
    </property>
    <property name="text">
     <string>Best Fit</string>
@@ -489,7 +489,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/edit-copy.svg</normaloff>iconsBreeze/edit-copy.svg</iconset>
+     <normaloff>icons/edit-copy.svg</normaloff>icons/edit-copy.svg</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -520,7 +520,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>iconsBreeze/edit-undo.svg</normaloff>iconsBreeze/edit-undo.svg</iconset>
+     <normaloff>icons/edit-undo.svg</normaloff>icons/edit-undo.svg</iconset>
    </property>
    <property name="text">
     <string>Reset Image</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>formFeaturesFAST</class>
- <widget class="QWidget" name="formFeaturesFAST">
+ <class>barFeaturesSurf</class>
+ <widget class="QWidget" name="barFeaturesSurf">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -32,9 +32,9 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>FAST Parameters Toolbar</string>
+   <string>SURF Parameters Toolbar</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
    <property name="topMargin">
     <number>2</number>
    </property>
@@ -45,13 +45,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="label_2">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
+    <widget class="QLabel" name="label">
      <property name="minimumSize">
       <size>
        <width>24</width>
@@ -64,8 +58,14 @@
        <height>24</height>
       </size>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
      <property name="pixmap">
-      <pixmap>icons/Fast.png</pixmap>
+      <pixmap>icons/Surf.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -73,7 +73,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame_3">
+    <widget class="QFrame" name="frame_9">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -95,7 +95,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="label_6">
      <property name="text">
       <string>Threshold</string>
      </property>
@@ -106,17 +106,41 @@
    </item>
    <item>
     <widget class="QSpinBox" name="uiSpinBoxThreshold">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
      <property name="minimum">
       <number>1</number>
      </property>
      <property name="maximum">
-      <number>999</number>
+      <number>9999</number>
      </property>
      <property name="value">
-      <number>50</number>
+      <number>4000</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Octaves</string>
+     </property>
+     <property name="buddy">
+      <cstring>uiSpinBoxOctaves</cstring>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="uiSpinBoxOctaves">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="value">
+      <number>3</number>
      </property>
     </widget>
    </item>
@@ -128,9 +152,49 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="uiPushButtonNonMax">
+    <widget class="QLabel" name="label_8">
      <property name="text">
-      <string>Non-Max Suppression</string>
+      <string>Layers/octave</string>
+     </property>
+     <property name="buddy">
+      <cstring>uiSpinBoxLayers</cstring>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="uiSpinBoxLayers">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="value">
+      <number>1</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="uiPushButtonShowOrientation">
+     <property name="toolTip">
+      <string>Show Descriptor Orientation</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>icons/draw-donut.svg</normaloff>icons/draw-donut.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -199,6 +263,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>uiSpinBoxThreshold</tabstop>
+  <tabstop>uiSpinBoxOctaves</tabstop>
+  <tabstop>uiSpinBoxLayers</tabstop>
+  <tabstop>uiPushButtonShowOrientation</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>formFeaturesSURF</class>
- <widget class="QWidget" name="formFeaturesSURF">
+ <class>barFeaturesHarris</class>
+ <widget class="QWidget" name="barFeaturesHarris">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -32,9 +32,9 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>SURF Parameters Toolbar</string>
+   <string>Harris Parameters Toolbar</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="topMargin">
     <number>2</number>
    </property>
@@ -45,7 +45,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="label_5">
      <property name="minimumSize">
       <size>
        <width>24</width>
@@ -58,14 +58,11 @@
        <height>24</height>
       </size>
      </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
      <property name="text">
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>icons/Surf.png</pixmap>
+      <pixmap>icons/Harris.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -73,7 +70,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame_9">
+    <widget class="QFrame" name="frame_3">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -95,25 +92,66 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_6">
+    <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Threshold</string>
+      <string>Sobel Aperture (px)</string>
      </property>
      <property name="buddy">
-      <cstring>uiSpinBoxThreshold</cstring>
+      <cstring>uiComboBoxSobelApertureSize</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="uiSpinBoxThreshold">
+    <widget class="QComboBox" name="uiComboBoxSobelApertureSize">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Harris Aperture (px)</string>
+     </property>
+     <property name="buddy">
+      <cstring>uiSpinBoxHarrisApertureSize</cstring>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="uiSpinBoxHarrisApertureSize">
      <property name="minimum">
       <number>1</number>
      </property>
-     <property name="maximum">
-      <number>9999</number>
-     </property>
      <property name="value">
-      <number>4000</number>
+      <number>2</number>
      </property>
     </widget>
    </item>
@@ -125,49 +163,25 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Octaves</string>
+      <string>k Value</string>
      </property>
      <property name="buddy">
-      <cstring>uiSpinBoxOctaves</cstring>
+      <cstring>uiDoubleSpinBoxKValue</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="uiSpinBoxOctaves">
+    <widget class="QDoubleSpinBox" name="uiDoubleSpinBoxKValue">
      <property name="minimum">
-      <number>1</number>
+      <double>0.010000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
      </property>
      <property name="value">
-      <number>3</number>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_8">
-     <property name="text">
-      <string>Layers/octave</string>
-     </property>
-     <property name="buddy">
-      <cstring>uiSpinBoxLayers</cstring>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QSpinBox" name="uiSpinBoxLayers">
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="value">
-      <number>1</number>
+      <double>0.010000000000000</double>
      </property>
     </widget>
    </item>
@@ -179,16 +193,40 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="uiPushButtonShowOrientation">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Threshold</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="uiSpinBoxThreshold">
+     <property name="maximum">
+      <number>255</number>
+     </property>
+     <property name="value">
+      <number>200</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="uiPushButtonShowProcessedImage">
      <property name="toolTip">
-      <string>Show Descriptor Orientation</string>
+      <string>Show Processed Image</string>
      </property>
      <property name="text">
       <string/>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>iconsBreeze/draw-donut.svg</normaloff>iconsBreeze/draw-donut.svg</iconset>
+       <normaloff>icons/view-grid.svg</normaloff>icons/view-grid.svg</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -197,9 +235,6 @@
       </size>
      </property>
      <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
@@ -264,10 +299,8 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>uiSpinBoxThreshold</tabstop>
-  <tabstop>uiSpinBoxOctaves</tabstop>
-  <tabstop>uiSpinBoxLayers</tabstop>
-  <tabstop>uiPushButtonShowOrientation</tabstop>
+  <tabstop>uiSpinBoxHarrisApertureSize</tabstop>
+  <tabstop>uiDoubleSpinBoxKValue</tabstop>
  </tabstops>
  <resources/>
  <connections/>

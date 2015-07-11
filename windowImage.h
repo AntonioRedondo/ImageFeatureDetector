@@ -14,13 +14,13 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/xfeatures2d.hpp>
 #include <opencv2/xfeatures2d/nonfree.hpp>
-#include "ui_imageWindow.h"
+#include "ui_windowImage.h"
 
 using namespace std;
 using namespace cv;
 using namespace xfeatures2d;
 
-class WindowImage : public QScrollArea, Ui::imageWindow {
+class WindowImage : public QScrollArea, Ui::windowImage {
   Q_OBJECT
   public:
 	WindowImage(QImage* image, QString windowTitle, int windowType=normal);
@@ -37,7 +37,6 @@ class WindowImage : public QScrollArea, Ui::imageWindow {
 	enum windowType {normal=0, duplicated=1, fromWebcam=2, do4=3};
 	enum featureType {none=0, harris=1, fast=2, sift=3, surf=4};
 	QImage* mImage;
-	QImage* mImageOriginal;
 	QPixmap mPixmap;
 	QString mImageZoom;
 	QString mImageTime;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>fastRealTimeWindow</class>
- <widget class="QDialog" name="fastRealTimeWindow">
+ <class>windowFastRealTime</class>
+ <widget class="QDialog" name="windowFastRealTime">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -215,7 +215,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>iconsBreeze/edit-clear.svg</normaloff>iconsBreeze/edit-clear.svg</iconset>
+           <normaloff>icons/edit-clear.svg</normaloff>icons/edit-clear.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -296,7 +296,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconsBreeze/media-playback-play.svg</normaloff>iconsBreeze/media-playback-play.svg</iconset>
+         <normaloff>icons/media-playback-play.svg</normaloff>icons/media-playback-play.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -328,7 +328,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconsBreeze/process-stop.svg</normaloff>iconsBreeze/process-stop.svg</iconset>
+         <normaloff>icons/process-stop.svg</normaloff>icons/process-stop.svg</iconset>
        </property>
        <property name="iconSize">
         <size>

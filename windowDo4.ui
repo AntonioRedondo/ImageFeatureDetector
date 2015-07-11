@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>do4Window</class>
- <widget class="QWidget" name="do4Window">
+ <class>windowDo4</class>
+ <widget class="QWidget" name="windowDo4">
   <property name="windowModality">
    <enum>Qt::NonModal</enum>
   </property>
@@ -42,7 +42,7 @@
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>iconsBreeze/zoom-fit-best.svg</normaloff>iconsBreeze/zoom-fit-best.svg</iconset>
+       <normaloff>icons/zoom-fit-best.svg</normaloff>icons/zoom-fit-best.svg</iconset>
      </property>
     </widget>
    </item>

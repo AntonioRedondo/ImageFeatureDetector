@@ -12,11 +12,11 @@
 
 #include <QtCore>
 #include <QtWidgets>
-#include "ui_mainWindow.h"
-#include "ui_featureHarrisWindow.h"
-#include "ui_featureSURFWindow.h"
-#include "ui_featureFASTWindow.h"
-#include "ui_featureSIFTWindow.h"
+#include "ui_windowMain.h"
+#include "ui_barFeaturesHarris.h"
+#include "ui_barFeaturesFast.h"
+#include "ui_barFeaturesSift.h"
+#include "ui_barFeaturesSurf.h"
 #include "windowImage.h"
 #include "windowCaptureWebcam.h"
 #include "windowPreferences.h"
@@ -25,7 +25,7 @@
 #include "windowFastRealTime.h"
 #include "windowDo4.h"
 
-class WindowMain : public QMainWindow, public Ui::mainWindow {
+class WindowMain : public QMainWindow, public Ui::windowMain {
   Q_OBJECT
   public:
 	WindowMain();
@@ -65,10 +65,10 @@ class WindowMain : public QMainWindow, public Ui::mainWindow {
 	QAction* mSurfAction;
 	QAction* mCurrentFeatureAction;
 	QList<QAction*>* mSubwindowActions;
-	Ui::formFeaturesHarris mUIHarris;
-	Ui::formFeaturesFAST mUIFast;
-	Ui::formFeaturesSIFT mUISift;
-	Ui::formFeaturesSURF mUISurf;
+	Ui::barFeaturesHarris mUIHarris;
+	Ui::barFeaturesFast mUIFast;
+	Ui::barFeaturesSift mUISift;
+	Ui::barFeaturesSurf mUISurf;
 	QWidget* mHarrisToolBar;
 	QWidget* mSiftToolBar;
 	QWidget* mSurfToolBar;

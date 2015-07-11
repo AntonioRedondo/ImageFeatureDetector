@@ -12,14 +12,14 @@
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/features2d.hpp>
-#include "ui_fastRealTimeWindow.h"
+#include "ui_windowFastRealTime.h"
 #include "windowMain.h"
 
 using namespace std;
 using namespace cv;
 using namespace xfeatures2d;
 
-class WindowFastRealTime : public QDialog, Ui::fastRealTimeWindow {
+class WindowFastRealTime : public QDialog, Ui::windowFastRealTime {
   Q_OBJECT
   public:
 	WindowFastRealTime(WindowMain*);

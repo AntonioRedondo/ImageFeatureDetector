@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>captureWebcamWindow</class>
- <widget class="QDialog" name="captureWebcamWindow">
+ <class>windowCaptureWebcam</class>
+ <widget class="QDialog" name="windowCaptureWebcam">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -252,7 +252,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconsBreeze/camera-photo-symbolic.svg</normaloff>iconsBreeze/camera-photo-symbolic.svg</iconset>
+         <normaloff>icons/camera-photo-symbolic.svg</normaloff>icons/camera-photo-symbolic.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -278,7 +278,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconsBreeze/dialog-ok-apply.svg</normaloff>iconsBreeze/dialog-ok-apply.svg</iconset>
+         <normaloff>icons/dialog-ok-apply.svg</normaloff>icons/dialog-ok-apply.svg</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -301,7 +301,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>iconsBreeze/process-stop.svg</normaloff>iconsBreeze/process-stop.svg</iconset>
+         <normaloff>icons/process-stop.svg</normaloff>icons/process-stop.svg</iconset>
        </property>
        <property name="iconSize">
         <size>

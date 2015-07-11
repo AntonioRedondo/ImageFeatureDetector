@@ -32,7 +32,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Capture image</string>
+   <string>Capture Image</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -70,7 +70,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Image preview:</string>
+        <string>Preview</string>
        </property>
       </widget>
      </item>
@@ -102,7 +102,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Image captured:</string>
+        <string>Captured</string>
        </property>
       </widget>
      </item>

@@ -350,7 +350,7 @@ void WindowMain::applyHarris() {
 	mActiveWindow->setWindowIcon(*mIconHarris);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
-	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris48.png")));
+	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris.png")));
 	mStatusBarLabelIcon->setVisible(true);
 	mStatusBarLine2->setVisible(true);
 	mStatusBarLine3->setVisible(true);
@@ -397,7 +397,7 @@ void WindowMain::applyFast() {
 	mActiveWindow->setWindowIcon(*mIconFAST);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
-	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/FAST48.png")));
+	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Fast.png")));
 	mStatusBarLabelIcon->setVisible(true);
 	mStatusBarLine2->setVisible(true);
 	mStatusBarLine3->setVisible(true);
@@ -448,7 +448,7 @@ void WindowMain::applySift() {
 	mActiveWindow->setWindowIcon(*mIconSIFT);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
-	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/SIFT48.png")));
+	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Sift.png")));
 	mStatusBarLabelIcon->setVisible(true);
 	mStatusBarLine2->setVisible(true);
 	mStatusBarLine3->setVisible(true);
@@ -501,7 +501,7 @@ void WindowMain::applySurf() {
 	mActiveWindow->setWindowIcon(*mIconSURF);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
-	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/SURF48.png")));
+	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Surf.png")));
 	mStatusBarLabelIcon->setVisible(true);
 	mStatusBarLine2->setVisible(true);
 	mStatusBarLine3->setVisible(true);
@@ -680,8 +680,8 @@ void WindowMain::updateWindowMenu(QMdiSubWindow* mdiSubWindow) {
 				case WindowImage::surf: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Surf.png"))); break;
 			}
 			mStatusBarLabelIcon->setVisible(true);
-			mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime);
-			mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints);
+			mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
+			mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
 			mStatusBarLine2->setVisible(true);
 			mStatusBarLine3->setVisible(true);
 		} else {

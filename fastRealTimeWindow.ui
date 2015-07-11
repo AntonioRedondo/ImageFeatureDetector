@@ -130,7 +130,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>FAST Parameters</string>
+            <string>Parameters</string>
            </property>
           </widget>
          </item>
@@ -248,7 +248,7 @@
        <item>
         <widget class="QLabel" name="uiLabelKeypoints">
          <property name="text">
-          <string>KeyPoints: -</string>
+          <string>Keypoints: -</string>
          </property>
         </widget>
        </item>

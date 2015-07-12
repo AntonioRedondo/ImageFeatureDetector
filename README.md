@@ -84,9 +84,9 @@ and in a minute IFD should be compiled and ready to be executed on the `bin` fol
 
 
 
-## Some ready-to-use file like a `deb` package or a Win `exe`?
+## Do you provide some ready-to-use file like a `deb` package or a Windows `exe`?
 
-I have tried to build a Linux `deb` package for amd64 machines, but after compiling statically OpenCV libraries to include them with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of libraries. Once adding a missing library to the `make -lanotherlibrary` command a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). I guess eventually I will find out the right order of library inclusion and will be able to generate a `deb` package.
+I have tried to build a Linux `deb` package for amd64 machines. But after compiling statically OpenCV libraries to include them together with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of missing libraries. Once all missing libraries have been added to the `make -lanotherlibrary` command, again a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). I guess eventually I will find out the right order of library inclusion and will be able to generate a `deb` package.
 
 
 

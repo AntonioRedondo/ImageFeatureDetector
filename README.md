@@ -4,7 +4,11 @@ Image Feature Detector (IFD) is a desktop computer program with an intuitive gra
 
 <img align="center" src="http://i.imgur.com/KH48YeK.png" />
 
-This program was originally part of the end of degree project _Image Features Extraction for Mobile Robots Navigation_ of my Telecommunications Degree, exposed at the Cáceres Polytechnic School of the [University of Extremadura](http://unex.es), Spain, on February 2011. The project memory and presentation is available to download from PDF on the [doc](sdfsdf) folder. In the beginning the project was hosted on Google Code for 4 years. Afterwards I moved the project to GitHub and I have been carrying on maintaining it.
+This program was originally part of the end of degree project _Image Features Extraction for Mobile Robots Navigation_ of my Telecommunications Degree, exposed at the Cáceres Polytechnic School of the [University of Extremadura](http://unex.es), Spain, on February 2011.
+
+The project memory and presentation are available to download on PDF from the [doc folder](http://github.com/AntonioRedondo/ImageFeatureDetector/tree/master/doc). If you want to have a laugh and guess how terrible and nonsensical were the phrases and expressions I tried to use in English just a few years ago these PDFs are the right reading material.
+
+In the beginning the project was hosted on Google Code for 4 years. Afterwards I moved the project to GitHub and I have been carrying on maintaining it.
 
 Below are the papers which presented to the scientific community these image detectors:
 
@@ -70,7 +74,8 @@ Once you have these two dependencies solved, from the command shell just run:
 
 ```
 $ cd <imagefeaturedetector_root_folder>
-$ cd CMakeFiles/
+$ mkdir CMakeFiles
+$ cd CMakeFiles
 $ cmake ..
 $ make
 ```

@@ -347,14 +347,9 @@ void WindowMain::applyHarris() {
 			mSettings->value("harris/kValue", 0.01).toDouble(),
 			mSettings->value("harris/threshold", 64).toInt(),
 			mSettings->value("harris/showProcessedImage", false).toBool());
-	uiActionResetImage->setEnabled(true);
-	mActiveWindow->setWindowIcon(*mIconHarris);
-	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
-	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris.png")));
-	mStatusBarLabelIcon->setVisible(true);
-	mStatusBarLine2->setVisible(true);
-	mStatusBarLine3->setVisible(true);
+	mActiveWindow->setWindowIcon(*mIconHarris);
+	applyCommon();
 }
 
 
@@ -394,14 +389,9 @@ void WindowMain::restFastParams() {
 
 void WindowMain::applyFast() {
 	mActiveWindowImage->applyFast(mSettings->value("fast/threshold", 50).toInt(), mSettings->value("fast/nonMaxSuppression", true).toBool());
-	uiActionResetImage->setEnabled(true);
-	mActiveWindow->setWindowIcon(*mIconFAST);
-	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
-	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Fast.png")));
-	mStatusBarLabelIcon->setVisible(true);
-	mStatusBarLine2->setVisible(true);
-	mStatusBarLine3->setVisible(true);
+	mActiveWindow->setWindowIcon(*mIconFAST);
+	applyCommon();
 }
 
 
@@ -445,14 +435,9 @@ void WindowMain::applySift() {
 			mSettings->value("sift/octaves", 3).toInt(),
 			mSettings->value("sift/layers", 1).toInt(),
 			mSettings->value("sift/showOrientation", true).toBool());
-	uiActionResetImage->setEnabled(true);
-	mActiveWindow->setWindowIcon(*mIconSIFT);
-	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
-	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Sift.png")));
-	mStatusBarLabelIcon->setVisible(true);
-	mStatusBarLine2->setVisible(true);
-	mStatusBarLine3->setVisible(true);
+	mActiveWindow->setWindowIcon(*mIconSIFT);
+	applyCommon();
 }
 
 
@@ -498,14 +483,9 @@ void WindowMain::applySurf() {
 			mSettings->value("surf/layers", 1).toInt(),
 			0,
 			mSettings->value("surf/showOrientation", true).toBool());
-	uiActionResetImage->setEnabled(true);
-	mActiveWindow->setWindowIcon(*mIconSURF);
-	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
-	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Surf.png")));
-	mStatusBarLabelIcon->setVisible(true);
-	mStatusBarLine2->setVisible(true);
-	mStatusBarLine3->setVisible(true);
+	mActiveWindow->setWindowIcon(*mIconSURF);
+	applyCommon();
 }
 
 
@@ -521,10 +501,21 @@ void WindowMain::saveSurfParams() {
 
 
 
+void WindowMain::applyCommon() {
+	uiActionResetImage->setEnabled(true);
+	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
+	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");
+	mStatusBarLabelIcon->setVisible(true);
+	mStatusBarLine2->setVisible(true);
+	mStatusBarLine3->setVisible(true);
+}
+
+
+
+
 void WindowMain::resetImage() {
 	mActiveWindowImage->resetImage();
 	uiActionResetImage->setEnabled(false);
-	mActiveWindowImage->mFeatureType = WindowImage::none;
 	mActiveWindow->setWindowIcon(QApplication::windowIcon());
 	mStatusBarLabelIcon->clear();
 	mStatusBarLabelIcon->setVisible(false);
@@ -675,10 +666,10 @@ void WindowMain::updateWindowMenu(QMdiSubWindow* mdiSubWindow) {
 		if (!mActiveWindowImage->mImageTime.isEmpty()) {
 			uiActionResetImage->setEnabled(true);
 			switch (mActiveWindowImage->mFeatureType) {
-				case WindowImage::harris: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris.png"))); break;
-				case WindowImage::fast: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Fast.png"))); break;
+				case WindowImage::harris: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage(":/icons/Harris.png"))); break;
+				case WindowImage::fast: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage(":/icons/Fast.png"))); break;
 				case WindowImage::sift: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Sift.png"))); break;
-				case WindowImage::surf: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Surf.png"))); break;
+				case WindowImage::surf: mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage(":/icons/Surf.png"))); break;
 			}
 			mStatusBarLabelIcon->setVisible(true);
 			mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");

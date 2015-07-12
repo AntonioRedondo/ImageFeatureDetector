@@ -43,6 +43,7 @@ class WindowMain : public QMainWindow, public Ui::windowMain {
 	void openFastRT();
 
   private:
+	void applyCommon();
 	void loadFile(QString);
 	void closeEvent(QCloseEvent*);
 	void saveSettings();

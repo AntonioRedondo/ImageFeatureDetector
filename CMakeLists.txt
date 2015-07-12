@@ -8,10 +8,13 @@ project(imagefeaturedetector)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin) # http://stackoverflow.com/questions/18826789/cmake-output-build-directory
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
+# set(CMAKE_AUTORCC ON) # Not working. To much time invested on this.
 # set(CMAKE_AUTOUIC ON) # Not useful. It causes troubles with subdirectories, and with the linking order. Better use qt5_wrap_ui()
+
 
 ## http://stackoverflow.com/questions/11783932/how-to-add-linker-or-compile-flag-in-cmake-file
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lz")
+
 
 ## http://www.cmake.org/Wiki/CMake:How_To_Find_Libraries
 find_package(Qt5Core REQUIRED)
@@ -20,27 +23,31 @@ find_package(OpenCV REQUIRED)
 # find_package(Threads REQUIRED) # http://stackoverflow.com/questions/1620918/cmake-and-libpthread (if not 'libpthread.so.0: DSO missing from command line' error will be thrown at linking time)
 # find_package(ZLIB REQUIRED) # http://stackoverflow.com/questions/6173915/need-help-trying-to-make-cmake-find-third-party-libraries
 
+
 ## http://stackoverflow.com/questions/3201154/cmake-automatically-add-all-files-in-a-folder-to-a-target
 file(GLOB ImageFeatureDetector_SRC *.h *.cpp)
 file(GLOB ImageFeatureDetector_UI ${CMAKE_SOURCE_DIR}/ui/*.ui)
 # file(GLOB ImageFeatureDetector_A ${CMAKE_SOURCE_DIR}/libs/*.a) # http://stackoverflow.com/questions/14077611/how-do-i-tell-cmake-to-link-in-a-static-library-in-the-source-directory
 
+
 ## http://stackoverflow.com/questions/29968264/linking-and-uic-order-in-a-cmake-qt-project
 qt5_wrap_ui(ImageFeatureDetector_UI_H ${ImageFeatureDetector_UI})
 
-# include_directories(${ZLIB_INCLUDE_DIRS})
 add_executable(imagefeaturedetector ${ImageFeatureDetector_SRC} ${ImageFeatureDetector_UI_H})
 
 target_link_libraries(imagefeaturedetector Qt5::Core Qt5::Widgets ${OpenCV_LIBS})
 # target_link_libraries(imagefeaturedetector Qt5::Core Qt5::Widgets ${ImageFeatureDetector_A} ${CMAKE_THREAD_LIBS_INIT} -lz -ldl)
 
+
 ## http://stackoverflow.com/questions/13429656/cmake-how-to-copy-contents-of-a-directory-into-build-directory-after-make
 add_custom_command(TARGET imagefeaturedetector POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/icons $<TARGET_FILE_DIR:imagefeaturedetector>/icons)
 
+
 ## http://www.cmake.org/Wiki/CMake:Install_Commands
-install (TARGETS imagefeaturedetector DESTINATION bin)
-file(GLOB icons ${CMAKE_SOURCE_DIR}/icons/*)
-install (FILES ${icons} DESTINATION bin/icons)
+## Icons won't be shown because the loading path is relative to the command shell path at the moment of calling ./imagefeaturedetector
+# install (TARGETS imagefeaturedetector DESTINATION bin)
+# file(GLOB icons ${CMAKE_SOURCE_DIR}/icons/*)
+# install (FILES ${icons} DESTINATION bin/icons)
 
 
 

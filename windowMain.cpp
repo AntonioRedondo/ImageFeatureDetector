@@ -255,8 +255,9 @@ void WindowMain::captureWebcam() {
 
 
 void WindowMain::saveCopyAs() {
-	QString myFileName = QFileDialog::getSaveFileName(0, tr("Save Copy As"), QFileInfo(mActiveWindowImage->mWindowTitle).baseName().append(".png"), tr("Images (*.bmp *.png)"));
-	if (!myFileName.isEmpty()) mActiveWindowImage->mPixmap.save(myFileName);
+	QString fileName = QFileDialog::getSaveFileName(0, tr("Save Copy As"), QFileInfo(mActiveWindowImage->mWindowTitle).baseName().append(".png"), tr("Images (*.bmp *.png)"));
+	if (!fileName.isEmpty())
+		mActiveWindowImage->mPixmap.save(fileName);
 }
 
 

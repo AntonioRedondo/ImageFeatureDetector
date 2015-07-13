@@ -67,8 +67,8 @@ To configure the project building, linking and installation IFD makes uses of CM
 
 IFD only makes use of two external libraries: Qt framework and OpenCV. There are other minor dependencies, like the compiler used and the C++ standard library but they are automatically handled by CMake.
 
-- [Install Qt](http://doc.qt.io/qt-5/linux.html): On Linux and Debian-like distributions you don't need to compile Qt. The easiest and fastest way to install Qt is with `apt-get` (details on the above link).
-- [Install OpenCV](http://opencv.org/quickstart.html): due to some OpenCV copyrighted code, the modules containing SIFT and SURF detectors aren't available on Debian repositories like the rest of [OpenCV modules](https://packages.debian.org/search?keywords=opencv). This means you will have to compile by yourself the OpenCV libraries. By and large you will need to download the main [OpenCV modules](https://github.com/Itseez/opencv) plus the [OpenCV contrib](https://github.com/Itseez/opencv_contrib) ones (the code containing SIFT and SURF detectors), and when you are about to compile the main OpenCV modules set the `OPENCV_EXTRA_MODULES_PATH` CMake variable to `<opencv_contrib>/modules`. Better explained [here](https://github.com/Itseez/opencv_contrib).
+- [Install Qt](http://doc.qt.io/qt-5/linux.html): On Linux and Debian-based distributions you don't need to compile Qt. The easiest and fastest way to install Qt is with `apt-get` (details on the above link).
+- [Install OpenCV](http://opencv.org/quickstart.html): due to some OpenCV copyrighted code, the modules containing SIFT and SURF detectors aren't available on Debian repositories like the rest of [OpenCV modules](https://packages.debian.org/search?keywords=opencv). This means you will have to compile OpenCV libraries by yourself. By and large you will need to download the main [OpenCV modules](https://github.com/Itseez/opencv) plus the [OpenCV contrib](https://github.com/Itseez/opencv_contrib) ones (the code containing SIFT and SURF detectors), and when you are about to compile the main OpenCV modules set the `OPENCV_EXTRA_MODULES_PATH` CMake variable to `<opencv_contrib>/modules`. Better explained [here](https://github.com/Itseez/opencv_contrib).
 
 Once you have these two dependencies solved, from the command shell just run:
 
@@ -86,7 +86,7 @@ and in a minute IFD should be compiled and ready to be executed on the `bin` fol
 
 ## Do you provide some ready-to-use file like a `deb` package or a Windows `exe`?
 
-I have tried to build a Linux `deb` package for amd64 machines. But after compiling statically OpenCV libraries to include them together with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of missing libraries. Once all missing libraries have been added to the `make -lanotherlibrary` command, again a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). I guess eventually I will find out the right order of library inclusion and will be able to generate a `deb` package.
+I have tried to build a Linux Debian `deb` package for amd64 machines. But after compiling statically OpenCV libraries to include them together with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of missing libraries. Once all missing libraries have been added to the `make -lanotherlibrary` command, again a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). I guess eventually I will find out the right order of library inclusion and will be able to generate a `deb` package.
 
 
 

@@ -10,7 +10,7 @@ The project memory and presentation are available to download on PDF from the [d
 
 In the beginning the project was hosted on Google Code for 4 years. Afterwards I moved the project to GitHub and I have been carrying on maintaining it.
 
-Below are the papers which presented to the scientific community these image detectors:
+The image detectors used by IFD have been developed thanks to complex and long research projects. The papers which presented them to the scientific community are:
 
 -  **Harris**: [A Combined Corner And Edge Detector](http://www.bmva.org/bmvc/1988/avc-88-023.pdf), by Chris Harris and Mike Stephens, [Roke Manor Research](http://roke.co.uk).
 -  **FAST**: [Machine learning for high-speed corner detection](http://www.edwardrosten.com/work/fast.html), by Edward Rosten and Tom Drummond, [Cambridge University](http://cam.ac.uk).
@@ -21,7 +21,7 @@ Below are the papers which presented to the scientific community these image det
 
 ## Details
 
-The program let you choose an image stored on your computer and apply one of the four feature detectors. Then the detectors are overimposed in red on the image, and the number of them and the time it took to calculated them is shown on the status bar.
+The program let you choose an image stored on your computer and apply one of the four feature detectors. Then the obtained descriptors are overimposed in red on the image, and the number of them and the time it took to calculated them is shown on the status bar.
 
 <img align="center" src="http://i.imgur.com/8tgjA4y.png" />
 
@@ -51,7 +51,7 @@ The parameters for every detector can be tweaked from the _Detector parameters_ 
 
 <img align="center" src="http://i.imgur.com/OQldIfg.png" />
 
-Finally, all four detectors can be compared at the same time with the _Do4!_ option. A new window will appear showing four images with a diferent detector applied to each picture.
+Finally, all four detectors can be compared at the same time with the _Do4!_ option. A new window will appear showing four images with a different detector applied to each picture.
 
 <img align="center" src="http://i.imgur.com/KcqSRY0.png" />
 

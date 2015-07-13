@@ -25,7 +25,7 @@ find_package(OpenCV REQUIRED)
 
 
 ## http://stackoverflow.com/questions/3201154/cmake-automatically-add-all-files-in-a-folder-to-a-target
-file(GLOB ImageFeatureDetector_SRC *.h *.cpp)
+file(GLOB ImageFeatureDetector_SRC ${CMAKE_SOURCE_DIR}/src/*)
 file(GLOB ImageFeatureDetector_UI ${CMAKE_SOURCE_DIR}/ui/*.ui)
 # file(GLOB ImageFeatureDetector_A ${CMAKE_SOURCE_DIR}/libs/*.a) # http://stackoverflow.com/questions/14077611/how-do-i-tell-cmake-to-link-in-a-static-library-in-the-source-directory
 

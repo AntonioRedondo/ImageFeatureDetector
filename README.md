@@ -80,7 +80,7 @@ $ cmake ..
 $ make
 ```
 
-and in a minute IFD should be compiled and ready to be executed on the `bin` folder. `CMakeFiles` is an empty folder created to stored the temporary files created by CMake so that IFD root folder remains clean.
+and in a minute IFD should be compiled and ready to be executed on the `<imagefeaturedetector_root_folder>/bin` folder. `CMakeFiles` is an empty folder created to stored the temporary files created by CMake so that IFD root folder remains clean.
 
 
 

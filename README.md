@@ -90,6 +90,12 @@ I have tried to build a Linux `deb` package for amd64 machines. But after compil
 
 
 
+## Contribute!
+
+If you have an awesome pull request no matter whether it's a big or small change, send it over! Your contribution to the computer vision community is priceless.
+
+
+
 ## License
 
 Image Feature Detector makes use of the [GNU GPL v3.0](http://choosealicense.com/licenses/gpl-3.0/) license. Remember to make public your project source code when reusing IFD.

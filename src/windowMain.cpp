@@ -349,7 +349,7 @@ void WindowMain::applyHarris() {
 			mSettings->value("harris/showProcessedImage", false).toBool());
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Harris.png")));
 	mActiveWindow->setWindowIcon(*mIconHarris);
-	applyCommon();
+	applyCommonTasks();
 }
 
 
@@ -391,7 +391,7 @@ void WindowMain::applyFast() {
 	mActiveWindowImage->applyFast(mSettings->value("fast/threshold", 50).toInt(), mSettings->value("fast/nonMaxSuppression", true).toBool());
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Fast.png")));
 	mActiveWindow->setWindowIcon(*mIconFAST);
-	applyCommon();
+	applyCommonTasks();
 }
 
 
@@ -437,7 +437,7 @@ void WindowMain::applySift() {
 			mSettings->value("sift/showOrientation", true).toBool());
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Sift.png")));
 	mActiveWindow->setWindowIcon(*mIconSIFT);
-	applyCommon();
+	applyCommonTasks();
 }
 
 
@@ -485,7 +485,7 @@ void WindowMain::applySurf() {
 			mSettings->value("surf/showOrientation", true).toBool());
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Surf.png")));
 	mActiveWindow->setWindowIcon(*mIconSURF);
-	applyCommon();
+	applyCommonTasks();
 }
 
 
@@ -501,7 +501,7 @@ void WindowMain::saveSurfParams() {
 
 
 
-void WindowMain::applyCommon() {
+void WindowMain::applyCommonTasks() {
 	uiActionResetImage->setEnabled(true);
 	mStatusBarLabelTime->setText(mActiveWindowImage->mImageTime + " ms");
 	mStatusBarLabelKeypoints->setText(mActiveWindowImage->mImageKeypoints + " keypoints");

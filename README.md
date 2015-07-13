@@ -6,7 +6,7 @@ Image Feature Detector (IFD) is a desktop computer program with an intuitive gra
 
 This program was originally part of the end of degree project _Image Features Extraction for Mobile Robots Navigation_ of my Telecommunications Degree, exposed at the Cáceres Polytechnic School of the [University of Extremadura](http://unex.es), Spain, on February 2011.
 
-The project memory and presentation are available to download on PDF from the [doc folder](http://github.com/AntonioRedondo/ImageFeatureDetector/tree/master/doc). If you want to have a laugh and guess how terrible and nonsensical were the phrases and expressions I tried to use in English just a few years ago these PDFs are the right reading material.
+The project memory and presentation are available to download on PDF from the [doc folder](http://github.com/AntonioRedondo/ImageFeatureDetector/tree/master/doc). If you want to have a laugh and guess how terrible and nonsensical were the English phrases and expressions I was using just a few years ago these PDFs are the right reading material to find out.
 
 In the beginning the project was hosted on Google Code for 4 years. Afterwards I moved the project to GitHub and I have been carrying on maintaining it.
 

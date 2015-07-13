@@ -29,11 +29,11 @@ Pictures can be taken directly from a webcam.
 
 <img align="center" src="http://i.imgur.com/TstkzkV.png" />
 
-FAST features can be calculated in real time from the image of a webcam.
+FAST features can be calculated in real time from the video stream of a webcam.
 
 <img align="center" src="http://i.imgur.com/eZme6eH.png" />
 
-The parameters for every detector can be tweaked from the _Detector parameters_ top bar.
+The input parameters for every detector can be tweaked from the _Detector parameters_ top bar.
 
 **Harris**
 
@@ -51,7 +51,7 @@ The parameters for every detector can be tweaked from the _Detector parameters_ 
 
 <img align="center" src="http://i.imgur.com/OQldIfg.png" />
 
-Finally, all four detectors can be compared at the same time with the _Do4!_ option. A new window will appear showing four images with a different detector applied to each picture.
+Finally, all four detectors can be compared at the same time with the _Do4!_ option. A new window will pop up showing four images with a different detector applied to each picture. The parameter values of every detector are those ones set on each detector parameters bar.
 
 <img align="center" src="http://i.imgur.com/KcqSRY0.png" />
 
@@ -61,7 +61,7 @@ Finally, all four detectors can be compared at the same time with the _Do4!_ opt
 
 IFD is a simple C++ project. It only has 9 `cpp` classes, 8 `h` headers and 12 `ui` Qt GUI files. Once you have the dependencies solved to compile the code is a matter of seconds.
 
-To configure the project building, linking and installation IFD makes uses of CMake. Thanks to this IFD can be built on Linux, Mac or Windows. The screenshots shown here are taken from a computer running KDE Plasma 5.
+To configure the project building and binary linking IFD makes uses of CMake. Thanks to this IFD can be built on Linux, Mac or Windows. The screenshots shown here are taken from a computer running KDE Plasma 5.
 
 #### Resolving dependencies
 

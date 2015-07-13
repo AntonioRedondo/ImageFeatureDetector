@@ -61,7 +61,7 @@ Finally, all four detectors can be compared at the same time with the _Do4!_ opt
 
 IFD is a simple C++ project. It only has 9 `cpp` classes, 8 `h` headers and 12 `ui` Qt GUI files. Once you have the dependencies solved to compile the code is a matter of seconds.
 
-To configure the project building, linking and installation IFD makes uses of CMake. Thanks to this IFD can be built on Linux, Mac or Windows.
+To configure the project building, linking and installation IFD makes uses of CMake. Thanks to this IFD can be built on Linux, Mac or Windows. The screenshots shown here are taken from a computer running KDE Plasma 5.
 
 #### Resolving dependencies
 

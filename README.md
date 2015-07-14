@@ -65,7 +65,7 @@ To configure the project building and binary linking IFD makes uses of CMake. Th
 
 #### Resolving dependencies
 
-IFD only makes use of two external libraries: Qt framework and OpenCV. There are other minor dependencies, like the compiler used and the C++ standard library but they are automatically handled by CMake.
+IFD only makes use of two external libraries: Qt framework and OpenCV. There are other direct but minor dependencies, like the compiler and the C++ Standard Library, but they are solved by the fact Qt and OpenCV (and almost every single C++ project) also depend on them. So once the first two libraries are fulfiled you do not have to worry anymore.
 
 - [Install Qt](http://doc.qt.io/qt-5/linux.html): On Linux and Debian-based distributions you don't need to compile Qt. The easiest and fastest way to install Qt is with `apt-get` (details on the above link).
 - [Install OpenCV](http://opencv.org/quickstart.html): due to some OpenCV copyrighted code, the modules containing SIFT and SURF detectors aren't available on Debian repositories like the rest of [OpenCV modules](https://packages.debian.org/search?keywords=opencv). This means you will have to compile OpenCV libraries by yourself. By and large you will need to download the main [OpenCV modules](https://github.com/Itseez/opencv) plus the [OpenCV contrib](https://github.com/Itseez/opencv_contrib) ones (the code containing SIFT and SURF detectors), and when you are about to compile the main OpenCV modules set the `OPENCV_EXTRA_MODULES_PATH` CMake variable to `<opencv_contrib>/modules`. Better explained [here](https://github.com/Itseez/opencv_contrib).

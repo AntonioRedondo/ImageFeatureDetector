@@ -21,7 +21,7 @@ The image detectors used by IFD have been developed thanks to complex and long r
 
 ## Details
 
-The program let you choose an image stored on your computer and apply one of the four feature detectors. Then the obtained descriptors are overimposed in red on the image, and the number of them and the time it took to calculated them is shown on the status bar.
+The program let you choose an image stored on your computer and apply one of the four feature detectors. Then the obtained descriptors are overimposed in red on the image, and the number of them and the time it took to calculated them is shown on the status bar. The time shown only represents the time taken to purely calculate the features on an image which is already prepared to be analised. It does not take into account the extra time needed to transform the images from 8U3C/8U4C (colour) to 8U1C (black and white) and the time taken to paint the red circles showing the detected features. Though my guess is that it is a neglectable amount of time.
 
 <img align="center" src="http://i.imgur.com/8tgjA4y.png" />
 
@@ -70,7 +70,7 @@ IFD only makes use of two external libraries: Qt framework and OpenCV. There are
 - [Install Qt](http://doc.qt.io/qt-5/linux.html): On Linux and Debian-based distributions you don't need to compile Qt. The easiest and fastest way to install Qt is with `apt-get` (details on the above link).
 - [Install OpenCV](http://opencv.org/quickstart.html): due to some OpenCV copyrighted code, the modules containing SIFT and SURF detectors aren't available on Debian repositories like the rest of [OpenCV modules](https://packages.debian.org/search?keywords=opencv). This means you will have to compile OpenCV libraries by yourself. By and large you will need to download the main [OpenCV modules](https://github.com/Itseez/opencv) plus the [OpenCV contrib](https://github.com/Itseez/opencv_contrib) ones (the code containing SIFT and SURF detectors), and when you are about to compile the main OpenCV modules set the `OPENCV_EXTRA_MODULES_PATH` CMake variable to `<opencv_contrib>/modules`. Better explained [here](https://github.com/Itseez/opencv_contrib).
 
-Once you have these two dependencies solved, from the command shell just run:
+On Linux machines, once you have these two dependencies solved, from the command shell just run:
 
 ```
 $ cd <imagefeaturedetector_root_folder>

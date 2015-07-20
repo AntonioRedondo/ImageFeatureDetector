@@ -21,7 +21,7 @@ The image detectors used by IFD have been developed thanks to complex and long r
 
 ## Details
 
-The program let you choose an image stored on your computer and apply one of the four feature detectors. Then the obtained descriptors are overimposed in red on the image, and the number of them and the time it took to calculated them is shown on the status bar. The time shown only represents the time taken to purely calculate the features on an image which is already prepared to be analised. It does not take into account the extra time needed to transform the images from 8U3C/8U4C (colour) to 8U1C (black and white) and the time taken to paint the red circles showing the detected features. Though my guess is that it is a neglectable amount of time.
+The program let you choose an image stored on your computer and apply one of the four feature detectors. Then the obtained descriptors are overimposed in red on the image, and the number of them and the time it took to calculated them is shown on the status bar.
 
 <img align="center" src="http://i.imgur.com/8tgjA4y.png" />
 
@@ -54,6 +54,8 @@ The input parameters for every detector can be tweaked from the _Detector parame
 Finally, all four detectors can be compared at the same time with the _Do4!_ option. A new window will pop up showing four images with a different detector applied to each picture. The parameter values of every detector are those ones set on each detector parameters bar.
 
 <img align="center" src="http://i.imgur.com/KcqSRY0.png" />
+
+The time shown only represents the time taken to purely calculate the features on an image which has already been prepared to be analised. That is it, it does not take into account the extra time needed to transform the images from 8U3C/8U4C (colour) to 8U1C (black and white) and the time taken to paint the red circles showing the detected features. Though my guess is that it is a neglectable amount of time.
 
 
 

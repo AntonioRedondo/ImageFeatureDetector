@@ -55,7 +55,7 @@ Finally, all four detectors can be compared at the same time with the _Do4!_ opt
 
 <img align="center" src="http://i.imgur.com/KcqSRY0.png" />
 
-The time shown only represents the time taken to purely calculate the features on an image which has already been prepared to be analised. That is it, it does not take into account the extra time needed to transform the images from 8U3C/8U4C (colour) to 8U1C (black and white, the detector's input require an image on this format) and the time taken to paint the red circles showing the detected features. Though my guess is that it is a neglectable amount of time.
+The time shown only represents the time taken to purely calculate the features on an image which has already been prepared to be analised. That is it, it does not take into account the extra time needed to transform the images from 8U3C/8U4C (colour) to 8U1C (black and white, the detector's input requires an image on this format) and the time taken to paint the red circles showing the detected features. Though my guess is that it is a neglectable amount of time.
 
 
 

@@ -10,10 +10,10 @@ The project memory and presentation are available to download on PDF from the [d
 
 In the beginning the project was hosted for 4 years on Google Code. From version 2.0 I moved it to GitHub and since then I have been carrying on maintaining it.
 
-The image detectors used by IFD have been developed thanks to complex and long research projects. The papers which presented them to the scientific community are:
+The image detectors used in IFD have been the result of complex and long research projects. The papers which presented them to the scientific community are:
 
 -  **Harris**: [A Combined Corner And Edge Detector](http://www.bmva.org/bmvc/1988/avc-88-023.pdf), by Chris Harris and Mike Stephens, [Roke Manor Research](http://roke.co.uk).
--  **FAST**: [Machine learning for high-speed corner detection](http://www.edwardrosten.com/work/fast.html), by Edward Rosten and Tom Drummond, [Universtiy of Cambridge](http://cam.ac.uk).
+-  **FAST**: [Machine learning for high-speed corner detection](http://www.edwardrosten.com/work/fast.html), by Edward Rosten and Tom Drummond, [University of Cambridge](http://cam.ac.uk).
 -  **SIFT**: [Distinctive Image Features from Scale-Invariant Keypoints](http://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf), by David G. Lowe, [University of British Columbia](http://ubc.ca).
 -  **SURF**: [SURF: Speeded Up Robust Features](http://www.vision.ee.ethz.ch/~surf/), by Herbert Bay, Andreas Ess, Tinne Tuytelaars and Luc Van Gool, [ETH Zurich](http://ethz.ch) and [K. U. Leuven](http://kuleuven.be).
 

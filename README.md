@@ -8,7 +8,7 @@ This program was originally part of the end of degree project _Image Features Ex
 
 The project memory and presentation are available to download on PDF from the [doc folder](http://github.com/AntonioRedondo/ImageFeatureDetector/tree/master/doc). They are published under Creative Commons Attribution-Share Alike license. If you want to have a laugh and guess how terrible and nonsensical were the English phrases and expressions I was using just a few years ago these PDFs are the right reading material to find out.
 
-In the beginning the project was hosted for 4 years on Google Code. From version 2.0 I moved it to GitHub and since then I have been carrying on maintaining it.
+In the beginning the project was hosted for 4 years on Google Code. From version 2.0 I moved it to GitHub and since then I have been carrying on maintaining it on GityHub.
 
 The image detectors used in IFD have been the result of complex and long research projects. The papers which presented them to the scientific community are:
 

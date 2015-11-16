@@ -63,7 +63,7 @@ The time shown only represents the time taken to purely calculate the features o
 
 IFD is a simple C++ project. It only has 9 `cpp` classes, 8 `h` headers and 12 `ui` Qt GUI files. Once you have the dependencies solved to compile the code is a matter of seconds.
 
-To configure the project building and binary linking IFD makes uses of CMake. Thanks to this IFD can be built on Linux, OS X and Windows. The screenshots shown here have been taken from a computer running Linux with KDE 5.
+To configure the project building and binary linking IFD makes use of CMake. Thanks to this IFD can be built on Linux, OS X and Windows. The screenshots shown here have been taken from a computer running Linux with KDE 5.
 
 #### Resolving dependencies
 
@@ -82,19 +82,19 @@ $ cmake ..
 $ make
 ```
 
-and in a minute IFD should be compiled and ready to be executed on the `<imagefeaturedetector_root_folder>/bin` folder. `CMakeFiles` is an empty folder created to stored the temporary files created by CMake so that IFD root folder remains clean.
+and in a minute IFD should be compiled and ready to be executed on the `<imagefeaturedetector_root_folder>/bin` folder. `CMakeFiles` is an empty folder created to store the temporary files created by CMake so that IFD root folder remains clean.
 
 
 
 ## Do you provide some ready-to-use file like a `deb` package or a Windows `exe`?
 
-I have tried to build a Linux Debian `deb` package for amd64 machines. But after compiling statically OpenCV libraries to include them together with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of missing libraries. Once all missing libraries have been added to the `make -lanotherlibrary` command, again a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). I guess eventually I will find out the right order of library inclusion and will be able to generate a `deb` package.
+I have tried to build a Linux Debian `deb` package for x86-64 machines. But after compiling statically OpenCV libraries to include them together with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of missing libraries. Once all missing libraries have been added to the `make -lanotherlibrary` command, again a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). I guess eventually I will find out the right order of library inclusion and will be able to generate a `deb` package.
 
 
 
 ## Contribute!
 
-If you have an awesome pull request no matter whether it's a big or small change, send it over! Your contribution to the computer vision community is priceless.
+If you have an awesome pull request no matter whether it's a big or small change or bug, send it over! Your contribution to the computer vision community is priceless.
 
 
 

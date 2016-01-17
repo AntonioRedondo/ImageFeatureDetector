@@ -161,10 +161,10 @@ WindowMain::WindowMain() : mTotalImages(0) {
 	mSiftToolBar = new QWidget();
 	mSiftToolBar->setVisible(false);
 	mUISift.setupUi(mSiftToolBar);
-	mUISift.uiDoubleSpinBoxThreshold->setValue(mSettings->value("sift/threshold", 0.014).toDouble());
+	mUISift.uiDoubleSpinBoxThreshold->setValue(mSettings->value("sift/threshold", 0.04).toDouble());
 	mUISift.uiDoubleSpinBoxEdgeThreshold->setValue(mSettings->value("sift/edgeThreshold", 10.0).toDouble());
-	mUISift.uiSpinBoxOctaves->setValue(mSettings->value("sift/octaves", 3).toInt());
-	mUISift.uiSpinBoxLayers->setValue(mSettings->value("sift/layers", 1).toInt());
+	mUISift.uiSpinBoxFeatures->setValue(mSettings->value("sift/features", 0).toInt());
+	mUISift.uiSpinBoxLayers->setValue(mSettings->value("sift/layers", 3).toInt());
 	mUISift.uiPushButtonShowOrientation->setChecked(mSettings->value("sift/showOrientation", true).toBool());
 	connect(mUISift.uiDoubleSpinBoxThreshold, &QSpinBox::editingFinished, this, &WindowMain::saveSiftParams);
 	connect(mUISift.uiDoubleSpinBoxEdgeThreshold, &QSpinBox::editingFinished, this, &WindowMain::saveSiftParams);
@@ -178,9 +178,9 @@ WindowMain::WindowMain() : mTotalImages(0) {
 	mSurfToolBar = new QWidget();
 	mSurfToolBar->setVisible(false);
 	mUISurf.setupUi(mSurfToolBar);
-	mUISurf.uiSpinBoxThreshold->setValue(mSettings->value("surf/threshold", 4000).toInt());
-	mUISurf.uiSpinBoxOctaves->setValue(mSettings->value("surf/octaves", 3).toInt());
-	mUISurf.uiSpinBoxLayers->setValue(mSettings->value("surf/layers", 1).toInt());
+	mUISurf.uiSpinBoxThreshold->setValue(mSettings->value("surf/threshold", 100).toInt());
+	mUISurf.uiSpinBoxOctaves->setValue(mSettings->value("surf/octaves", 4).toInt());
+	mUISurf.uiSpinBoxLayers->setValue(mSettings->value("surf/layers", 3).toInt());
 	mUISurf.uiPushButtonShowOrientation->setChecked(mSettings->value("surf/showOrientation", true).toBool());
 	connect(mUISurf.uiSpinBoxThreshold, &QSpinBox::editingFinished, this, &WindowMain::saveSurfParams);
 	connect(mUISurf.uiSpinBoxOctaves, &QSpinBox::editingFinished, this, &WindowMain::saveSurfParams);
@@ -430,10 +430,10 @@ void WindowMain::resetSiftParams() {
 
 
 void WindowMain::applySift() {
-	mActiveWindowImage->applySift(mSettings->value("sift/threshold", 0.014).toDouble(),
+	mActiveWindowImage->applySift(mSettings->value("sift/threshold", 0.04).toDouble(),
 			mSettings->value("sift/edgeThreshold", 10.0).toDouble(),
-			mSettings->value("sift/octaves", 3).toInt(),
-			mSettings->value("sift/layers", 1).toInt(),
+			mSettings->value("sift/features", 0).toInt(),
+			mSettings->value("sift/layers", 3).toInt(),
 			mSettings->value("sift/showOrientation", true).toBool());
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Sift.png")));
 	mActiveWindow->setWindowIcon(*mIconSIFT);
@@ -446,7 +446,7 @@ void WindowMain::applySift() {
 void WindowMain::saveSiftParams() {
 	mSettings->setValue("sift/threshold", mUISift.uiDoubleSpinBoxThreshold->value());
 	mSettings->setValue("sift/edgeThreshold", mUISift.uiDoubleSpinBoxEdgeThreshold->value());
-	mSettings->setValue("sift/octaves", mUISift.uiSpinBoxOctaves->value());
+	mSettings->setValue("sift/features", mUISift.uiSpinBoxOctaves->value());
 	mSettings->setValue("sift/layers", mUISift.uiSpinBoxLayers->value());
 	mSettings->setValue("sift/showOrientation", mUISift.uiPushButtonShowOrientation->isChecked());
 }
@@ -478,10 +478,9 @@ void WindowMain::resetSurfParams() {
 
 
 void WindowMain::applySurf() {
-	mActiveWindowImage->applySurf(mSettings->value("surf/threshold", 4000).toInt(),
-			mSettings->value("surf/octaves", 3).toInt(),
-			mSettings->value("surf/layers", 1).toInt(),
-			0,
+	mActiveWindowImage->applySurf(mSettings->value("surf/threshold", 100).toInt(),
+			mSettings->value("surf/octaves", 4).toInt(),
+			mSettings->value("surf/layers", 3).toInt(),
 			mSettings->value("surf/showOrientation", true).toBool());
 	mStatusBarLabelIcon->setPixmap(QPixmap::fromImage(QImage("icons/Surf.png")));
 	mActiveWindow->setWindowIcon(*mIconSURF);
@@ -549,16 +548,15 @@ void WindowMain::do4() {
 
 	fastImage->applyFast(mSettings->value("fast/threshold", 50).toInt(), mSettings->value("fast/nonMaxSuppression", true).toBool());
 
-	siftImage->applySift(mSettings->value("sift/threshold", 0.014).toDouble(),
+	siftImage->applySift(mSettings->value("sift/threshold", 0.04).toDouble(),
 			mSettings->value("sift/edgeThreshold", 10.0).toDouble(),
-			mSettings->value("sift/octaves", 3).toInt(),
-			mSettings->value("sift/layers", 1).toInt(),
+			mSettings->value("sift/features", 0).toInt(),
+			mSettings->value("sift/layers", 3).toInt(),
 			mSettings->value("sift/showOrientation", true).toBool());
 
-	surfImage->applySurf(mSettings->value("surf/threshold", 4000).toInt(),
-			mSettings->value("surf/octaves", 3).toInt(),
-			mSettings->value("surf/layers", 1).toInt(),
-			0,
+	surfImage->applySurf(mSettings->value("surf/threshold", 100).toInt(),
+			mSettings->value("surf/octaves", 4).toInt(),
+			mSettings->value("surf/layers", 3).toInt(),
 			mSettings->value("surf/showOrientation", true).toBool());
 	
 	new WindowDo4(mActiveWindowImage->mWindowTitle, harrisImage, fastImage, siftImage, surfImage);

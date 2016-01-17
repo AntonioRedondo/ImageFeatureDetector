@@ -234,7 +234,7 @@ void WindowImage::applySift(double threshold, double edgeThreshold, int nOctaves
 
 
 
-void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, int extended, bool showOrientation) {
+void WindowImage::applySurf(double threshold, int nOctaves, int nOctaveLayers, bool showOrientation) {
 	mFeatureType = WindowImage::surf;
 	if (mModified)
 		mPixmap = mPixmapOriginal;

@@ -2,7 +2,7 @@
 
 Image Feature Detector (IFD) is a desktop computer program with an intuitive graphic user interface aimed to calculate and show image features and descriptors obtained with some of the most usual [image feature detectors](https://en.wikipedia.org/wiki/Feature_detection_%28computer_vision%29) in computer vision: [Harris](https://en.wikipedia.org/wiki/Harris_affine_region_detector), [FAST](https://en.wikipedia.org/wiki/Features_from_accelerated_segment_test), [SIFT](https://en.wikipedia.org/wiki/Scale-invariant_feature_transform) and [SURF](https://en.wikipedia.org/wiki/Speeded_up_robust_features). It is programmed in C++ with the [Qt framework](http://qt.io). To calculate features IFD makes use of the [OpenCV libraries](http://opencv.org).
 
-<img align="center" src="http://i.imgur.com/KH48YeK.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/mainWindow.png" />
 
 This program was originally part of the end of degree project _Image Features Extraction for Mobile Robots Navigation_ of my Telecommunications Degree, presented at the Cáceres Polytechnic School of the [University of Extremadura](http://www.unex.es), Spain, on February 2011.
 
@@ -23,37 +23,37 @@ The image detectors used in IFD have been the result of complex and long researc
 
 The program let you choose an image stored on your computer and apply one of the four feature detectors. Then the obtained descriptors are overimposed in red on the image, and the number of them and the time it took to calculated them is shown on the status bar.
 
-<img align="center" src="http://i.imgur.com/8tgjA4y.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/startup.png" />
 
 Pictures can be taken directly from a webcam.
 
-<img align="center" src="http://i.imgur.com/TstkzkV.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/captureWebcam.png" />
 
 FAST features can be calculated in real time from the video stream of a webcam.
 
-<img align="center" src="http://i.imgur.com/eZme6eH.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/fastRT.png" />
 
 The input parameters for every detector can be tweaked from the _Detector parameters_ top bar.
 
 **Harris**
 
-<img align="center" src="http://i.imgur.com/yGZJoFX.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/barHarris.png" />
 
 **FAST**
 
-<img align="center" src="http://i.imgur.com/h9RJ5P9.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/barFast.png" />
 
 **SIFT**
 
-<img align="center" src="http://i.imgur.com/iGbdBiL.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/barSift.png" />
 
 **SURF**
 
-<img align="center" src="http://i.imgur.com/OQldIfg.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/barSurf.png" />
 
 Finally, all four detectors can be compared at the same time with the _Do4!_ option. A new window will pop up showing four images with a different detector applied to each picture. The parameter values of every detector are those ones set on each detector parameters bar.
 
-<img align="center" src="http://i.imgur.com/KcqSRY0.png" />
+<img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/do4.png" />
 
 The time shown only represents the time taken to purely calculate the features on an image which has already been prepared to be analised. That is it, it does not take into account the extra time needed to transform the images from 8U3C/8U4C (colour) to 8U1C (black and white, the detector's input requires an image on this format) and the time taken to paint the red circles showing the detected features. Though my guess is that it is a neglectable amount of time.
 

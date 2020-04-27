@@ -85,7 +85,7 @@ and in a minute IFD should be compiled and ready to be executed in the `<imagefe
 
 ## Is there any compiled version of IFD ready to use like a `deb` package or a Windows `exe`?
 
-I have tried to build a Linux Debian `deb` package for x86-64 machines. But after compiling statically OpenCV libraries to include them together with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of missing libraries. Once all missing libraries have been added to the `make -lanotherlibrary` command, again a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). Some ay I will find out the right order of library inclusion and will be able to generate a `deb` package.
+I have tried to build a Linux Debian `deb` package for x86-64 machines. But after compiling statically OpenCV libraries to include them together with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of missing libraries. Once all missing libraries have been added to the `make -lanotherlibrary` command, again a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). Some day I will find out the right order of library inclusion and will be able to generate a `deb` package.
 
 
 ## Contribute!

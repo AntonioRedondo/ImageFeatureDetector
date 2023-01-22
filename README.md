@@ -4,6 +4,17 @@ Image Feature Detector (IFD) is a desktop computer program with an intuitive gra
 
 <img align="center" src="https://github.com/AntonioRedondo/ImageFeatureDetector/raw/master/readmeImages/mainWindow.png" />
 
+## Table of Contents
+
+1. [Introduction](#introduction)
+1. [Details](#details)
+1. [Compiling the project](#compiling-the-project)
+1. [Resolving dependencies](#resolving-dependencies)
+1. [Contribute](#contribute)
+1. [License](#license)
+
+## Introduction
+
 This program was originally part of my end of degree project _Image Features Extraction for Mobile Robots Navigation_ of my Telecommunications Degree, presented at the [Cáceres Polytechnic School](https://www.unex.es/conoce-la-uex/centros/epcc) of the [University of Extremadura](http://www.unex.es), Spain, on February 2011.
 
 The project memory and presentation are available for download on PDF from the [doc folder](http://github.com/AntonioRedondo/ImageFeatureDetector/tree/master/doc). They are published under Creative Commons Attribution-Share Alike license. If you want to have a laugh and guess how terrible my English was just a few years ago these PDFs are the right material to find out.
@@ -65,7 +76,7 @@ To configure the project building and binary linking IFD makes use of [CMake](ht
 
 #### Resolving dependencies
 
-IFD only makes use of two external libraries: Qt framework (v5) and OpenCV (v3). There are other direct but minor dependencies, like the compiler and the C++ Standard Library, but they are solved as long as you solve Qt and OpenCV dependencies because they (and every single C++ project) also depend on them. Once the first two libraries are fulfiled you do not have to worry about extra dependencies.
+IFD only makes use of two external libraries: Qt framework (v5) and OpenCV (v3):
 
 - [Installing Qt](http://doc.qt.io/qt-5/linux.html): on Linux and Debian-based distributions you do not need to compile Qt. The easiest and fastest way to install Qt is with `apt-get`.
 - [Installing OpenCV](http://opencv.org/): due to some OpenCV copyrighted code, the modules containing SIFT and SURF detectors aren't available on Debian repositories like the rest of [OpenCV modules](https://packages.debian.org/search?keywords=opencv). This means you will have to compile OpenCV libraries by yourself. By and large you will need to download the main [OpenCV modules](https://github.com/Itseez/opencv) plus the [OpenCV contrib](https://github.com/Itseez/opencv_contrib) ones (the code containing SIFT and SURF detectors), and when you are about to compile the main OpenCV modules set the `OPENCV_EXTRA_MODULES_PATH` CMake variable to `<opencv_contrib>/modules`. Better explained on the [OpenCV contrib repo](https://github.com/Itseez/opencv_contrib).
@@ -88,7 +99,7 @@ and in a minute IFD should be compiled and ready to be executed in the `<imagefe
 I have tried to build a Linux Debian `deb` package for x86-64 machines. But after compiling statically OpenCV libraries to include them together with the IFD binary, when building IFD and at linking time `make` complains time after time about endless number of missing libraries. Once all missing libraries have been added to the `make -lanotherlibrary` command, again a new dependency misses, thus meaning I'm probably in the middle of a deep [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). Some day I will find out the right order of library inclusion and will be able to generate a `deb` package.
 
 
-## Contribute!
+## Contribute
 
 If you have an awesome pull request no matter whether it is a new feature or a bug fix, send it over! Your contribution to the computer vision community is priceless.
 

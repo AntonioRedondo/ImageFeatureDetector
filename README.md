@@ -9,7 +9,7 @@ Image Feature Detector (IFD) is a desktop computer program with an intuitive gra
 1. [Introduction](#introduction)
 1. [Details](#details)
 1. [Compiling the project](#compiling-the-project)
-1. [Resolving dependencies](#resolving-dependencies)
+   1. [Resolving dependencies](#resolving-dependencies)
 1. [Contribute](#contribute)
 1. [License](#license)
 
